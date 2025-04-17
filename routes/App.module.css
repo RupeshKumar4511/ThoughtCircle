@@ -1,8 +1,8 @@
 .sidebar{
     display:flex;
-    
-    
+    align-items:start;
 }
 .content{
     width:100%;
+    
 }

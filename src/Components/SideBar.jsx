@@ -28,7 +28,7 @@ export default function SideBar() {
 
 
     return (
-
+    
         <div className={`d-flex flex-column flex-shrink-0 p-3 text-white bg-dark ${css.sidebar}`} >
             <Link to="/" className="d-flex align-items-center mb-3 mb-md-0 me-md-auhref text-white text-decoration-none">
 
@@ -72,7 +72,6 @@ export default function SideBar() {
                     <li><Link className="dropdown-item" to="#">Sign out</Link></li>
                 </ul>
             </div> */}
-        </div>
-
+        </div>               
     );
 }

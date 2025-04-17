@@ -45,6 +45,8 @@ export default function CreatePost() {
                 };
         
                 window.addEventListener("clearPostForm", handleReset);
+
+                // hook clean up function
                 return () => {
                     window.removeEventListener("clearPostForm", handleReset);
                 };
@@ -52,7 +54,7 @@ export default function CreatePost() {
 
 
     return (
-        <Form method="POST" className="m-auto mt-5" style={{ 'width': '40rem', 'margin': 'auto' }} >
+        <Form method="POST" className="m-auto mt-5" style={{ 'width': '40rem', 'margin': 'auto' }} ref={formRef} >
 
             <div className="mb-3">
                 <label htmlFor="title" className="form-label">Post Title</label>
@@ -68,6 +70,7 @@ export default function CreatePost() {
                     id="body"
                     name="body" 
                     {...register("body",{required:"Post Content is required",pattern:{value:/\s/}})}/>
+                    <span style={{color:"red"}}>{errors.body?.message}</span>
             </div>
             <div className="mb-3">
                 <label htmlFor="tags" className="form-label">Post Tags</label>
@@ -75,12 +78,13 @@ export default function CreatePost() {
                     placeholder="Enter your hashtags "
                     name="tags" 
                     {...register("tags",{required:"tags are required",pattern:{value:/\s/}})}/>
+                    <span style={{color:"red"}}>{errors.title?.message}</span>
             </div>
 
-            <div className="mb-3">
+            {/* <div className="mb-3">
                 <label htmlFor="photos" className="form-label">Post Image</label>
                 <input type="file" name="image" className="form-control" id="image"  />
-            </div> 
+            </div>  */}
 
             <button type="submit" className="btn btn-primary">Post</button>
         </Form>
@@ -114,7 +118,7 @@ export async function postDataAction(data) {
          
      
      }catch(error){
-         return alert("Please Login First")
+         return alert("Internal Server Error")
      }
    
 

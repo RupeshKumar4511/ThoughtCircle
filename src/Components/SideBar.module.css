@@ -1,5 +1,7 @@
 .sidebar{
-    min-height:800px;
+    min-height:593px;
     width:280px;
-
+    position:sticky;
+    top:0px;
+    
 }
