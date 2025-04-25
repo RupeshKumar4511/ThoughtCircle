@@ -2,14 +2,14 @@ import styles from "./Post.module.css";
 import {useContext} from 'react';
 import { MdDelete } from "react-icons/md";
 import { PostListContext } from "../store/Post-List-store";
-const UserPost = ({ post}) => {
+const UserPost = ({post}) => {
 
-    const {deletePost} = useContext(PostListContext);
+    // const {deletePost} = useContext(PostListContext);
     return (
         <div className={`card ${styles.postcard} mt-4 mb-3`} style={{ 'width': '30rem' }}>
-            <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" onClick={()=> deletePost(post.id)}>
-                
-                <MdDelete />
+            <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" >
+                {/* onClick={()=> deletePost(post.id)} */}
+                {/* <MdDelete /> */}
 
             </span>
             <img src="..." className="card-img-top" alt="..." />

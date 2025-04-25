@@ -15,7 +15,7 @@ const router = createBrowserRouter([
     path: '/', element: <App />, children: [
       { path: '/', element: <PostList />, loader:loadData },
       { path: '/create-post', element: <CreatePost /> ,action:postDataAction},
-      { path: '/your-post', element: <UserPostList /> ,loader:loadUserData},
+      { path: '/yourposts', element: <UserPostList /> ,loader:loadUserData},
       { path: '/signin', element: <Login/>,action:LoginAction},
       { path: '/signup', element: <CreateUser/>,action:createUserAction},
       { path: '/register', element: <SignUp/>,action:RegisterAction},

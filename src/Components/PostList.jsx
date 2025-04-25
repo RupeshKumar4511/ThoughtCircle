@@ -27,11 +27,10 @@ export default function PostList() {
 
 
 export const loadData = () =>{
-    // http://localhost:5000/posts
-    return fetch('https://dummyjson.com/posts')
+    return fetch('http://localhost:5000/posts',{credentials:'include'})
     .then(res => res.json())
     .then(data => {
-        return data.posts;    
+        return Array.from(data);    
     }
     );
 }

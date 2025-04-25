@@ -21,7 +21,7 @@ export default function Login() {
         <div className="container py-5 h-100">
             <div className="row d-flex justify-content-center align-items-center h-100">
                 <div className="col-12 col-md-8 col-lg-6 col-xl-5">
-                    <div className="card shadow-2-strong" style={{"border-radius": "1rem" ,"background-color": "#AEEA94" }}>
+                    <div className="card shadow-2-strong" style={{"borderRadius": "1rem" ,"backgroundColor": "#AEEA94" }}>
                         <div className="card-body p-5 text-center">
 
                             <h3 className="mb-5">Sign in</h3>
@@ -60,6 +60,7 @@ export async function LoginAction(data) {
     
         const response =  await fetch('http://localhost:5000/signin', {
              method: 'POST',
+             credentials: 'include',
              headers: { 'Content-Type': 'application/json' },
              body: JSON.stringify(loginData)
          })
@@ -69,7 +70,7 @@ export async function LoginAction(data) {
           window.dispatchEvent(new Event("handlechange"));
           
           alert("SignIn Successfully..");
-          return redirect('/create-post');
+          return redirect('/')
           
          }else{
             return alert("login Failed")

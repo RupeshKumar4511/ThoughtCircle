@@ -1,5 +1,6 @@
 import { useLoaderData } from "react-router-dom";
 import UserPost from "./UserPost.jsx";
+import Message from "./Message.jsx";
 
 
 
@@ -12,7 +13,7 @@ export default function UserPostList() {
 
             { postList.length === 0 && <Message />}
             { postList.map((post) =>
-                <UserPost key={post.id} post={post} ></UserPost>
+                <UserPost key={post._id} post={post} ></UserPost>
             )
             }
         </>
@@ -21,8 +22,8 @@ export default function UserPostList() {
 }
 
 export const loadUserData = async () =>{
-    // http://localhost:5000/yourposts
-    const res = await fetch('https://dummyjson.com/posts');
+    
+    const res = await fetch('http://localhost:5000/yourposts',{credentials:'include'});
     const data = await res.json();
-    return data.posts;
+    return Array.from(data);
 }

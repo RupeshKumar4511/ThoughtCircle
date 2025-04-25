@@ -1,4 +1,4 @@
-import { Form,redirect } from "react-router-dom";
+import { Form,redirect} from "react-router-dom";
 import {useEffect,useRef} from 'react';
 
 export default function SignUp() {
@@ -19,11 +19,11 @@ export default function SignUp() {
 
     return (
 
-        <Form className="vh-100" >
+        <Form className="vh-100" ref={formRef} method="POST">
             <div className="container py-5 h-100">
                 <div className="row d-flex justify-content-center align-items-center h-100">
                     <div className="col-12 col-md-8 col-lg-6 col-xl-5">
-                        <div className="card shadow-2-strong" style={{"border-radius": "1rem" ,"background-color": "#FCD65A" }}>
+                        <div className="card shadow-2-strong" style={{"borderRadius": "1rem" ,"backgroundColor": "#FCD65A" }}>
                             <div className="card-body p-5 text-center">
 
                                 <h3 className="mb-5">Sign Up</h3>
@@ -51,21 +51,14 @@ export default function SignUp() {
 }
 
 export async function RegisterAction() {
-
-    // const FormData = await data.request.formData();
-    // const signupData = Object.fromEntries(FormData);
    
-
-    // fetch('https://dummyjson.com/posts/add', {
-    //     method: 'POST',
-    //     headers: { 'Content-Type': 'application/json' },
-    //     body: JSON.stringify(signupData)
-    // }).then(res => res.json())
-    //     .then(signup => {
-    //         console.log(signup);
-            
-    //     })
     window.dispatchEvent(new Event("clearRegisterForm"));
-        return redirect('/signup')
+    return redirect('/signup');
     // we will redirect it to create username and password
+
+
+
+
+
+
 }

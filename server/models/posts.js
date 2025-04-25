@@ -20,7 +20,7 @@ const userPostModel = mongoose.Schema({
         trim:true,
         minLength:[10,'Post Content must atleast 10 characters long']
     },
-    Tags:{
+    tags:{
         type:[String],
         required:true,
         trim:true,

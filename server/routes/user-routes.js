@@ -22,9 +22,14 @@ routes.post('/create-post',ensureAuthenticated,async(req,res)=>{
             username:req.user.username,
             title,
             body,
-            tags,
+            tags: tags.split(' '),
 
         })
+        
+        return res.status(200).json({
+            message: "Post created successfully",
+            success: true
+        });
     
     }catch(error){
         return res.status(409).json({message:"Please Fill the required Details",success:false})

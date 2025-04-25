@@ -12,7 +12,7 @@ export default function SideBar() {
             setHomeActive('active');
             setCreatepostActive('');
             setYourpostActive('');
-        } else if (tab === "your-post") {
+        } else if (tab === "yourposts") {
             setHomeActive('');
             setCreatepostActive('');
             setYourpostActive('active');
@@ -53,8 +53,8 @@ export default function SideBar() {
                     </Link>
                 </li>
 
-                <li className='nav-item' onClick={() => { handleClick("your-post") }}>
-                    <Link to="/your-post" className={`nav-link  text-white ${yourpostactive}`} >
+                <li className='nav-item' onClick={() => { handleClick("yourposts") }}>
+                    <Link to="/yourposts" className={`nav-link  text-white ${yourpostactive}`} >
                         <svg className="bi me-2" width="16" height="16"></svg>
                         Your Posts
                     </Link>

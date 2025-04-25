@@ -78,7 +78,7 @@ export default function CreatePost() {
                     placeholder="Enter your hashtags "
                     name="tags" 
                     {...register("tags",{required:"tags are required",pattern:{value:/\s/}})}/>
-                    <span style={{color:"red"}}>{errors.title?.message}</span>
+                    <span style={{color:"red"}}>{errors.tags?.message}</span>
             </div>
 
             {/* <div className="mb-3">
@@ -96,20 +96,22 @@ export async function postDataAction(data) {
 
     const FormData = await data.request.formData();
     const postData = Object.fromEntries(FormData);
-    postData.tags  = postData.tags.split(' ');
+
     
     try{
     
         const response =  await fetch('http://localhost:5000/create-post', {
              method: 'POST',
+             credentials:'include',
              headers: { 'Content-Type': 'application/json' },
              body: JSON.stringify(postData)
          })
  
          if(response.ok){
           window.dispatchEvent(new Event("clearPostForm"));
-          alert("Your Post Submitted Successfully..")
-          return redirect('/');
+          alert("Your Post Submitted Successfully..");
+        //   return json({ success: true });
+        //   return redirect('/');
           
          }
          else{
