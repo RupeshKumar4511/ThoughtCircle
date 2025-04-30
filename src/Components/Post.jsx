@@ -3,7 +3,7 @@ const Post = ({ post}) => {
 
     return (
         <div className={`card ${styles.postcard} mt-4 mb-3`} style={{ 'width': '30rem' }}>
-            <img src="..." className="card-img-top" alt="..." />
+            <img src={`${post.image}`} className="card-img-top" alt="..." />
             <div className="card-body">
                 <h5 className="card-title">{post.title}</h5>
                 <p className="card-text">{post.body}</p>

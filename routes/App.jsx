@@ -15,14 +15,14 @@ function App() {
     <PostListProvider>
 
 
-      <div className={styles.sidebar}>
+      <div className={styles.app}>
 
         <SideBar />
 
         <div className={styles.content}>
           <Header />
           <Outlet />
-          <Footer />
+          <Footer className={styles.footer}/>
         </div>
       </div>
 

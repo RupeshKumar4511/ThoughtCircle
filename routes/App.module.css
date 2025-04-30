@@ -1,8 +1,18 @@
-.sidebar{
+html, body {
+    height: 100%;
+    margin: 0;
+  }
+
+
+.app{
     display:flex;
     align-items:start;
+    
 }
 .content{
     width:100%;
-    
+    min-height: 100vh;
 }
+footer {
+    padding: 1rem;
+  }

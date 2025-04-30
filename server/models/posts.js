@@ -26,10 +26,11 @@ const userPostModel = mongoose.Schema({
         trim:true,
         minLength:[5,'Title must atleast 5 characters long']
     },
-    // Image:{
-    //     type:String,
-    //     ImageData:String
-    // }
+    image:{
+        type:String,
+        required:true,
+        trim:true
+    }
 })
 
 const postModel = mongoose.model('posts',userPostModel);

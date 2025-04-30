@@ -54,7 +54,7 @@ export default function CreatePost() {
 
 
     return (
-        <Form method="POST" className="m-auto mt-5" style={{ 'width': '40rem', 'margin': 'auto' }} ref={formRef} >
+        <Form method="POST" className="m-auto mt-5" style={{ 'width': '40rem', 'margin': 'auto' }} ref={formRef} encType="multipart/form-data" >
 
             <div className="mb-3">
                 <label htmlFor="title" className="form-label">Post Title</label>
@@ -81,10 +81,10 @@ export default function CreatePost() {
                     <span style={{color:"red"}}>{errors.tags?.message}</span>
             </div>
 
-            {/* <div className="mb-3">
-                <label htmlFor="photos" className="form-label">Post Image</label>
+            <div className="mb-3">
+                <label htmlFor="image" className="form-label">Post Image</label>
                 <input type="file" name="image" className="form-control" id="image"  />
-            </div>  */}
+            </div> 
 
             <button type="submit" className="btn btn-primary">Post</button>
         </Form>
@@ -94,8 +94,21 @@ export default function CreatePost() {
 
 export async function postDataAction(data) {
 
-    const FormData = await data.request.formData();
-    const postData = Object.fromEntries(FormData);
+    // const form = await data.request.formData();
+    // const formData = new FormData();
+    // // const postData = Object.fromEntries(FormData);
+    // formData.append("title", form.get("title"));
+    // formData.append("body", form.get("body"));
+    // formData.append("tags", form.get("tags"));
+    // formData.append("image", form.get("image"));
+   
+    // console.log(formData);
+    const form = await data.request.formData();
+
+    // Log the entries for debugging
+    for (const [key, value] of form.entries()) {
+      console.log(`${key}:`, value);
+    }
 
     
     try{
@@ -103,15 +116,14 @@ export async function postDataAction(data) {
         const response =  await fetch('http://localhost:5000/create-post', {
              method: 'POST',
              credentials:'include',
-             headers: { 'Content-Type': 'application/json' },
-             body: JSON.stringify(postData)
+            //  headers: { 'Content-Type': 'application/json' },
+             body: form
          })
  
          if(response.ok){
           window.dispatchEvent(new Event("clearPostForm"));
           alert("Your Post Submitted Successfully..");
-        //   return json({ success: true });
-        //   return redirect('/');
+        
           
          }
          else{

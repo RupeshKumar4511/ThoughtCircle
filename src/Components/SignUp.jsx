@@ -56,9 +56,4 @@ export async function RegisterAction() {
     return redirect('/signup');
     // we will redirect it to create username and password
 
-
-
-
-
-
 }

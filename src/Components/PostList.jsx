@@ -16,7 +16,7 @@ export default function PostList() {
             { postList.length === 0 && <Message />}
             <div style={{}}>
             { postList.map((post) =>
-                <Post key={post.id} post={post} ></Post>
+                <Post key={post._id} post={post} ></Post>
             )
             }
             </div>
