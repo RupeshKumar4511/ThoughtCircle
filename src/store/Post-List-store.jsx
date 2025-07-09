@@ -1,16 +1,5 @@
 import { createContext, useReducer,useEffect } from "react";
 
-// function fetchData(){
-//     useEffect(()=>{
-//     return async () =>{
-//             const res = await fetch('http://localhost:5000/yourposts');
-//             const data = await res.json();
-//             return data;
-//         }
-//     },[]) 
-// } 
-
-// const PostLists = fetchData();
 
 export const PostListContext = createContext({
     PostList:[],
@@ -24,8 +13,6 @@ const postListReducer = (currentPostList, action) => {
     if(action.type === "DELETE_POST"){
         newPostList = currentPostList.filter((post)=>  post.id !== action.payload.id);
 
-    }else if(action.type === "ADD_INITIAL_POSTS"){
-        newPostList = action.payload.posts;
     }
     else if(action.type === "NEW_POST"){
         newPostList = [action.payload,... currentPostList]
@@ -37,41 +24,10 @@ const postListReducer = (currentPostList, action) => {
 
 const PostListProvider = ({ children }) => {
 
-    
-    // const [fetching, setFetching] = useState(false);
 
     const [PostList, dispatchList] = useReducer(postListReducer, []);
 
-    const addPost = (post) => {
-        // let id;
-        // if (PostList.length === 0) {
-        //     id = 0;
-        // } else {
-        //     id = PostList[PostList.length-1].id + 1;
-        // }
-
-        const newPostAction = {
-            type: "NEW_POST",
-            payload:post
-        }
-
-        dispatchList(newPostAction);
-
-    }
-
-    // const addInitialPosts = (posts) => {
-       
-    //     const newIntialPostAction = {
-    //         type: "ADD_INITIAL_POSTS",
-    //         payload: {
-    //             posts:posts,
-
-    //         }
-    //     }
-
-    //     dispatchList(newIntialPostAction);
-
-    // }
+    // const [fetching, setFetching] = useState(false);
 
     // useEffect(() => {
     //     setFetching(true);
@@ -94,9 +50,19 @@ const PostListProvider = ({ children }) => {
     //     }
 
     // }, []) // render only once initially.
-
     
 
+    
+    const addPost = (post) => {
+
+        const newPostAction = {
+            type: "NEW_POST",
+            payload:post
+        }
+
+        dispatchList(newPostAction);
+
+    }
 
     const deletePost = (postid) => {
         const deletePostAction = {

@@ -3,23 +3,26 @@ import Post from "./Post";
 import LoadingSpinner from "./LoadingSpinner"
 import Message from "./Message";
 import { PostListContext } from "../store/Post-List-store";
-import { useLoaderData } from "react-router-dom";
+import { useGetPostsQuery } from "../store/api";
 
 export default function PostList() {
 
-    const postList = useLoaderData();
+    const {data:postList ,isLoading,isError} = useGetPostsQuery();
+    
+
 
     return (
         <>
             
 
-            { postList.length === 0 && <Message />}
-            <div style={{}}>
-            { postList.map((post) =>
-                <Post key={post._id} post={post} ></Post>
+            {/* { postList.length === 0 && <Message />} */}
+            <div className="flex flex-col md:w-120 w-80 h-full justify-center items-center mx-auto overflow-hidden">
+            { !isLoading&&postList.map((post) =>
+                <Post key={post.id} post={post} ></Post>
             )
             }
             </div>
+            
         </>
 
     )

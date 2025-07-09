@@ -1,33 +1,27 @@
 import Header from "../src/Components/Header.jsx";
 import Footer from "../src/Components/Footer.jsx";
 import SideBar from "../src/Components/SideBar.jsx";
-import CreatePost from "../src/Components/CreatePost.jsx";
-import PostList from '../src/Components/PostList.jsx';
-import styles from './App.module.css';
 import { Outlet } from 'react-router-dom';
 import PostListProvider from "../src/store/Post-List-store.jsx";
+import { useState } from "react";
+
+
 
 
 function App() {
- 
+ const [open,setOpen] = useState(false);
 
   return (
-    <PostListProvider>
-
-
-      <div className={styles.app}>
-
-        <SideBar />
-
-        <div className={styles.content}>
-          <Header />
+    < >
+        <div className="w-full flex items-start flex-col bg-gray-100 ">
+        <Header setOpen={setOpen}/>
+        <div className="w-full min-h-screen flex gap-4 relative">
+          <SideBar open={open} />
           <Outlet />
-          <Footer className={styles.footer}/>
         </div>
-      </div>
-
-
-    </PostListProvider>
+        <Footer/>
+        </div>
+    </>
 
   )
 }

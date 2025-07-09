@@ -1,22 +1,28 @@
 import { useLoaderData } from "react-router-dom";
 import UserPost from "./UserPost.jsx";
 import Message from "./Message.jsx";
+import {postList} from './data.js'
 
 
 
 export default function UserPostList() {
 
-    const postList = useLoaderData();
     return (
-        <>
-            
+               <>
+                   
 
-            { postList.length === 0 && <Message />}
-            { postList.map((post) =>
-                <UserPost key={post._id} post={post} ></UserPost>
-            )
-            }
-        </>
+                   { postList.length === 0 && <Message />}
+                   <div className="flex flex-col justify-center mx-auto">
+                    <h1 className="flex justify-center mx-auto w-full my-4 md:text-2xl text-xl text-blue-500 font-bold">Your Posts </h1>
+                   <div className="flex flex-col md:w-120 w-80 h-full justify-center items-center mx-auto overflow-hidden">
+                   { postList.map((post) =>
+                       <UserPost key={post.id} post={post} />
+                   )
+                   }
+                   </div>
+                   </div>
+                   
+               </>
 
     )
 }

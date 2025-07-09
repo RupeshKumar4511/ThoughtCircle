@@ -1,15 +1,17 @@
+import { Link } from "react-router-dom";
+
 export default function Footer() {
 
     return (
-        <footer className="py-3 my-4" >
-            <ul className="nav justify-content-center border-bottom pb-3 mb-3">
-                <li className="nav-item"><a to="#" className="nav-link px-2 text-muted">Home</a></li>
-                <li className="nav-item"><a to="#" className="nav-link px-2 text-muted">Features</a></li>
-                <li className="nav-item"><a to="#" className="nav-link px-2 text-muted">Pricing</a></li>
-                <li className="nav-item"><a to="#" className="nav-link px-2 text-muted">FAQs</a></li>
-                <li className="nav-item"><a to="#" className="nav-link px-2 text-muted">About</a></li>
+        <footer className="flex flex-col justify-center items-center flex-wrap py-3 bg-gray-200 w-full ">
+        <ul className="flex justify-evenly py-3 w-full ">
+                <li><h1 className="text-xl md:text-3xl text-blue-900 font-bold">socialSync</h1></li>
+                <li><Link to="/home" >Home</Link></li>
+                <li><Link to="/" >Features</Link></li>
+                <li><Link to="/" >Terms</Link></li>
+                <li><Link to="/" >Privacy</Link></li>
             </ul>
-            <p className="text-center text-muted">© 2025 Company, Inc</p>
+            <p className="py-3 text-wrap">&copy; {new Date().getFullYear()}  Rupesh Kumar. All rights reserved.</p>
         </footer>
     )
 }

@@ -1,77 +1,25 @@
+import { Link, NavLink } from 'react-router-dom';
+import { IoIosArrowDropdownCircle } from "react-icons/io";
 import { useState } from 'react';
-import css from './SideBar.module.css';
-import { Link } from 'react-router-dom';
-export default function SideBar() {
 
-    const [homeactive, setHomeActive] = useState("active");
-    const [creatpostactive, setCreatepostActive] = useState("");
-    const [yourpostactive, setYourpostActive] = useState("");
+export default function SideBar({open}) {
 
-    const handleClick = (tab) => {
-        if (tab === "home") {
-            setHomeActive('active');
-            setCreatepostActive('');
-            setYourpostActive('');
-        } else if (tab === "yourposts") {
-            setHomeActive('');
-            setCreatepostActive('');
-            setYourpostActive('active');
-        } 
-        else if (tab === "createpost"){
-
-            setHomeActive('');
-            setCreatepostActive('active');
-            setYourpostActive('');
-
-        }
-    }
-
+    const [menu,setMenu]= useState(false);
 
     return (
     
-        <div className={`d-flex flex-column flex-shrink-0 p-3 text-white bg-dark ${css.sidebar}`} >
-            <Link to="/" className="d-flex align-items-center mb-3 mb-md-0 me-md-auhref text-white text-decoration-none">
-
-                <svg className="bi me-2" width="40" height="32">
-                    <use xlinkHref="#bootstrap"></use></svg>
-                <span className="fs-4 ">SocialSync</span>
-
-            </Link>
-            <hr />
-
-            <ul className="nav nav-pills flex-column mb-auto">
-                <li className="nav-item" onClick={() => { handleClick("home") }}>
-                    <Link to="/" className={`nav-link  text-white ${homeactive}`} aria-current="page" >
-                        <svg className="bi me-2" width="16" height="16"><use xlinkHref="#home"></use></svg>
-                        Home
-                    </Link>
-                </li>
-                <li className='nav-item' onClick={() => { handleClick("createpost") }}>
-                    <Link to="/create-post" className={`nav-link  text-white ${creatpostactive}`} >
-                        <svg className="bi me-2" width="16" height="16"></svg>
-                        Create Post
-                    </Link>
-                </li>
-
-                <li className='nav-item' onClick={() => { handleClick("yourposts") }}>
-                    <Link to="/yourposts" className={`nav-link  text-white ${yourpostactive}`} >
-                        <svg className="bi me-2" width="16" height="16"></svg>
-                        Your Posts
-                    </Link>
-                </li>
-
+        <div className={`md:w-56  bg-slate-200 flex-col
+         md:px-14 px-5 py-4 md:flex absolute top-0 left-0 md:relative z-10
+        bottom-0 ${open?'flex':'hidden'}`}>
+            <NavLink to="/user/post" className="py-1 lg:text-xl">Home</NavLink>
+            <NavLink to="/user1/create-post" className="py-1 lg:text-xl">Post</NavLink>
+            <Link to="/user2" className="py-1 flex lg:text-xl" onClick={()=>setMenu((prevState)=>!prevState)}>username <IoIosArrowDropdownCircle className='relative top-2' size={15} /></Link>
+            <ul className={`px-2 ${menu?'':'hidden'} md:text-md text-sm`}>
+                <li><NavLink to="/user-profile">Profile</NavLink></li>
+                <li><NavLink to="/user3/user-post">Your Posts</NavLink></li>
+                <li className='cursor-pointer'>Sign out</li>
             </ul>
-
-            {/* <div className="dropdown">
-                <Link to="#" className="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="https://github.com/mdo.png" alt="" width="32" height="32" className="rounded-circle me-2" />
-                    <strong>mdo</strong>
-                </Link>
-                <ul className="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-                    <li><Link className="dropdown-item" to="#">Profile</Link></li>
-                    <li><Link className="dropdown-item" to="#">Sign out</Link></li>
-                </ul>
-            </div> */}
-        </div>               
+        </div>
+        
     );
 }
