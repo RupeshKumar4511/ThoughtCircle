@@ -9,9 +9,13 @@ export const api = createApi({
         getPosts: builder.query({
             query:()=>'/posts',
             transformResponse:(posts)=>posts.reverse()
+        }),
+        getUserPosts: builder.query({
+            query:()=>'/posts',
+            transformResponse:(posts)=>posts.reverse()
         })
     })
 })
 
 
-export const {useGetPostsQuery} = api;
+export const {useGetPostsQuery,useGetUserPostsQuery} = api;

@@ -1,26 +1,43 @@
-import { useContext, useEffect, useState } from "react";
 import Post from "./Post";
 import LoadingSpinner from "./LoadingSpinner"
 import Message from "./Message";
-import { PostListContext } from "../store/Post-List-store";
-import { useGetPostsQuery } from "../store/api";
+// import { useGetPostsQuery } from "../store/apiSlice";
+import ErrorPage from "./ErrorPage";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { fetchPost } from "../store/postSlice";
 
 export default function PostList() {
+    const {list:postList,isLoading,error} = useSelector(store=>store.postList);
+    console.log(postList)
 
-    const {data:postList ,isLoading,isError} = useGetPostsQuery();
+    const dispatch = useDispatch();
+    useEffect(()=>{
+        dispatch(fetchPost());
+    },[])
     
+
+    
+    
+    if(isLoading){
+        return <LoadingSpinner/>
+    }
+    if(!isLoading && error){
+        return <ErrorPage/>
+    }
 
 
     return (
         <>
             
 
-            {/* { postList.length === 0 && <Message />} */}
-            <div className="flex flex-col md:w-120 w-80 h-full justify-center items-center mx-auto overflow-hidden">
-            { !isLoading&&postList.map((post) =>
+            { postList.length === 0 && <Message />}
+            <div className="flex flex-col md:w-120 w-85 h-full justify-center items-center mx-auto overflow-hidden" 
+             >
+            { postList.map((post) =>
                 <Post key={post.id} post={post} ></Post>
             )
-            }
+            }   
             </div>
             
         </>
