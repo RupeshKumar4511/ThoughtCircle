@@ -30,6 +30,14 @@ const userPostModel = mongoose.Schema({
         type:String,
         required:true,
         trim:true
+    },
+    like:{
+        type:Number,
+        default:0
+    },
+    dislike:{
+        type:Number,
+        default:0
     }
 })
 

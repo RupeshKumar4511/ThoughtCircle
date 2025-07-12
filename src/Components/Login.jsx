@@ -2,14 +2,40 @@ import { useRef } from 'react';
 import { useForm } from "react-hook-form";
 import LoginModalHeader from "./LoginModalHeader";
 import LoginModalFooter from "./LoginModalFooter";
+import { signIn } from '../store/authSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import ErrorPage from './ErrorPage'
+
 export default function Login({isOpen,setOpen}) {
 
-  
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const formRef = useRef(null);
+  const {authResponse,error} = useSelector(store=>store.auth);
 
   const { handleSubmit, register, formState: { errors } } = useForm();
   const onSubmit = (data) => {
-    console.log(data);
+    dispatch(signIn(data))
+  }
+
+  
+  if(authResponse.success ===true){
+      navigate("/user");
+      setOpen(false);
+
+  }
+
+  if(authResponse.success  === false){
+    (
+      <h1>{authResponse.message}</h1>
+    )
+  }
+
+  if(error){
+    return (
+      <ErrorPage/>
+    )
   }
 
   return (

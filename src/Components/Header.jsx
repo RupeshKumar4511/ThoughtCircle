@@ -17,7 +17,8 @@ function Header({setOpen}) {
 
   return (
 
-    <header className="flex md:justify-between min-w-full md:px-8 md:py-4 h-auto shadow-md bg-slate-200 items-center px-2 py-1 sticky top-0 z-20">
+    <header className="flex md:justify-between min-w-full
+    h-12 md:h-auto md:px-8 md:py-4 shadow-md bg-slate-200 items-center px-2 py-1 sticky top-0 z-20">
       <h3 className='text-md md:hidden px-3 cursor-pointer' onClick={()=>setOpen((prevState)=> !prevState)}>&#x2630;</h3>
       <div className='flex md:gap-5 justify-center items-center gap-2'>
         <h2 className='md:text-3xl text-blue-900 font-bold text-xl'>ThoughtCircle</h2>
@@ -29,8 +30,6 @@ function Header({setOpen}) {
       </form>
 
       <div className="md:flex hidden">
-        {/* <Link to="/signin" className={display} ><button type="button" className="bg-blue-500 border-blue-600 px-4 py-1 text-md rounded-md cursor-pointer" >Login</button></Link>
-        <Link to="/register" className={display} ><button type="button" className="bg-amber-400 border-amber-600 px-4 py-1 text-md rounded-md cursor-pointer">Sign-up</button></Link> */}
         <h4 className={display}>Welcome User</h4>
       </div>
 

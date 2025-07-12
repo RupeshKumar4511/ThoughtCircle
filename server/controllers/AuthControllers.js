@@ -9,7 +9,7 @@ const signup = async (req,res)=>{
             return res.status(409).json({message:"user is already exist",success:false})
         }
 
-        const newUser = new userModel({username,password});
+        const newUser = new userModel({username,email,password});
         newUser.password = await bcrypt.hash(password,10);
         await newUser.save()
 
@@ -19,14 +19,15 @@ const signup = async (req,res)=>{
 
     }catch(error){
         res.status(501).json({
-            message:"Internal Server ",success:false
+            message:"Internal Server Error",success:false
         })
     }
 }
 
 const signin = async (req,res)=>{
     try{
-        const {username,password}= req.body;
+        const {username,email,password}= req.body;
+        // also find email with user
         const user = await userModel.findOne({username});
         const errorMsg = "Username or password is wrong"
         if(!user){
@@ -51,7 +52,9 @@ const signin = async (req,res)=>{
             message:"Login Success",
             success:true,
             jwtToken,
-            username:user.username 
+            username:user.username ,
+            email:user.email,
+            role:user.role
         })
 
         

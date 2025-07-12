@@ -1,20 +1,34 @@
 import { useRef } from "react";
-import { PostListContext } from "../store/Post-List-store";
 import { useForm } from 'react-hook-form';
+import { useCreatePostMutation } from "../store/apiSlice";
+import LoadingSpinner from './LoadingSpinner'
+import SuccessModal from "./SuccessModal";
+import ErrorPage from "./ErrorPage";
 export default function CreatePost() {
 
+    const [addPost,{isLoading,isSuccess,isError}] = useCreatePostMutation() ;
+    console.log(useCreatePostMutation())
     const { handleSubmit, register, formState: { errors } } = useForm();
     const formRef = useRef(null);
     const onSubmit = (data) => {
-        console.log(data);
+        data.tags = data.tags.split(' ');
+        data.id = crypto.randomUUID();
+        data.like = 0 ;
+        data.dislike = 0 ;
+        addPost(data);     
+        
     }
 
 
     // We include {encType="multipart/form-data"} in the form becuase
-    // form contains input to upload the file. 
+    // form contains input to upload the file.
 
     return (
        
+        <>
+        {isLoading && <LoadingSpinner/>}
+        {isSuccess && <SuccessModal/>}
+        {isError && <ErrorPage/>}
 
             <form
                 method="POST"
@@ -99,12 +113,12 @@ export default function CreatePost() {
 
                 <button
                     type="submit"
-                    className="shadow-md bg-blue-600 px-4 py-2 rounded-md text-white mt-4 hover:bg-blue-700 transition-colors"
+                    className="shadow-md bg-blue-600 px-4 py-2 rounded-md text-white mt-4 hover:bg-blue-700 transition-colors cursor-pointer"
                 >
                     Post
                 </button>
             </form>
-        
+        </>
     );
 }
 

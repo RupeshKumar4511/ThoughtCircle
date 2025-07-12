@@ -2,8 +2,11 @@ const express = require('express');
 const cloudinary = require('cloudinary').v2;
 const { signupValidation, signinValidation } = require('../Middlewares/AuthValidation');
 const { signup, signin } = require('../controllers/AuthControllers');
-const ensureAuthenticated = require('../controllers/Auth');
+const ensureAuthenticated = require('../Middlewares/Auth');
 const postModel = require("../models/posts");
+const verifyOtp = require('../Middlewares/otpVerify');
+const sendOtp = require('../services/mail');
+const resetPassword = require('../controllers/ResetPassword');
 const routes = express.Router();
 require('dotenv').config()
 
@@ -17,8 +20,10 @@ cloudinary.config({
 
 
 routes.post('/signin', signinValidation, signin);
-routes.post('/signup', signupValidation, signup);
-routes.post('/create-post', ensureAuthenticated,async(req, res) => {
+routes.post('/signup', signupValidation, verifyOtp, signup);
+routes.post('/verify-user',sendOtp)
+routes.post('/reset-password',resetPassword);
+routes.post('/create-post', ensureAuthenticated, async(req, res) => {
 
     
     const { title, body, tags } = req.body;

@@ -1,9 +1,8 @@
 import Login from './Login'
 import Modal from './Modal'
-import { useState } from 'react'
 
-const LoginModal = () => {
-  const [isOpen, setOpen] = useState(true);
+const LoginModal = ({isOpen, setOpen}) => {
+  
   
   return (
     <Modal children={<Login isOpen={isOpen} setOpen={setOpen} />} isOpen={isOpen} setOpen={setOpen}/>
