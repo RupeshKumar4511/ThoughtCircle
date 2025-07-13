@@ -1,7 +1,12 @@
 import { AiOutlineLike,AiOutlineDislike } from "react-icons/ai";
+import { useDeleteUserPostMutation } from "../store/apiSlice";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 const UserPost = ({ post }) => {
+    const navigate = useNavigate()
+    
 
-    // const {deletePost} = useContext(PostListContext);
+    const [deletePost] = useDeleteUserPostMutation();
     return (
         <div className='border-white rounded px-2 py-2 my-3 bg-white shadow-md w-full h-auto' >
                     <img  className="w-full h-[40%]" alt='post-image' src="https://www.w3schools.com/css/img_5terre_wide.jpg" />
@@ -17,8 +22,13 @@ const UserPost = ({ post }) => {
                         </div>
 
                         <div className="flex gap-4 px-1 mt-4">
-                            <button className="bg-green-500 border-green-500 px-4 py-1 rounded-md cursor-pointer hover:bg-green-600 text-white">Update</button>
-                            <button className="bg-red-500 border-red-500 px-4 py-1 rounded-md cursor-pointer hover:bg-red-600 text-white">Delete</button>
+                            <button className="bg-green-500 border-green-500 px-4 py-1 rounded-md cursor-pointer hover:bg-green-600 text-white" onClick={()=>{
+                            navigate('/user/update-post',{
+                                state:post
+                            })
+                            }}>Update</button>
+                            <button className="bg-red-500 border-red-500 px-4 py-1 rounded-md cursor-pointer hover:bg-red-600 text-white"
+                            onClick={()=>deletePost(post.id)}>Delete</button>
                         </div>
                     </div>
                 </div>

@@ -13,6 +13,7 @@ import { Provider } from 'react-redux';
 import store from './store/store.js';
 import Profile from './Components/Profile.jsx';
 import ResetPassword from './Components/ResetPassword.jsx';
+import UpdatePost from './Components/UpdatePost.jsx';
 
 
 const router = createBrowserRouter([
@@ -29,6 +30,7 @@ const router = createBrowserRouter([
       { path: '/user/create-post', element: <CreatePost /> },
       { path: '/user/user-post', element: <UserPostList /> },    
       { path: '/user/user-profile', element: <Profile /> },
+      { path: '/user/update-post', element: <UpdatePost /> }, 
     ]
   }, 
   

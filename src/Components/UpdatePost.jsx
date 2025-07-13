@@ -1,34 +1,40 @@
+import { useLocation } from "react-router-dom";
+import { useUpdateUserPostMutation } from "../store/apiSlice";
+import { useForm } from "react-hook-form";
 import { useRef } from "react";
-import { useForm } from 'react-hook-form';
-import { useCreatePostMutation } from "../store/apiSlice";
-import LoadingSpinner from './LoadingSpinner'
-import SuccessModal from "./SuccessModal";
-import ErrorPage from "./ErrorPage";
-export default function CreatePost() {
 
-    const [addPost,{isLoading,isSuccess,isError}] = useCreatePostMutation() ;
-    
-    const { handleSubmit, register, formState: { errors } } = useForm();
+const UpdatePost = () => {
+    const [updatePost, { isLoading, isSuccess, isError }] = useUpdateUserPostMutation();
+    const { state } = useLocation();
+    const { handleSubmit, register, reset, formState: { errors } } = useForm();
     const formRef = useRef(null);
+
+    const {id,title,body,tags,image} = state;
+    
+    reset({
+        title,
+        body,
+        tags:tags.join(" "),
+        image
+    })
+    
+
+    //remove id,like,dislike field from frontend
     const onSubmit = (data) => {
         data.tags = data.tags.split(' ');
-        data.id = crypto.randomUUID();
-        data.like = 0 ;
-        data.dislike = 0 ;
-        addPost(data);     
-        
+        data.id = id;
+        data.like = 0;
+        data.dislike = 0;
+        updatePost(data);
+
     }
 
-
-    // We include {encType="multipart/form-data"} in the form becuase
-    // form contains input to upload the file.
-
     return (
-       
+
         <>
-        {isLoading && <LoadingSpinner/>}
-        {isSuccess && <SuccessModal/>}
-        {isError && <ErrorPage/>}
+            {isLoading && <LoadingSpinner />}
+            {isSuccess && <SuccessModal />}
+            {isError && <ErrorPage />}
 
             <form
                 method="POST"
@@ -37,7 +43,7 @@ export default function CreatePost() {
                 encType="multipart/form-data"
                 onSubmit={handleSubmit(onSubmit)}
             >
-                <h1 className="flex justify-center items-center md:text-2xl text-xl mb-5 font-bold text-blue-900">Create Your Post</h1>
+                <h1 className="flex justify-center items-center md:text-2xl text-xl mb-5 font-bold text-blue-900">Update Your Post</h1>
 
                 <div className="mt-2 mb-4 flex flex-col md:flex-row md:items-center md:justify-between relative">
                     <label htmlFor="title" className="text-sm md:text-lg mb-1 md:mb-0 md:mr-2">
@@ -97,7 +103,8 @@ export default function CreatePost() {
 
                 <div className="mb-8 flex flex-col md:flex-row md:items-center md:justify-between relative">
                     <label htmlFor="image" className="text-sm md:text-lg mb-1 md:mb-0 md:mr-2">
-                        Post Image:
+                        Post Image:  
+                        {/* {`${image} is already uploaded.`} */}
                     </label>
                     <input
                         type="file"
@@ -119,52 +126,7 @@ export default function CreatePost() {
                 </button>
             </form>
         </>
-    );
+    )
 }
 
-
-export async function postDataAction(data) {
-
-    // const form = await data.request.formData();
-    // const formData = new FormData();
-    // // const postData = Object.fromEntries(FormData);
-    // formData.append("title", form.get("title"));
-    // formData.append("body", form.get("body"));
-    // formData.append("tags", form.get("tags"));
-    // formData.append("image", form.get("image"));
-
-    // console.log(formData);
-    const form = await data.request.formData();
-
-    // Log the entries for debugging
-    for (const [key, value] of form.entries()) {
-        console.log(`${key}:`, value);
-    }
-
-
-    try {
-
-        const response = await fetch('http://localhost:5000/create-post', {
-            method: 'POST',
-            credentials: 'include',
-            //  headers: { 'Content-Type': 'application/json' },
-            body: form
-        })
-
-        if (response.ok) {
-            window.dispatchEvent(new Event("clearPostForm"));
-            alert("Your Post Submitted Successfully..");
-
-
-        }
-        else {
-            return alert("Please Login First")
-        }
-
-
-    } catch (error) {
-        return alert("Internal Server Error")
-    }
-
-
-}
+export default UpdatePost
