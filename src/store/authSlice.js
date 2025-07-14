@@ -18,6 +18,24 @@ export const signIn = createAsyncThunk('auth/signin',async(userData)=>{
     return response.json()
 })
 
+export const sendMail = createAsyncThunk('auth/sendMail',async(userData)=>{
+    const response = await fetch('http://localhost:5000/sendMail',{
+        method:"POST",
+        headers:{"Content-Type":'application/json'},
+        body:JSON.stringify(userData)
+    })
+    return response.json()
+})
+
+export const verifyEmail = createAsyncThunk('auth/verifyEmail',async(userData)=>{
+    const response = await fetch('http://localhost:5000/verifyEmail',{
+        method:"POST",
+        headers:{"Content-Type":'application/json'},
+        body:JSON.stringify(userData)
+    })
+    return response.json()
+})
+
 export const resetPassword = createAsyncThunk('auth/reset-password',async(userData)=>{
     const response = await fetch('http://localhost:5000/reset-password',{
         method:"POST",

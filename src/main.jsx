@@ -14,6 +14,8 @@ import store from './store/store.js';
 import Profile from './Components/Profile.jsx';
 import ResetPassword from './Components/ResetPassword.jsx';
 import UpdatePost from './Components/UpdatePost.jsx';
+import VerifyUser from './Components/VerifyUser.jsx';
+import Reset from './Components/Reset.jsx';
 
 
 const router = createBrowserRouter([
@@ -21,6 +23,8 @@ const router = createBrowserRouter([
   {  path: '/', element: <Home />,children:[
     {path:'/',element:<Outer/>},
     { path: '/verify-email', element: <CreateUser/>},
+    { path: '/verify-user', element: <VerifyUser/>},
+    { path: '/reset', element: <Reset/>},
     { path: '/reset-password', element: <ResetPassword/>},
     ]
   },
