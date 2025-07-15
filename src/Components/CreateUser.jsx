@@ -2,21 +2,22 @@ import { useRef } from 'react';
 import { useForm } from "react-hook-form";
 import { useLocation } from 'react-router-dom';
 import { signUp } from '../store/authSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import ErrorPage from './ErrorPage';
 export default function CreateUser() {
+    const dispatch = useDispatch()
     const { state } = useLocation();
     const formRef = useRef(null);
     const {response,error} = useSelector(store=>store.auth);
     const { register, handleSubmit, formState: { errors } } = useForm()
     const onSubmit = (data) => {
         const {otp} = data;
-        console.log(state);
-        useDispatch(signUp({otp,...state}))
+        dispatch(signUp({otp,...state}))
     }
 
      
   if(response.success === true){
-      navigate("/user");
+      navigate("/user/posts");
       setOpen(false);
 
   }

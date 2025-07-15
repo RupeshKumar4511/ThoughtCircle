@@ -17,9 +17,13 @@
     "dotenv": "^16.4.7",
     "express": "^5.1.0",
     "express-fileupload": "^1.5.1",
+    "express-session": "^1.18.1",
+    "express-validator": "^7.2.1",
     "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.15.0",
-    "mongoose": "^8.13.1"
+    "mongoose": "^8.13.1",
+    "nodemailer": "^7.0.5",
+    "passport": "^0.7.0"
   }
 }

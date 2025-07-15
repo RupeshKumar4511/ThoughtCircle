@@ -23,8 +23,7 @@ const UpdatePost = () => {
     const onSubmit = (data) => {
         data.tags = data.tags.split(' ');
         data.id = id;
-        data.like = 0;
-        data.dislike = 0;
+        data.reactions = {like:0,dislike:0}
         updatePost(data);
 
     }

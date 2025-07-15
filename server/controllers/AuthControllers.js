@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const signup = async (req,res)=>{
     try{
-        const {username,password} = req.body;
+        const {username,email,password} = req.body;
         const user = await userModel.findOne({username});
         if(user){
             return res.status(409).json({message:"user is already exist",success:false})
@@ -26,8 +26,7 @@ const signup = async (req,res)=>{
 
 const signin = async (req,res)=>{
     try{
-        const {username,email,password}= req.body;
-        // also find email with user
+        const {username,password}= req.body;
         const user = await userModel.findOne({username});
         const errorMsg = "Username or password is wrong"
         if(!user){
@@ -42,7 +41,6 @@ const signin = async (req,res)=>{
         }
        
         const jwtToken = jwt.sign({
-            userID:user._id,
             username:user.username
         },process.env.JWT_SECRET,{expiresIn:'24h'})
 
@@ -54,7 +52,6 @@ const signin = async (req,res)=>{
             jwtToken,
             username:user.username ,
             email:user.email,
-            role:user.role
         })
 
         

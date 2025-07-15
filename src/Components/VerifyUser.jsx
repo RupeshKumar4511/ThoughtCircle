@@ -7,7 +7,8 @@ export default function VerifyUser() {
     const { state } = useLocation();
     const formRef = useRef(null);
     const {response,error} = useSelector(store=>store.auth);
-    const { register, handleSubmit, formState: { errors } } = useForm()
+    const { register, handleSubmit, getValues, formState: { errors } } = useForm()
+    const {otp}= getValues();
     const onSubmit = (data) => {
         useDispatch(verifyEmail(data))
        
@@ -17,7 +18,7 @@ export default function VerifyUser() {
      
   if(response.success === true){
       navigate("/reset-password",{
-        state:state
+        state:{...state,otp }
       });
       setOpen(false);
 

@@ -7,22 +7,23 @@ import LoadingSpinner from "./LoadingSpinner.jsx";
 
 
 export default function UserPostList() {
-    const { data: postList, isLoading, isError } = useGetUserPostsQuery();
+    const { data: postList, isLoading, error } = useGetUserPostsQuery();
 
     if (isLoading) {
         return <LoadingSpinner />
     }
-    if (!isLoading && isError) {
+    if (!isLoading && error) {
         return <ErrorPage />
     }
+   
 
 
     return (
         <>
 
 
-            {postList.length === 0 && <Message />}
-
+            
+             {!isLoading && postList.length === 0 && <Message />}
             <div className="flex flex-col md:w-120 w-85 h-full justify-center items-center mx-auto overflow-hidden">
                 <h1 className="flex justify-center mx-auto w-full my-4 md:text-2xl text-xl text-blue-500 font-bold">Your Posts </h1>
                 {postList.map((post) =>

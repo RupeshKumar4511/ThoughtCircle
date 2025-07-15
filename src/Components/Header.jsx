@@ -1,19 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useSelector } from "react-redux";
+
 function Header({setOpen}) {
-
-  const [display, setDisplay] = useState("");
-  const [display2, setDisplay2] = useState("hidden");
-  useEffect(() => {
-    const handleChange = () => {
-      setDisplay('d-none');
-      setDisplay2('d-inline')
-    };
-
-    window.addEventListener("handlechange", handleChange);
-    return () => {
-      window.removeEventListener("handlechange", handleChange);
-    };
-  }, []);
+  const {authResponse} = useSelector(store=>store.auth);
 
   return (
 
@@ -30,7 +18,7 @@ function Header({setOpen}) {
       </form>
 
       <div className="md:flex hidden">
-        <h4 className={display}>Welcome User</h4>
+        <h4 >Welcome <span>{authResponse.username}</span></h4>
       </div>
 
 

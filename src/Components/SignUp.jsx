@@ -3,17 +3,23 @@ import { useForm } from 'react-hook-form';
 import SignUpModalHeader from './SignUpModalHeader'
 import SignUpModalFooter from './SignUpModalFooter'
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { sendMail } from '../store/authSlice';
 
 export default function SignUp({ setOpen }) {
 
+  const dispatch = useDispatch()
   const navigate=useNavigate();
   const formRef = useRef(null);
+  
 
   const { handleSubmit, register, formState: { errors } } = useForm();
   const onSubmit = (data) => {
-    console.log(data);
+    
+    const {email} = data;
+    dispatch(sendMail({email}))
     setOpen(false);
-    navigate('/verify-email',{
+    navigate('/create-user',{
       state:data});
   }
 

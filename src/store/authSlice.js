@@ -1,12 +1,16 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-export const signUp = createAsyncThunk('auth/signup',async(userData)=>{
-    const response = await fetch('http://localhost:5000/signup',{
+export const signUp = createAsyncThunk('auth/signup',async(userData,thunkAPI)=>{
+    try{
+        const response = await fetch('http://localhost:5000/signup',{
         method:"POST",
         headers:{"Content-Type":'application/json'},
         body:JSON.stringify(userData)
     })
     return response.json()
+    }catch(error){
+        return thunkAPI.rejectWithValue(error.response.data.message);
+    }
 })
 
 export const signIn = createAsyncThunk('auth/signin',async(userData)=>{
@@ -19,7 +23,7 @@ export const signIn = createAsyncThunk('auth/signin',async(userData)=>{
 })
 
 export const sendMail = createAsyncThunk('auth/sendMail',async(userData)=>{
-    const response = await fetch('http://localhost:5000/sendMail',{
+    const response = await fetch('http://localhost:5000/send-email',{
         method:"POST",
         headers:{"Content-Type":'application/json'},
         body:JSON.stringify(userData)
@@ -28,7 +32,7 @@ export const sendMail = createAsyncThunk('auth/sendMail',async(userData)=>{
 })
 
 export const verifyEmail = createAsyncThunk('auth/verifyEmail',async(userData)=>{
-    const response = await fetch('http://localhost:5000/verifyEmail',{
+    const response = await fetch('http://localhost:5000/verify-email',{
         method:"POST",
         headers:{"Content-Type":'application/json'},
         body:JSON.stringify(userData)
@@ -68,7 +72,7 @@ const authSlice = createSlice({
         })
         .addCase(signUp.rejected,(state,action)=>{
             state.isLoading = false;
-            state.error = action.payload || "something went wrong.";
+            state.error = action.error.message || "something went wrong.";
 
         })
         .addCase(signIn.pending,(state)=>{

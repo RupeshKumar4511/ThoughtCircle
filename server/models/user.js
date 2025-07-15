@@ -5,10 +5,9 @@ const userSchema = mongoose.Schema({
         type:String,
         required:true,
         trim:true,
+        unique:true,
         lowercase:true,
-        minLength:[3,'Username must atleast 3 characters long']
-
-        // here first element of array "3" represents minLength is 3 and if it's length is less than 3 then message in the single quote will be send as error. 
+        minLength:[3,'Username must atleast 3 characters long'] 
     },
     email:{
         type:String,
@@ -16,17 +15,14 @@ const userSchema = mongoose.Schema({
         trim:true,
         lowercase:true,
         unique:true,
-        maxLength:[50,'length of email id must not exceeds 50 characters']
+        maxLength:[52,'length of email id must not exceeds 50 characters']
 
-        // here first element of array "3" represents minLength is 3 and if it's length is less than 3 then message in the single quote will be send as error. 
     },
     password:{
         type:String,
         required:true,
         trim:true,
-        minLength:[5,'Password must atleast 5 characters long']
-
-        // here first element of array "3" represents minLength is 3 and if it's length is less than 3 then message in the single quote will be send as error. 
+        minLength:[8,'Password must atleast 8 characters long']
     }
 })
 

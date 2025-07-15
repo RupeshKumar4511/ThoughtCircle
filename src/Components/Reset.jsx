@@ -14,8 +14,6 @@ const Reset = () => {
   const { handleSubmit, register,getValues, formState: { errors } } = useForm();
   const onSubmit = (data) => {
     dispatch(sendMail(data))
- 
-
   }
 
   

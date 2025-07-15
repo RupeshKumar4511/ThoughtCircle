@@ -22,7 +22,7 @@ const router = createBrowserRouter([
   
   {  path: '/', element: <Home />,children:[
     {path:'/',element:<Outer/>},
-    { path: '/verify-email', element: <CreateUser/>},
+    { path: '/create-user', element: <CreateUser/>},
     { path: '/verify-user', element: <VerifyUser/>},
     { path: '/reset', element: <Reset/>},
     { path: '/reset-password', element: <ResetPassword/>},

@@ -13,8 +13,7 @@ export default function CreatePost() {
     const onSubmit = (data) => {
         data.tags = data.tags.split(' ');
         data.id = crypto.randomUUID();
-        data.like = 0 ;
-        data.dislike = 0 ;
+        data.reactions={like:0,dislike:0}
         addPost(data);     
         
     }
