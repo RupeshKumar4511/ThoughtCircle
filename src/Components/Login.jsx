@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useForm } from "react-hook-form";
 import LoginModalHeader from "./LoginModalHeader";
 import LoginModalFooter from "./LoginModalFooter";
@@ -6,42 +6,55 @@ import { signIn } from '../store/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import ErrorPage from './ErrorPage'
+import ErrorModal from './ErrorModal'
 
-export default function Login({isOpen,setOpen}) {
+export default function Login({ setOpen }) {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const formRef = useRef(null);
-  const {authResponse,error} = useSelector(store=>store.auth);
+  const { authResponse, error } = useSelector(store => store.auth);
+
 
   const { handleSubmit, register, formState: { errors } } = useForm();
+
+
   const onSubmit = (data) => {
     dispatch(signIn(data))
   }
 
-  
-  if(authResponse.success ===true){
-      navigate("/user");
-      setOpen(false);
-
+  const handleClick = (setOpen)=>{
+    setOpen(false);
+    window.location.reload()
   }
 
-  if(authResponse.success  === false){
-    (
-      <h1>{authResponse.message}</h1>
+
+ 
+    useEffect(()=>{
+      if (authResponse.success === true) {
+      navigate("/user");
+    }
+    },[authResponse,navigate])
+
+  
+
+  if (authResponse.success === false) {
+    return (
+      <ErrorModal message={authResponse.message} handleClick={handleClick}/>
     )
   }
 
-  if(error){
+  if (error.authError) {
+    console.log(error.authError)
     return (
-      <ErrorPage/>
+      <ErrorPage />
     )
   }
 
   return (
     <>
       <LoginModalHeader />
-      <form method="POST" className="vh-100"  ref={formRef}  onSubmit={handleSubmit(onSubmit)}>
+      <form method="POST" className="vh-100" ref={formRef} onSubmit={handleSubmit(onSubmit)}>
         <div className="my-4 border-y border-gray-300 px-6 py-6 flex flex-col gap-5 bg-white ">
           <div className="flex flex-col gap-2 relative">
             <label htmlFor="username" className="text-sm font-medium text-gray-700">
@@ -77,10 +90,10 @@ export default function Login({isOpen,setOpen}) {
             />
             <span className="text-red-500 md:text-sm text-[12px] absolute top-16 left-1">{errors.password?.message}</span>
 
-            
+
           </div>
         </div>
-        <LoginModalFooter isOpen={isOpen} setOpen={setOpen} />
+        <LoginModalFooter setOpen={setOpen} />
       </form>
     </>
   )

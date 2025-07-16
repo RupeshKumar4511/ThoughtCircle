@@ -5,7 +5,7 @@ const LoginModal = ({isOpen, setOpen}) => {
   
   
   return (
-    <Modal children={<Login isOpen={isOpen} setOpen={setOpen} />} isOpen={isOpen} setOpen={setOpen}/>
+    <Modal children={<Login setOpen={setOpen} />} isOpen={isOpen} setOpen={setOpen}/>
   )
 }
 

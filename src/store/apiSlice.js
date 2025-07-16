@@ -4,22 +4,31 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const api = createApi({
     reducerPath: 'api',
     tagTypes: ['post', 'user-post'],
-    baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000' }),
+    baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5000/user' }),
     endpoints: (builder) => ({
         getPosts: builder.query({
-            query: () => '/posts',
+            query: () => ({
+                url: '/posts',
+                method: 'GET',
+                credentials:"include",
+            }),
             transformResponse: (posts) => posts.reverse(),
             providesTags: ['post']
         }),
         getUserPosts: builder.query({
-            query: () => '/posts',
+            query: () => ({
+                url: '/user-posts',
+                method: 'GET',
+                credentials:"include",
+            }),
             transformResponse: (posts) => posts.reverse(),
             providesTags: ['user-post']
         }),
         createPost: builder.mutation({
             query: (post) => ({
-                url: '/posts',
+                url: '/create-post',
                 method: 'POST',
+                credentials:"include",
                 body: post
             }),
             invalidatesTags: ['post', 'user-post']
@@ -29,6 +38,7 @@ export const api = createApi({
             query: ({ id, ...updatedPost }) => ({
                 url: `/posts${id}`,
                 method: 'PUT',
+                credentials:"include",
                 body: updatedPost
             }),
             invalidatesTags: ['post', 'user-post']
@@ -37,6 +47,7 @@ export const api = createApi({
         deleteUserPost: builder.mutation({
             query: (id) => ({
                 url: `/posts/${id}`,
+                credentials:"include",
                 method: 'DELETE'
             }),
             invalidatesTags: ['post', 'user-post']
@@ -46,6 +57,7 @@ export const api = createApi({
             query: ({ id, ...updatedPost }) => ({
                 url: `/posts/${id}`,
                 method: 'PATCH',
+                credentials:"include",
                 body: updatedPost
             }),
             invalidatesTags: ['post', 'user-post'],

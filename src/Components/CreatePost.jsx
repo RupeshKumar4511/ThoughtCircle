@@ -18,6 +18,10 @@ export default function CreatePost() {
         
     }
 
+    const handleClick = (setOpen)=>{
+        setOpen(false);
+    }
+
 
     // We include {encType="multipart/form-data"} in the form becuase
     // form contains input to upload the file.
@@ -26,7 +30,7 @@ export default function CreatePost() {
        
         <>
         {isLoading && <LoadingSpinner/>}
-        {isSuccess && <SuccessModal/>}
+        {isSuccess && <SuccessModal handleClick={handleClick} message={"Your post is created successfully.."}/>}
         {isError && <ErrorPage/>}
 
             <form

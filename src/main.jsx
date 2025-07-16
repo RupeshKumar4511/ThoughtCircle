@@ -16,11 +16,14 @@ import ResetPassword from './Components/ResetPassword.jsx';
 import UpdatePost from './Components/UpdatePost.jsx';
 import VerifyUser from './Components/VerifyUser.jsx';
 import Reset from './Components/Reset.jsx';
+import ErrorPage from './Components/ErrorPage.jsx';
 
 
 const router = createBrowserRouter([
   
-  {  path: '/', element: <Home />,children:[
+  {  path: '/', element: <Home />,
+    errorElement:<ErrorPage/>,
+    children:[
     {path:'/',element:<Outer/>},
     { path: '/create-user', element: <CreateUser/>},
     { path: '/verify-user', element: <VerifyUser/>},
@@ -29,7 +32,9 @@ const router = createBrowserRouter([
     ]
   },
   {
-    path: '/user', element: <App />, children: [
+    path: '/user', element: <App />,
+    errorElement:<ErrorPage/>,
+     children: [
       { path: '/user/post', element: <PostList />},
       { path: '/user/create-post', element: <CreatePost /> },
       { path: '/user/user-post', element: <UserPostList /> },    

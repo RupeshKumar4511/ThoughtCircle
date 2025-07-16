@@ -17,6 +17,17 @@ export const signIn = createAsyncThunk('auth/signin',async(userData)=>{
     const response = await fetch('http://localhost:5000/signin',{
         method:"POST",
         headers:{"Content-Type":'application/json'},
+        credentials:"include",
+        body:JSON.stringify(userData)
+    })
+    return response.json()
+})
+
+export const signOut = createAsyncThunk('auth/signOut',async(userData)=>{
+    const response = await fetch('http://localhost:5000/sign-out',{
+        method:"POST",
+        headers:{"Content-Type":'application/json'},
+        credentials:"include",
         body:JSON.stringify(userData)
     })
     return response.json()
@@ -49,13 +60,27 @@ export const resetPassword = createAsyncThunk('auth/reset-password',async(userDa
     return response.json()
 })
 
+
+const persistedUser = localStorage.getItem("user");
+const parsedUser = persistedUser ? JSON.parse(persistedUser) : {};
+
 const authSlice = createSlice({
     name:'auth',
     initialState:{
         isLoading:false,
-        response : {},
-        authResponse:{},
-        error:""
+        response : {},// for signup
+        sendEmailResponse : {},
+        verifyEmailResponse:{},
+        resetPasswordResponse:{},
+        authResponse:parsedUser,
+        error:{
+            signUpError : "",
+            authError: "",
+            logoutError:"",
+            sendMailError: "",
+            verifyEmailError:"",
+            resetPasswordError: "",
+        }
         
     },
     reducers:{
@@ -66,13 +91,13 @@ const authSlice = createSlice({
         })
         .addCase(signUp.fulfilled,(state,action)=>{
             state.isLoading = false;
-            state.error = '';
+            state.error.signUpError = '';
             state.response = action.payload
         
         })
         .addCase(signUp.rejected,(state,action)=>{
             state.isLoading = false;
-            state.error = action.error.message || "something went wrong.";
+            state.error.signUpError = action.error.message || "something went wrong.";
 
         })
         .addCase(signIn.pending,(state)=>{
@@ -80,12 +105,57 @@ const authSlice = createSlice({
         })
         .addCase(signIn.fulfilled,(state,action)=>{
             state.isLoading = false;
-            state.error = '';
+            state.error.authError = '';
             state.authResponse = action.payload
+            localStorage.setItem("user",JSON.stringify(action.payload))
+            
+            console.log(action.payload)
         })
         .addCase(signIn.rejected,(state,action)=>{
             state.isLoading = false;
-            state.error = action.payload || "something went wrong.";
+            state.error.authError = action.payload || "something went wrong.";
+
+        })
+        .addCase(signOut.pending,(state)=>{
+            state.isLoading = true;
+        })
+        .addCase(signOut.fulfilled,(state,action)=>{
+            state.isLoading = false;
+            state.error.logoutError = '';
+            state.authResponse = action.payload
+            localStorage.setItem("user",JSON.stringify(action.payload))
+            
+        })
+        .addCase(signOut.rejected,(state,action)=>{
+            state.isLoading = false;
+            state.error.logoutError = action.payload || "something went wrong.";
+
+        })
+        .addCase(sendMail.pending,(state)=>{
+            state.isLoading = true;
+        })
+        .addCase(sendMail.fulfilled,(state,action)=>{
+            state.isLoading = false;
+            state.error.sendMailError = '';
+            state.sendEmailResponse = action.payload
+
+        })
+        .addCase(sendMail.rejected,(state,action)=>{
+            state.isLoading = false;
+            state.error.sendMailError = action.payload || "something went wrong.";
+
+        })
+        .addCase(verifyEmail.pending,(state)=>{
+            state.isLoading = true;
+        })
+        .addCase(verifyEmail.fulfilled,(state,action)=>{
+            state.isLoading = false;
+            state.error.verifyEmailError = '';
+            state.verifyEmailResponse = action.payload
+        })
+        .addCase(verifyEmail.rejected,(state,action)=>{
+            state.isLoading = false;
+            state.error.verifyEmailError = action.payload || "something went wrong.";
 
         })
         .addCase(resetPassword.pending,(state)=>{
@@ -93,12 +163,12 @@ const authSlice = createSlice({
         })
         .addCase(resetPassword.fulfilled,(state,action)=>{
             state.isLoading = false;
-            state.error = '';
-            state.response = action.payload
+            state.error.resetPasswordError = '';
+            state.resetPasswordResponse = action.payload
         })
         .addCase(resetPassword.rejected,(state,action)=>{
             state.isLoading = false;
-            state.error = action.payload || "something went wrong.";
+            state.error.resetPasswordError = action.payload || "something went wrong.";
 
         })
     })

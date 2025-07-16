@@ -49,7 +49,6 @@ const signin = async (req,res)=>{
         res.status(200).json({
             message:"Login Success",
             success:true,
-            jwtToken,
             username:user.username ,
             email:user.email,
         })

@@ -2,10 +2,7 @@ import Header from "../src/Components/Header.jsx";
 import Footer from "../src/Components/Footer.jsx";
 import SideBar from "../src/Components/SideBar.jsx";
 import { Outlet } from 'react-router-dom';
-import PostListProvider from "../src/store/Post-List-store.jsx";
 import { useState } from "react";
-
-
 
 
 function App() {

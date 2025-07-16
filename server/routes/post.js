@@ -14,6 +14,10 @@ cloudinary.config({
 });
 
 
+routes.get('/user',ensureAuthenticated,(req,res)=>{
+    res.sendStatus(200);
+})
+
 
 
 routes.post('/user/create-post', ensureAuthenticated, async(req, res) => {

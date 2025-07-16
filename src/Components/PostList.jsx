@@ -27,7 +27,7 @@ export default function PostList() {
             <div className="flex flex-col md:w-120 w-85 h-full justify-center items-center mx-auto overflow-hidden" 
              >
             { postList.map((post) =>
-                <Post key={post.id} post={post} ></Post>
+                <Post key={post._id} post={post} ></Post>
             )
             }   
             </div>

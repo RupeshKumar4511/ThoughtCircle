@@ -8,6 +8,7 @@ const resetPassword = async(req,res)=>{
 
         findUser.password = await bcrypt.hash(password,10)
         await findUser.save();
+        return res.status(200).send({message:"Password Updated Sucessfully",success:true})
 
     }catch{
         res.status(501).send({message:"Internal Server Error"})

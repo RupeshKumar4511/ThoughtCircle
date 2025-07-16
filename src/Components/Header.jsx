@@ -1,8 +1,9 @@
 import { useSelector } from "react-redux";
 
 function Header({setOpen}) {
-  const {authResponse} = useSelector(store=>store.auth);
-
+  
+  const {authResponse} = useSelector((store)=>store.auth);
+  
   return (
 
     <header className="flex md:justify-between min-w-full
@@ -18,7 +19,7 @@ function Header({setOpen}) {
       </form>
 
       <div className="md:flex hidden">
-        <h4 >Welcome <span>{authResponse.username}</span></h4>
+        <h4 >Welcome <span>{(authResponse).username}</span></h4>
       </div>
 
 
