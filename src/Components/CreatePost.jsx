@@ -6,20 +6,39 @@ import SuccessModal from "./SuccessModal";
 import ErrorPage from "./ErrorPage";
 export default function CreatePost() {
 
-    const [addPost,{isLoading,isSuccess,isError}] = useCreatePostMutation() ;
-    
+    const [addPost, { isLoading, isSuccess, isError }] = useCreatePostMutation();
+
     const { handleSubmit, register, formState: { errors } } = useForm();
     const formRef = useRef(null);
     const onSubmit = (data) => {
-        data.tags = data.tags.split(' ');
-        data.id = crypto.randomUUID();
-        data.reactions={like:0,dislike:0}
-        addPost(data);     
-        
+        const file = data.image[0];
+        const formData = new FormData();
+        formData.append("title", data.title);
+        formData.append("body", data.body);
+        formData.append("tags", data.tags);
+        formData.append("image", file);
+       
+        addPost(formData);
+
     }
 
-    const handleClick = (setOpen)=>{
+    const handleClick = (setOpen) => {
         setOpen(false);
+    }
+
+    if (isLoading) {
+        return (
+            <LoadingSpinner />
+        )
+    }
+    if (isSuccess) {
+        return (
+            <SuccessModal handleClick={handleClick} message={"Your post is created successfully.."} />
+        )
+    }
+
+    if (isError) {
+        <ErrorPage />
     }
 
 
@@ -27,14 +46,9 @@ export default function CreatePost() {
     // form contains input to upload the file.
 
     return (
-       
-        <>
-        {isLoading && <LoadingSpinner/>}
-        {isSuccess && <SuccessModal handleClick={handleClick} message={"Your post is created successfully.."}/>}
-        {isError && <ErrorPage/>}
 
+        <>
             <form
-                method="POST"
                 className="py-8 px-8 flex flex-col bg-white overflow-hidden w-[90%] md:max-w-120 lg:max-w-150 mx-auto border-white rounded-md my-10 shadow-md"
                 ref={formRef}
                 encType="multipart/form-data"
@@ -53,8 +67,9 @@ export default function CreatePost() {
                         name="title"
                         {...register("title", {
                             required: "Title is required",
+                            minLength:{value:2,message:"Title must atleast 2 characters long"},
                             maxLength: {
-                                value: 40, message: "Length of title cannot exceeds 40 characters."
+                                value: 50, message: "Length of title cannot exceeds 50 characters."
                             }
                         })}
                         className="flex-1 shadow-xs border border-black/10 focus:outline-blue-400 pl-2 py-1 rounded-md w-full md:w-auto"
@@ -74,6 +89,8 @@ export default function CreatePost() {
                         {...register("body", {
                             required: "Post Content is required",
                             pattern: { value: /\s/, message: "Invalid content" },
+                            minLength:{value:10,message:"Content must atleast 10 characters long"},
+                            maxLength:{value:1000,message:"Content must not exceeds 1000 characters"}
                         })}
                         className="shadow-xs border border-black/10 focus:outline-blue-400 rounded-md px-2 py-2 w-full"
                     />
@@ -92,6 +109,8 @@ export default function CreatePost() {
                         {...register("tags", {
                             required: "Tags are required",
                             pattern: { value: /\s/, message: "Invalid tags" },
+                            minLength:{value:2,message:"Tags must atleast 2 characters long"},
+                            maxLength:{value:100,message:"Tags must not exceeds 100 characters"}
                         })}
                         className="flex-1 shadow-xs border border-black/10 focus:outline-blue-400 pl-2 py-1 rounded-md w-full md:w-auto"
                     />
@@ -126,48 +145,48 @@ export default function CreatePost() {
 }
 
 
-export async function postDataAction(data) {
+// export async function postDataAction(data) {
 
-    // const form = await data.request.formData();
-    // const formData = new FormData();
-    // // const postData = Object.fromEntries(FormData);
-    // formData.append("title", form.get("title"));
-    // formData.append("body", form.get("body"));
-    // formData.append("tags", form.get("tags"));
-    // formData.append("image", form.get("image"));
+//     // const form = await data.request.formData();
+//     // const formData = new FormData();
+//     // // const postData = Object.fromEntries(FormData);
+//     // formData.append("title", form.get("title"));
+//     // formData.append("body", form.get("body"));
+//     // formData.append("tags", form.get("tags"));
+//     // formData.append("image", form.get("image"));
 
-    // console.log(formData);
-    const form = await data.request.formData();
+//     // console.log(formData);
+//     const form = await data.request.formData();
 
-    // Log the entries for debugging
-    for (const [key, value] of form.entries()) {
-        console.log(`${key}:`, value);
-    }
-
-
-    try {
-
-        const response = await fetch('http://localhost:5000/create-post', {
-            method: 'POST',
-            credentials: 'include',
-            //  headers: { 'Content-Type': 'application/json' },
-            body: form
-        })
-
-        if (response.ok) {
-            window.dispatchEvent(new Event("clearPostForm"));
-            alert("Your Post Submitted Successfully..");
+//     // Log the entries for debugging
+//     for (const [key, value] of form.entries()) {
+//         console.log(`${key}:`, value);
+//     }
 
 
-        }
-        else {
-            return alert("Please Login First")
-        }
+//     try {
+
+//         const response = await fetch('http://localhost:5000/create-post', {
+//             method: 'POST',
+//             credentials: 'include',
+//             //  headers: { 'Content-Type': 'application/json' },
+//             body: form
+//         })
+
+//         if (response.ok) {
+//             window.dispatchEvent(new Event("clearPostForm"));
+//             alert("Your Post Submitted Successfully..");
 
 
-    } catch (error) {
-        return alert("Internal Server Error")
-    }
+//         }
+//         else {
+//             return alert("Please Login First")
+//         }
 
 
-}
+//     } catch (error) {
+//         return alert("Internal Server Error")
+//     }
+
+
+// }

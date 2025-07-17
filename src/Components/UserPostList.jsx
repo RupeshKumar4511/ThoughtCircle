@@ -8,7 +8,7 @@ import LoadingSpinner from "./LoadingSpinner.jsx";
 
 export default function UserPostList() {
     const { data: postList, isLoading, error } = useGetUserPostsQuery();
-
+    
     if (isLoading) {
         return <LoadingSpinner />
     }

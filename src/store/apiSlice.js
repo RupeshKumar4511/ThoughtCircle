@@ -29,14 +29,15 @@ export const api = createApi({
                 url: '/create-post',
                 method: 'POST',
                 credentials:"include",
-                body: post
+                body: post,
+                
             }),
             invalidatesTags: ['post', 'user-post']
 
         }),
         updateUserPost: builder.mutation({
-            query: ({ id, ...updatedPost }) => ({
-                url: `/posts${id}`,
+            query: ({ _id, ...updatedPost }) => ({
+                url: `/user-posts/${_id}`,
                 method: 'PUT',
                 credentials:"include",
                 body: updatedPost
@@ -45,8 +46,8 @@ export const api = createApi({
 
         }),
         deleteUserPost: builder.mutation({
-            query: (id) => ({
-                url: `/posts/${id}`,
+            query: (_id) => ({
+                url: `/user-posts/${_id}`,
                 credentials:"include",
                 method: 'DELETE'
             }),
@@ -61,16 +62,16 @@ export const api = createApi({
                 body: updatedPost
             }),
             invalidatesTags: ['post', 'user-post'],
-            async onQueryStarted({ id, ...upadatedPost }, { dispatch, queryFulfilled }) {
+            async onQueryStarted({ id, ...updatedPost }, { dispatch, queryFulfilled }) {
                 const patchResult = dispatch(
                     api.util.updateQueryData("getPosts", undefined, (posts) => {
-                        const postIndex = posts.findIndex(el => el.id === id)
-                        if(posts[postIndex].message.like == true){
-                            posts[postIndex].like++;
+                        const postIndex = posts.findIndex(el => el._id === id)
+                        if(updatedPost.reactions.like === true){
+                            posts[postIndex].reactions.like+=1;
                         }else{
-                            posts[postIndex].dislike++;
+                            posts[postIndex].reactions.dislike+=1;
                         }
-                        posts[postIndex] = { ...posts[postIndex], ...upadatedPost }
+                        return posts;
                     })
                 );
 

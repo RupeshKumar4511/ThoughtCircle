@@ -28,7 +28,7 @@ const userPostModel = mongoose.Schema({
         required: true,
         trim: true,
         minLength: [2, 'Tag must atleast 2 characters long'],
-        maxLength: [100, 'Maximum length of tags is 20 characters']
+        maxLength: [100, 'Maximum length of tags is 100 characters']
     },
     image: {
         type: String,

@@ -1,7 +1,6 @@
 import { AiOutlineLike,AiOutlineDislike } from "react-icons/ai";
 import { useDeleteUserPostMutation } from "../store/apiSlice";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 const UserPost = ({ post }) => {
     const navigate = useNavigate()
     
@@ -9,7 +8,7 @@ const UserPost = ({ post }) => {
     const [deletePost] = useDeleteUserPostMutation();
     return (
         <div className='border-white rounded px-2 py-2 my-3 bg-white shadow-md w-full h-auto' >
-                    <img  className="w-full h-[40%]" alt='post-image' src="https://www.w3schools.com/css/img_5terre_wide.jpg" />
+                    <img  className="w-full h-[40%]" alt='post-image' src={post.image}/>
                     <div className="py-2 h-[60%]">
                         <h5 className=""><b>Title :</b> {post.title}</h5>
                         <p className=""><b>Content : </b>{post.body}</p>
@@ -28,7 +27,7 @@ const UserPost = ({ post }) => {
                             })
                             }}>Update</button>
                             <button className="bg-red-500 border-red-500 px-4 py-1 rounded-md cursor-pointer hover:bg-red-600 text-white"
-                            onClick={()=>deletePost(post.id)}>Delete</button>
+                            onClick={()=>deletePost(post._id)}>Delete</button>
                         </div>
                     </div>
                 </div>
