@@ -23,12 +23,18 @@ routes.get('/user', ensureAuthenticated, (req, res) => {
 
 routes.post('/user/create-post', ensureAuthenticated, async (req, res) => {
 
-    
+
     const { title, body, tags } = req.body;
     const file = req.files?.image;
-    console.log(req.files)
+
     if (!title || !body || !tags || !file) {
         return res.status(409).json({ message: "Please fill the required details", success: false })
+    }
+
+    const allowedMimeTypes = ["image/jpeg", "image/png", "image/jpg", "image/svg+xml"];
+
+    if (!allowedMimeTypes.includes(file.mimetype)) {
+        return res.status(400).send({ message: "Only image files are allowed!" });
     }
 
     try {
@@ -47,7 +53,7 @@ routes.post('/user/create-post', ensureAuthenticated, async (req, res) => {
                 body,
                 tags: tags.split(' '),
                 image: result.url,
-                reactions:{like:0,dislike:0}
+                reactions: { like: 0, dislike: 0 }
 
             })
             // remove temp/file
@@ -94,52 +100,63 @@ routes.get('/user/user-posts', ensureAuthenticated, async (req, res) => {
 routes.put('/user/user-posts/:_id', ensureAuthenticated, async (req, res) => {
     try {
         const { _id } = req.params;
-
-        if (!_id || !req.body ) {
+        if (!_id || !req.body) {
             return res.status(400).send({ message: "Bad Request", success: false })
         }
-        
+
         const post = await postModel.findById(_id);
-    
+
         if (!post) {
-            return res.status(401).send({ message: "No post found", success: false })
+            return res.status(400).send({ message: "No post found", success: false })
         }
 
         if (post.username !== req.user.username) {
-            return res.status(401).send({ message: "This is not your post", success: false })
+            return res.status(400).send({ message: "This is not your post", success: false })
         }
 
 
-        const {title,body,tags,image} = req.body;
-        let finalImage = image;
+        const { title, body, tags } = req.body;
+        let finalImage = post.image;
         const file = req.files?.image;
-        if(file){
+        if (file) {
+
+            const allowedMimeTypes = ["image/jpeg", "image/png", "image/jpg", "image/svg+xml"];
+
+            if (!allowedMimeTypes.includes(file.mimetype)) {
+                return res.status(400).send({ message: "Only image files are allowed!" });
+            }
+
+
             const uploadedResult = await cloudinary.uploader.upload(file.tempFilePath)
             finalImage = uploadedResult.url;
+
 
             // remove temp/file
             removeTempFile(file.tempFilePath);
 
+
             // remove old image from cloudinary
-            const publicId = image.split('/').slice(-1).join('/').split('.')[0];
+            const publicId = post.image.split('/').slice(-1).join('/').split('.')[0];
             await cloudinary.uploader.destroy(publicId);
-            
+
+
         }
         const updatedPost = {
+            username: req.username,
             title,
             body,
-            tags:tags.split(" "),
-            image:finalImage,
-            reactions:post.reactions
+            tags: tags.split(" "),
+            image: finalImage,
+            reactions: post.reactions
         }
 
 
-        await postModel.findByIdAndUpdate(_id,{$set:updatedPost},{new:true})
+        await postModel.findByIdAndUpdate(_id, { $set: updatedPost }, { new: true })
 
-        return res.status(200).send({ message: "Post updated Successfully", success: true })
+        return res.status(200).send({ message: "Post updated successfully", success: true })
 
     } catch (error) {
-        return res.status(501).json({ message: "Internal Server Error", success: false })
+        return res.status(501).json({ message: "Internal Server Error", success: false, error: error })
     }
 
 })
@@ -154,7 +171,7 @@ routes.patch('/user/posts/:id', ensureAuthenticated, async (req, res) => {
         const post = await postModel.findById(id);
 
         if (!post) {
-            return res.status(401).send({ message: "No post found", success: false })
+            return res.status(400).send({ message: "No post found", success: false })
         }
 
 
@@ -178,10 +195,14 @@ routes.delete('/user/user-posts/:id', ensureAuthenticated, async (req, res) => {
             return res.status(401).send({ message: "No post found", success: false })
         }
 
+        if ((req.user.username !== "rupesh") && (post.username !== req.user.username)) {
+            return res.status(400).send({ message: "This is not your post", success: false })
+        }
+
         // delete image from cloudinary
-        const publicId = post.image.split('/').slice(-1).join('/').split('.')[0];    
+        const publicId = post.image.split('/').slice(-1).join('/').split('.')[0];
         await cloudinary.uploader.destroy(publicId);
-        
+
         // delete post from mongodb
         await postModel.deleteOne({ _id: id })
 

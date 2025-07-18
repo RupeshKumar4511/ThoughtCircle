@@ -36,11 +36,11 @@ export const api = createApi({
 
         }),
         updateUserPost: builder.mutation({
-            query: ({ _id, ...updatedPost }) => ({
-                url: `/user-posts/${_id}`,
+            query: (data) => ({
+                url: `/user-posts/${data[0]}`,
                 method: 'PUT',
                 credentials:"include",
-                body: updatedPost
+                body: data[1]
             }),
             invalidatesTags: ['post', 'user-post']
 

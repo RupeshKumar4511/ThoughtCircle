@@ -36,7 +36,7 @@ export default function SideBar({open}) {
     return (
     
         <div className={`md:w-56  bg-slate-200 flex-col
-         md:px-14 px-5 py-4 md:flex absolute top-0 left-0 md:relative z-10
+         md:px-14 px-5 py-4 md:flex fixed top-10 left-0 z-10 md:top-16
         bottom-0 ${open?'flex':'hidden'}`}>
             <NavLink to="/user/post" className="py-1 lg:text-xl">Home</NavLink>
             <NavLink to="/user/create-post" className="py-1 lg:text-xl">Post</NavLink>
