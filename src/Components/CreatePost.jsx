@@ -47,9 +47,9 @@ export default function CreatePost() {
 
     return (
 
-        <>
+        <div className="w-full flex">
             <form
-                className="py-8 px-8 flex flex-col bg-white overflow-hidden w-[90%] md:max-w-120 lg:max-w-150 mx-auto border-white rounded-md my-10 shadow-md"
+                className="py-8 px-8 flex flex-col bg-white overflow-hidden w-[90%] md:max-w-130 lg:max-w-150  mx-auto border-white rounded-md my-10 shadow-md"
                 ref={formRef}
                 encType="multipart/form-data"
                 onSubmit={handleSubmit(onSubmit)}
@@ -140,7 +140,7 @@ export default function CreatePost() {
                     Post
                 </button>
             </form>
-        </>
+        </div>
     );
 }
 

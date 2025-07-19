@@ -35,12 +35,12 @@ export default function SideBar({open}) {
 
     return (
     
-        <div className={`md:w-56  bg-slate-200 flex-col
-         md:px-14 px-5 py-4 md:flex fixed top-10 left-0 z-10 md:top-16
+        <div className={`max-w-max bg-slate-200 flex-col 
+        md:px-6 lg:px-14 px-5 py-4 md:flex fixed top-10 left-0 z-10 md:top-16
         bottom-0 ${open?'flex':'hidden'}`}>
             <NavLink to="/user/post" className="py-1 lg:text-xl">Home</NavLink>
             <NavLink to="/user/create-post" className="py-1 lg:text-xl">Post</NavLink>
-            <Link to="/user/" className="py-1 flex lg:text-xl" onClick={()=>setMenu((prevState)=>!prevState)}>{(authResponse).username}<IoIosArrowDropdownCircle className='relative top-2' size={15} /></Link>
+            <Link to="/user/post" className="py-1 flex lg:text-xl" onClick={()=>setMenu((prevState)=>!prevState)}>{(authResponse).username}<IoIosArrowDropdownCircle className='relative top-2' size={15} /></Link>
             <ul className={`px-2 ${menu?'':'hidden'} md:text-md text-sm`}>
                 <li><NavLink to="/user/user-profile">Profile</NavLink></li>
                 <li><NavLink to="/user/user-post">Your Posts</NavLink></li>

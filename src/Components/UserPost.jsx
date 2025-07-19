@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 const UserPost = ({ post }) => {
     const navigate = useNavigate()
     
-
     const [deletePost] = useDeleteUserPostMutation();
     return (
         <div className='border-white rounded px-2 py-2 my-3 bg-white shadow-md w-full h-auto' >
@@ -16,8 +15,8 @@ const UserPost = ({ post }) => {
                         {post.tags.map((tag,index) => <span className="bg-blue-500 text-white text-[10px] rounded-2xl px-2 py-1 mx-1 " key={index}>{tag}</span>)
                         }
                         <div className="flex gap-4 px-1 mt-3 ">
-                            <button className="flex justify-center items-center px-2 gap-1"><AiOutlineLike /> <span className="text-pink-500">{post.reactions.like}</span></button>
-                            <button className="flex justify-center items-center px-2 gap-1"><AiOutlineDislike className="relative top-0.5"/><span className="text-yellow-500">{post.reactions.dislike}</span></button>
+                            <button className="flex justify-center items-center px-2 gap-1 text-pink-800"> Likes:  <span className="text-pink-500">{post.reactions.like}</span></button>
+                            <button className="flex justify-center items-center px-2 gap-1 text-red-900">Dislikes: <span className="text-yellow-500">{post.reactions.dislike}</span></button>
                         </div>
 
                         <div className="flex gap-4 px-1 mt-4">

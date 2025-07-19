@@ -9,7 +9,7 @@ function App() {
  const [open,setOpen] = useState(false);
 
   return (
-    < >
+    <>
         <div className="w-full flex items-start flex-col bg-gray-100 ">
         <Header setOpen={setOpen}/>
         <div className="w-full min-h-screen flex gap-4 relative">
