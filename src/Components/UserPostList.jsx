@@ -19,28 +19,14 @@ export default function UserPostList() {
 
 
     return (
-        <>
-
-
-            
+        <>            
              {!isLoading && postList.length === 0 && <Message />}
             <div className="flex flex-col md:w-120 w-85 h-full justify-center items-center mx-auto overflow-hidden">
                 <h1 className="flex justify-center mx-auto w-full my-4 md:text-2xl text-xl text-blue-500 font-bold">Your Posts </h1>
                 {postList.map((post) =>
-                    <UserPost key={post._id} post={post} />
-                )
+                    <UserPost key={post._id} post={post} />)
                 }
             </div>
-
-
         </>
-
     )
-}
-
-export const loadUserData = async () => {
-
-    const res = await fetch('http://localhost:5000/yourposts', { credentials: 'include' });
-    const data = await res.json();
-    return Array.from(data);
 }

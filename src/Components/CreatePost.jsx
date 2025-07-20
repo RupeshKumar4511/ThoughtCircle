@@ -4,11 +4,13 @@ import { useCreatePostMutation } from "../store/apiSlice";
 import LoadingSpinner from './LoadingSpinner'
 import SuccessModal from "./SuccessModal";
 import ErrorPage from "./ErrorPage";
+import { useNavigate } from "react-router-dom";
 export default function CreatePost() {
 
     const [addPost, { isLoading, isSuccess, isError }] = useCreatePostMutation();
+    const navigate = useNavigate()
 
-    const { handleSubmit, register, formState: { errors } } = useForm();
+    const { handleSubmit, register,reset, formState: { errors } } = useForm();
     const formRef = useRef(null);
     const onSubmit = (data) => {
         const file = data.image[0];
@@ -19,11 +21,19 @@ export default function CreatePost() {
         formData.append("image", file);
        
         addPost(formData);
+        reset({
+            title:'',
+            body:'',
+            tags: '',
+            image:''
+        })
 
     }
 
     const handleClick = (setOpen) => {
         setOpen(false);
+        navigate('/user/post')
+
     }
 
     if (isLoading) {
@@ -139,54 +149,9 @@ export default function CreatePost() {
                 >
                     Post
                 </button>
+                
             </form>
         </div>
     );
 }
 
-
-// export async function postDataAction(data) {
-
-//     // const form = await data.request.formData();
-//     // const formData = new FormData();
-//     // // const postData = Object.fromEntries(FormData);
-//     // formData.append("title", form.get("title"));
-//     // formData.append("body", form.get("body"));
-//     // formData.append("tags", form.get("tags"));
-//     // formData.append("image", form.get("image"));
-
-//     // console.log(formData);
-//     const form = await data.request.formData();
-
-//     // Log the entries for debugging
-//     for (const [key, value] of form.entries()) {
-//         console.log(`${key}:`, value);
-//     }
-
-
-//     try {
-
-//         const response = await fetch('http://localhost:5000/create-post', {
-//             method: 'POST',
-//             credentials: 'include',
-//             //  headers: { 'Content-Type': 'application/json' },
-//             body: form
-//         })
-
-//         if (response.ok) {
-//             window.dispatchEvent(new Event("clearPostForm"));
-//             alert("Your Post Submitted Successfully..");
-
-
-//         }
-//         else {
-//             return alert("Please Login First")
-//         }
-
-
-//     } catch (error) {
-//         return alert("Internal Server Error")
-//     }
-
-
-// }

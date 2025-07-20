@@ -16,7 +16,7 @@ const ResetPassword = () => {
   const onSubmit = (data) => {
     dispatch(resetPassword({ ...state, ...data }))
   }
-  console.log(resetPasswordResponse)
+  
 
 
   useEffect(() => {
@@ -44,13 +44,15 @@ const ResetPassword = () => {
     <form className="vh-100 w-80 mx-auto border my-5 px-5 py-5 border-black/40 rounded-md shadow-md" ref={formRef} method="POST" onSubmit={handleSubmit(onSubmit)}>
       <p className="text-xl font-bold text-blue-800">Reset Password</p>
       <div className="my-4 border-y border-gray-300 px-6 py-6 flex flex-col gap-5 bg-white ">
+        <p className={`text-red-500 ${resetPasswordResponse.success?'hidden':''}`}>{!resetPasswordResponse.success?resetPasswordResponse.message:''}</p>
+          <p className={`text-red-500 ${error.resetPasswordError?'':'hidden'}`}>{error.resetPasswordError?error.resetPasswordError:''}</p>
 
         <div className="flex flex-col gap-2 relative mb-3">
           <label htmlFor="password" className="text-sm font-medium text-gray-700 ">
             Password
           </label>
           <input
-            id="password"
+            id="reset-password"
             placeholder="Set your password"
             className="rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
             type="password"

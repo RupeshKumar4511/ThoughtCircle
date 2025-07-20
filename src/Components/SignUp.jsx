@@ -80,7 +80,7 @@ export default function SignUp({ setOpen }) {
             </label>
             <input
               id="password"
-              placeholder="Enter your password"
+              placeholder="Enter password"
               className="rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
               type="password"
               {
@@ -101,10 +101,3 @@ export default function SignUp({ setOpen }) {
   )
 }
 
-export async function RegisterAction() {
-
-  window.dispatchEvent(new Event("clearRegisterForm"));
-  return redirect('/signup');
-  // we will redirect it to create username and password
-
-}

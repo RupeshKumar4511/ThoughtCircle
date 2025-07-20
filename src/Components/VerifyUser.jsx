@@ -12,7 +12,7 @@ export default function VerifyUser() {
   const { register, handleSubmit, getValues, formState: { errors } } = useForm()
   const { otp } = getValues();
   const onSubmit = (data) => {
-    dispatch(verifyEmail({...data,...state}))
+    dispatch(verifyEmail({ ...data, ...state }))
   }
 
 
@@ -23,19 +23,7 @@ export default function VerifyUser() {
       });
     }
 
-  }, [verifyEmailResponse,navigate])
-
-  if (verifyEmailResponse.success === false) {
-    return (
-      <h1>{response.message}</h1>
-    )
-  }
-
-  if (error.verifyEmailError) {
-    return (
-      <ErrorPage />
-    )
-  }
+  }, [verifyEmailResponse, navigate])
 
 
   return (
@@ -46,13 +34,15 @@ export default function VerifyUser() {
 
       onSubmit={handleSubmit(onSubmit)}
     >
+      <p className={`text-red-500 ${verifyEmailResponse.success ? 'hidden' : ''}`}>{!verifyEmailResponse.success ? verifyEmailResponse.message : ''}</p>
+      <p className={`text-red-500 ${error.verifyEmailError ? '' : 'hidden'}`}>{error.verifyEmailError ? error.verifyEmailError : ''}</p>
       <div className="mb-4 flex flex-col justify-between relative">
         <label htmlFor="title" className="text-sm md:text-lg mb-1 md:mb-0 md:mr-2">
           Enter the OTP sent to your email :
         </label>
         <input
           type="text"
-          id="otp"
+          id="verification-otp"
           placeholder="Enter the OTP"
           name="otp"
           {...register("otp", {

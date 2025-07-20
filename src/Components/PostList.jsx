@@ -4,12 +4,9 @@ import Message from "./Message";
 import { useGetPostsQuery } from "../store/apiSlice";
 import ErrorPage from "./ErrorPage";
 
-
 export default function PostList() {
     
-    
     const {data:postList , isLoading,error}= useGetPostsQuery();
-    
     
     if(isLoading){
         return <LoadingSpinner/>
@@ -18,32 +15,16 @@ export default function PostList() {
         return <ErrorPage/>
     }
 
-
     return (
         <>
-            
-
             {!isLoading && postList.length === 0 && <Message />}
             <div className="flex flex-col md:w-120 w-85 h-full justify-center items-center mx-auto overflow-hidden" 
              >
             { postList.map((post) =>
-                <Post key={post._id} post={post} ></Post>
-            )
+                <Post key={post._id} post={post} ></Post>)
             }   
-            </div>
-            
+            </div> 
         </>
-
     )
-}
-
-
-export const loadData = () =>{
-    return fetch('http://localhost:5000/posts',{credentials:'include'})
-    .then(res => res.json())
-    .then(data => {
-        return Array.from(data);    
-    }
-    );
 }
 

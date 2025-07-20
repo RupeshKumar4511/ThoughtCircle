@@ -46,6 +46,13 @@ const UpdatePost = () => {
         } else {
             updatePost([_id,data]);
         }
+
+        reset({
+            title:'',
+            body:'',
+            tags: '',
+            image:''
+        })
     }
 
     if (isLoading) {

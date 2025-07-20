@@ -82,34 +82,31 @@ export default function CreateUser() {
 }
 
 
-export async function createUserAction(data) {
+// export async function createUserAction(data) {
 
 
-    const FormData = await data.request.formData();
-    const postcreateUserData = Object.fromEntries(FormData);
+//     const FormData = await data.request.formData();
+//     const postcreateUserData = Object.fromEntries(FormData);
 
 
-    try {
+//     try {
 
-        const response = await fetch('http://localhost:5000/signup', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(postcreateUserData)
-        })
+//         const response = await fetch('http://localhost:5000/signup', {
+//             method: 'POST',
+//             headers: { 'Content-Type': 'application/json' },
+//             body: JSON.stringify(postcreateUserData)
+//         })
 
-        if (response.ok) {
-            alert("SignUp Successfully..");
-            window.dispatchEvent(new Event("clearSignupForm"));
-            return redirect('/signin')
+//         if (response.ok) {
+//             alert("SignUp Successfully..");
+//             window.dispatchEvent(new Event("clearSignupForm"));
+//             return redirect('/signin')
 
-        }
-        // const result = await response.json()
-        // console.log(result);
+//         }
+//         // const result = await response.json()
+//         // console.log(result);
 
-    } catch (error) {
-        return alert("Enter the valid username and password", error)
-    }
-
-
-
-}
+//     } catch (error) {
+//         return alert("Enter the valid username and password", error)
+//     }
+// }

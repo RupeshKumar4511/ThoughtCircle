@@ -5,15 +5,13 @@ import LoginModalFooter from "./LoginModalFooter";
 import { signIn } from '../store/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import ErrorPage from './ErrorPage'
-import ErrorModal from './ErrorModal'
 
 export default function Login({ setOpen }) {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const formRef = useRef(null);
-  const { authResponse, error } = useSelector(store => store.auth);
+  const { authResponse,tempAuthResponse, error } = useSelector(store => store.auth);
 
 
   const { handleSubmit, register, formState: { errors } } = useForm();
@@ -23,46 +21,30 @@ export default function Login({ setOpen }) {
     dispatch(signIn(data))
   }
 
-  const handleClick = (setOpen)=>{
-    setOpen(false);
-    window.location.reload()
-  }
-
-
  
-    useEffect(()=>{
+  useEffect(()=>{
       if (authResponse.success === true) {
       navigate("/user");
     }
     },[authResponse,navigate])
 
-  
 
-  if (authResponse.success === false) {
-    return (
-      <ErrorModal message={authResponse.message} handleClick={handleClick}/>
-    )
-  }
-
-  if (error.authError) {
-    console.log(error.authError)
-    return (
-      <ErrorPage />
-    )
-  }
 
   return (
     <>
       <LoginModalHeader />
       <form method="POST" className="vh-100" ref={formRef} onSubmit={handleSubmit(onSubmit)}>
         <div className="my-4 border-y border-gray-300 px-6 py-6 flex flex-col gap-5 bg-white ">
+          <p className={`text-red-500 ${tempAuthResponse.success?'hidden':''}`}>{!tempAuthResponse.success?tempAuthResponse.message:''}</p>
+          <p className={`text-red-500 ${error.authError?'':'hidden'}`}>{error.authError?error.authError:''}</p>
           <div className="flex flex-col gap-2 relative">
             <label htmlFor="username" className="text-sm font-medium text-gray-700">
               Username
             </label>
             <input
-              id="username"
+              id="login-username"
               placeholder="Enter your username"
+              autoComplete='true'
               className="rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
               type="text" {...register('username', {
                 required: "username is required",
@@ -77,8 +59,9 @@ export default function Login({ setOpen }) {
               Password
             </label>
             <input
-              id="password"
+              id="login-password"
               placeholder="Enter your password"
+              autoComplete='true'
               className="rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
               type="password" {
               ...register('password', {
@@ -99,37 +82,3 @@ export default function Login({ setOpen }) {
   )
 }
 
-
-// export async function LoginAction(data) {
-
-//   const FormData = await data.request.formData();
-//   // console.log(FormData);
-//   const loginData = Object.fromEntries(FormData);
-
-
-//   try {
-
-//     const response = await fetch('http://localhost:5000/signin', {
-//       method: 'POST',
-//       credentials: 'include',
-//       headers: { 'Content-Type': 'application/json' },
-//       body: JSON.stringify(loginData)
-//     })
-
-//     if (response.ok) {
-//       window.dispatchEvent(new Event("clearLoginForm"));
-//       window.dispatchEvent(new Event("handlechange"));
-
-//       alert("SignIn Successfully..");
-//       return redirect('/')
-
-//     } else {
-//       return alert("login Failed")
-//     }
-
-
-//   } catch (error) {
-//     return alert("Enter the valid username and password", error)
-//   }
-
-// }

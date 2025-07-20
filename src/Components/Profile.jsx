@@ -1,8 +1,15 @@
-import { useSelector } from "react-redux"
+import { useSelector } from "react-redux";
+import ErrorPage from './ErrorPage';
 
 const Profile = () => {
 
   const {authResponse}= useSelector((store)=>store.auth)
+
+  if(!authResponse.success || authResponse.logout){
+    return (
+      <ErrorPage/>
+    )
+  }
   
   return (
     <div className="flex justify-center w-full my-5 ">

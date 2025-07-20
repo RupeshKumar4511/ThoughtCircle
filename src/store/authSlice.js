@@ -73,6 +73,7 @@ const authSlice = createSlice({
         verifyEmailResponse:{},
         resetPasswordResponse:{},
         authResponse:parsedUser,
+        tempAuthResponse:{},
         error:{
             signUpError : "",
             authError: "",
@@ -108,8 +109,9 @@ const authSlice = createSlice({
             state.error.authError = '';
             state.authResponse = action.payload
             localStorage.setItem("user",JSON.stringify(action.payload))
+            state.tempAuthResponse = action.payload
             
-            console.log(action.payload)
+
         })
         .addCase(signIn.rejected,(state,action)=>{
             state.isLoading = false;
