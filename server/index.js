@@ -10,7 +10,9 @@ const fileupload = require('express-fileupload');
 require('dotenv').config();
 const port = process.env.PORT;
 
-app.use(cors({ credentials: true}));
+app.use(cors({ 
+  origin: 'https://thoughtcircle-frontend.onrender.com',
+  credentials: true}));
 
 app.use(fileupload({
   useTempFiles:true,
