@@ -3,10 +3,19 @@ import LoadingSpinner from "./LoadingSpinner"
 import Message from "./Message";
 import { useGetPostsQuery } from "../store/apiSlice";
 import ErrorPage from "./ErrorPage";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function PostList() {
     
+    const {location}= useLocation();
     const {data:postList , isLoading,error}= useGetPostsQuery();
+
+    useEffect(()=>{
+        if(location.length !== 0){
+            postList = location
+        }
+    },[location])
     
     if(isLoading){
         return <LoadingSpinner/>
