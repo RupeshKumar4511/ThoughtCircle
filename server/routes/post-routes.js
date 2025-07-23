@@ -86,17 +86,6 @@ routes.get('/user/posts', ensureAuthenticated, async (req, res) => {
 
 })
 
-routes.get('/user/posts/:name', ensureAuthenticated, async (req, res) => {
-    try {
-        const {name}= req.params;
-        const posts = await postModel.find({ username: name }).toArray();
-        return res.json(posts);
-
-    } catch (error) {
-        return res.status(501).json({ message: "Internal Server Error", success: false })
-    }
-
-})
 
 routes.get('/user/user-posts', ensureAuthenticated, async (req, res) => {
     try {

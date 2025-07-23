@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { useGetSearchUserPostsQuery } from "../store/apiSlice";
 import { useNavigate } from "react-router-dom";
 
 function Header({setOpen}) {
@@ -16,9 +15,8 @@ function Header({setOpen}) {
 
   const handleSearch =(event,value)=>{
     if(event.key === "Enter"){
-      const {data} = useGetSearchUserPostsQuery(value)
       navigate('/user/post',{
-        state:data
+        state:value
       });
     }
   }

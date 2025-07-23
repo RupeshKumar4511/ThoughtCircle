@@ -15,15 +15,6 @@ export const api = createApi({
             transformResponse: (posts) => posts.reverse(),
             providesTags: ['post']
         }),
-        getSearchUserPosts: builder.query({
-            query: (username) => ({
-                url: `/posts/${username}`,
-                method: 'GET',
-                credentials:"include",
-            }),
-            transformResponse: (posts) => posts.reverse(),
-            providesTags: ['post']
-        }),
         getUserPosts: builder.query({
             query: () => ({
                 url: '/user-posts',
@@ -96,4 +87,4 @@ export const api = createApi({
 })
 
 
-export const { useGetPostsQuery, useGetUserPostsQuery, useCreatePostMutation, useDeleteUserPostMutation, useUpdateUserPostMutation, usePostReactionMutation,useGetSearchUserPostsQuery} = api;
+export const { useGetPostsQuery, useGetUserPostsQuery, useCreatePostMutation, useDeleteUserPostMutation, useUpdateUserPostMutation, usePostReactionMutation} = api;

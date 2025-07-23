@@ -4,18 +4,11 @@ import Message from "./Message";
 import { useGetPostsQuery } from "../store/apiSlice";
 import ErrorPage from "./ErrorPage";
 import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
 
 export default function PostList() {
     
-    const {location}= useLocation();
+    const {state}= useLocation();
     const {data:postList , isLoading,error}= useGetPostsQuery();
-
-    useEffect(()=>{
-        if(location.length !== 0){
-            postList = location
-        }
-    },[location])
     
     if(isLoading){
         return <LoadingSpinner/>
@@ -29,7 +22,7 @@ export default function PostList() {
             {!isLoading && postList.length === 0 && <Message />}
             <div className="flex flex-col md:w-120 w-85 h-full justify-center items-center mx-auto overflow-hidden" 
              >
-            { postList.map((post) =>
+            { postList.filter(post=>post.username.includes(state)).map((post) =>
                 <Post key={post._id} post={post} ></Post>)
             }   
             </div> 
