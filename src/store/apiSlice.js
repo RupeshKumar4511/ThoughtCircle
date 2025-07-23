@@ -4,7 +4,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const api = createApi({
     reducerPath: 'api',
     tagTypes: ['post', 'user-post'],
-    baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5000/user' }),
+    baseQuery: fetchBaseQuery({ baseUrl: 'https://thoughtcircle.onrender.com/user' }),
     endpoints: (builder) => ({
         getPosts: builder.query({
             query: () => ({
