@@ -59,7 +59,8 @@ export default function VerifyUser() {
 
       <button
         type="submit"
-        className="shadow-md bg-blue-600 px-4 py-2 rounded-md text-white mt-4 hover:bg-blue-700 transition-colors"
+        className="shadow-md bg-blue-600 px-4 py-2 rounded-md text-white mt-4 hover:bg-blue-700 transition-colors
+        cursor-pointer"
       >
         Verify Email
       </button>
