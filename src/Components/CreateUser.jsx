@@ -23,7 +23,7 @@ export default function CreateUser() {
     }
 
     if (response.success === true) {
-            return (<SuccessModal handleClick={handleClick} message={"SignUp successfully. Login to continue."} />
+            return (<SuccessModal handleClick={handleClick} message={"SignUp successfully, Please login to continue."} />
             )
 
         }

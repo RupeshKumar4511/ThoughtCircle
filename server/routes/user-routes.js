@@ -21,7 +21,7 @@ routes.post('/send-email', sendOtp,(req,res)=>{
 routes.post('/verify-email',verifyOtp,(req,res)=>{
     return res.status(200).json({message:"Email verified Successfully..",success:true})
 });
-routes.post('/reset-password',checkSchema(resetSchema),authValidation,verifyOtp, resetPassword);
+routes.post('/reset-password',checkSchema(resetSchema),authValidation, verifyOtp, resetPassword);
 
 routes.post('/sign-out',ensureAuthenticated,(req,res)=>{
   const {username}= req.body;

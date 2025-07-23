@@ -23,7 +23,10 @@ const sendOtp = async (req, res, next) => {
         to:email,
         subject: "Your OTP Code",
         text: `Your OTP code is ${otp}`,
-        html: `<h2>Your OTP code is: <b>${otp}</b></h2>`
+        html: `<div>
+        <h1>Welcome to ThoughtCircle </h1>
+        <h2>Your OTP code is: <b>${otp}</b></h2>
+        </div>`
     };
 
     try {
