@@ -30,7 +30,7 @@ export default function CreateUser() {
 
     if (response.success === false) {
            return (
-                <h1>{response.message}</h1>
+                <h1 className='text-center'>{response.message}</h1>
             )
         }
 

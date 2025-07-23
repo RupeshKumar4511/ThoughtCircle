@@ -78,6 +78,9 @@ routes.get('/user/posts', ensureAuthenticated, async (req, res) => {
 
     try {
         const posts = await postModel.find();
+        if(posts.length === 0 ){
+            return res.status(200).send({message:"No post found"})
+        }
         return res.json(posts);
 
     } catch (error) {
@@ -90,6 +93,9 @@ routes.get('/user/user-posts', ensureAuthenticated, async (req, res) => {
     try {
 
         const posts = await postModel.find({ username: req.user.username });
+        if(posts.length === 0 ){
+            return res.status(200).send({message:"No post found"})
+        }
         return res.json(posts);
 
     } catch (error) {
