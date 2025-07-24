@@ -8,9 +8,6 @@ import { useLocation } from "react-router-dom";
 export default function PostList() {
     
     const {state}= useLocation();
-    if(!state){
-        state = "";
-    }
     const {data:postList , isLoading,error}= useGetPostsQuery();
     
     if(isLoading){
@@ -25,7 +22,8 @@ export default function PostList() {
             {!isLoading && postList.length === 0 && <Message />}
             <div className="flex flex-col md:w-120 w-85 h-full justify-center items-center mx-auto overflow-hidden" 
              >
-            { postList.filter(post=>post.username.includes(state)).map((post) =>
+            { state ? (postList.filter(post=>post.username.includes(state)).map((post) =>
+                <Post key={post._id} post={post} ></Post>)):postList.map((post) =>
                 <Post key={post._id} post={post} ></Post>)
             }   
             </div> 
