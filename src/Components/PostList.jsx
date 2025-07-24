@@ -8,6 +8,9 @@ import { useLocation } from "react-router-dom";
 export default function PostList() {
     
     const {state}= useLocation();
+    if(!state){
+        state = "";
+    }
     const {data:postList , isLoading,error}= useGetPostsQuery();
     
     if(isLoading){
