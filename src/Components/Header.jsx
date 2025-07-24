@@ -34,7 +34,7 @@ function Header({setOpen}) {
       </div>
 
     <div className="hidden lg:block">
-        <input type="search" className="border focus:outline-blue-900 focus:border-blue-900 rounded px-4 py-1" placeholder="Search..." 
+        <input type="search" className="border focus:outline-blue-900 focus:border-blue-900 rounded px-6 py-1" placeholder="Search user's post" 
         onChange={(event)=>handleChange(event)} 
         onKeyDown={(event)=>handleSearch(event,value)}/>
       </div>
