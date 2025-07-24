@@ -77,7 +77,7 @@ routes.get('/user/posts', ensureAuthenticated, async (req, res) => {
 
 
     try {
-        const posts = await postModel.find().toArray();
+        const posts = await postModel.find()
         return res.json(posts);
 
     } catch (error) {
@@ -90,7 +90,7 @@ routes.get('/user/posts', ensureAuthenticated, async (req, res) => {
 routes.get('/user/user-posts', ensureAuthenticated, async (req, res) => {
     try {
 
-        const posts = await postModel.find({ username: req.user.username }).toArray();
+        const posts = await postModel.find({ username: req.user.username });
         return res.json(posts);
 
     } catch (error) {
