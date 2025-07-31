@@ -3,7 +3,6 @@ import { IoIosArrowDropdownCircle } from "react-icons/io";
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { signOut } from '../store/authSlice';
-import ErrorPage from '../Components/ErrorPage'
 
 
 export default function SideBar({open}) {
@@ -24,17 +23,15 @@ export default function SideBar({open}) {
     },[authResponse,navigate])
 
     if(error.signOutError){
-        return (
-            <ErrorPage/>
-        )
+        alert("Something went wrong.")
     }
 
     
 
 
-
-    return (
-    
+    if(authResponse.username){
+        return (
+        
         <div className={`max-w-max bg-slate-200 flex-col 
         md:px-6 lg:px-14 px-5 py-4 md:flex fixed top-10 left-0 z-10 md:top-16
         bottom-0 ${open?'flex':'hidden'}`}>
@@ -51,4 +48,6 @@ export default function SideBar({open}) {
         </div>
         
     );
+    }
+    
 }

@@ -27,9 +27,8 @@ routes.post('/sign-out',ensureAuthenticated,(req,res)=>{
   const {username}= req.body;
     if(req.user.username !== username){
       return res.status(400).send({message:"Bad Request",
-      success:true,
-      username:user.username ,
-      email:user.email,})
+      success:false,
+      username})
     }
 
     

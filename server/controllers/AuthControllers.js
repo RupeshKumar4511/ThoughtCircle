@@ -18,7 +18,7 @@ const signup = async (req, res) => {
         })
 
     } catch (error) {
-        res.status(501).json({
+        res.status(500).json({
             message: "Internal Server Error", success: false
         })
     }
@@ -60,7 +60,7 @@ const signin = async (req, res) => {
 
 
     } catch (error) {
-        res.status(501).json({
+        res.status(500).json({
             message: "Internal Server Error", success: false
         })
     }

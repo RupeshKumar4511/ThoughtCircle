@@ -16,6 +16,7 @@ const userSchema = mongoose.Schema({
         trim:true,
         lowercase:true,
         unique:true,
+        match: [/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,"Invalid email "],
         maxLength:[52,'length of email id must not exceeds 50 characters']
 
     },

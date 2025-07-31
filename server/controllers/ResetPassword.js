@@ -11,7 +11,7 @@ const resetPassword = async(req,res)=>{
         return res.status(200).send({message:"Password Updated Sucessfully",success:true})
 
     }catch{
-        res.status(501).send({message:"Internal Server Error"})
+        res.status(500).send({message:"Internal Server Error"})
     }
 
 }

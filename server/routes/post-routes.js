@@ -1,5 +1,5 @@
 const express = require('express');
-const cloudinary = require('cloudinary').v2;
+const cloudinary = require('cloudinary').v2; // version 2 
 const ensureAuthenticated = require('../Middlewares/Auth');
 const postModel = require("../models/posts");
 const routes = express.Router();
@@ -44,7 +44,7 @@ routes.post('/user/create-post', ensureAuthenticated, async (req, res) => {
         cloudinary.uploader.upload(file.tempFilePath, async (err, result) => {
 
             if (err) {
-                console.error(err);
+                console.log(err);
                 return res.status(500).json({ message: "Image upload failed", success: false });
             }
 
@@ -81,7 +81,7 @@ routes.get('/user/posts', ensureAuthenticated, async (req, res) => {
         return res.json(posts);
 
     } catch (error) {
-        return res.status(501).json({ message: "Internal Server Error", success: false })
+        return res.status(500).json({ message: "Internal Server Error", success: false })
     }
 
 })
@@ -94,7 +94,7 @@ routes.get('/user/user-posts', ensureAuthenticated, async (req, res) => {
         return res.json(posts);
 
     } catch (error) {
-        return res.status(501).json({ message: "Internal Server Error", success: false })
+        return res.status(500).json({ message: "Internal Server Error", success: false })
     }
 
 })
@@ -158,7 +158,7 @@ routes.put('/user/user-posts/:_id', ensureAuthenticated, async (req, res) => {
         return res.status(200).send({ message: "Post updated successfully", success: true })
 
     } catch (error) {
-        return res.status(501).json({ message: "Internal Server Error", success: false, error: error })
+        return res.status(500).json({ message: "Internal Server Error", success: false, error: error })
     }
 
 })
@@ -276,7 +276,7 @@ routes.patch('/user/posts/:id', ensureAuthenticated, async (req, res) => {
         return res.status(200).send({ message: "Post Reaction updated" });
 
     } catch (error) {
-        return res.status(501).json({ message: "Internal Server Error", success: false })
+        return res.status(500).json({ message: "Internal Server Error", success: false })
     }
 
 })
@@ -308,7 +308,7 @@ routes.delete('/user/user-posts/:id', ensureAuthenticated, async (req, res) => {
         return res.status(200).send({ message: "Post Deleted Successfully", success: true })
 
     } catch (error) {
-        return res.status(501).json({ message: "Internal Server Error", success: false })
+        return res.status(500).json({ message: "Internal Server Error", success: false })
     }
 
 })
