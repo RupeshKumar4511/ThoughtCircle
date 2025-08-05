@@ -10,13 +10,18 @@ const Profile = () => {
       <ErrorPage/>
     )
   }
+
+  function getUserName(user) {
+        const username = user.charAt(0).toUpperCase() + user.slice(1);
+        return username;
+    }
   
   return (
     <div className="flex justify-center w-full my-5 ">
       <div className="flex flex-col gap-5 bg-white w-[80%] md:w-[60%] lg:w-[50%] h-50 py-5  shadow-md">
         <p className="flex text-xl md:text-2xl font-bold text-blue-800 justify-center">Your Profile</p>
         <div className="flex flex-col mx-auto gap-4 px-5">
-            <p className="md:text-xl font-medium">UserName : <span className="text-blue-500">{(authResponse).username}</span></p>
+            <p className="md:text-xl font-medium">UserName : <span className="text-blue-500">{getUserName(authResponse.username)}</span></p>
             <p className="md:text-xl font-medium">Email Id : <span className="text-blue-500">{(authResponse).email}</span></p>
             {/* <p className="md:text-xl font-medium">Role : <span className="text-blue-500">{response.role}</span></p> */}
             

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { verifyEmail } from '../store/authSlice';
@@ -31,31 +31,32 @@ export default function VerifyUser() {
 
 
   const [time, setTime] = useState(Math.floor(Date.now() / 1000));
-  const [currentTime, setCurrentTime] = useState();
-
-
+  const [timeLeft, setTimeLeft] = useState('5:00');
 
   useEffect(() => {
     const timerID = setInterval(() => {
       const now = Math.floor(Date.now() / 1000)
-      setCurrentTime(now);
-      if (now - time >= 300) {
+      const diff = now - time;
+      if (diff >= 300) {
+        setTimeLeft('0')
         clearInterval(timerID)
+      } else {
+        let remaining = 300 - diff;
+        let minute = Math.floor(remaining / 60);
+        let seconds = Math.floor(remaining % 60);
+        if (seconds < 10) {
+          seconds = '0' + seconds;
+        }
+        setTimeLeft(minute + ":" + seconds);
+
       }
-    }, 300)
-    return () => {
-      clearInterval(timerID)
-    }
+    }, 1000)
+    return () => clearInterval(timerID)
+
   }, [time])
 
-  function getTime() {
-    let minute = Math.floor((300 - (currentTime - time)) / 60);
-    let seconds = Math.floor((300 - (currentTime - time)) % 60);
-    if (seconds < 10) {
-      seconds = '0' + seconds;
-    }
-    return minute + ":" + seconds;
-  }
+
+
 
 
   return (
@@ -85,7 +86,7 @@ export default function VerifyUser() {
           })}
           className="flex-1 shadow-xs border border-black/10 focus:outline-blue-400 pl-2 py-1 rounded-md w-full "
         />
-        <p className='text-fuchsia-600 md:text-sm text-[12px] py-1'>OTP will be expired in {getTime()} minute.</p>
+        <p className='text-fuchsia-600 md:text-sm text-[12px] py-1'>{timeLeft > 0 ? `OTP will be expired in ${timeLeft} minute.` : "OTP expired"}</p>
         <span className="text-red-500 md:text-sm text-[12px] absolute top-16  right-0">{errors.otp?.message}</span>
       </div>
 

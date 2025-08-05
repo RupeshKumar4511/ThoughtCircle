@@ -4,12 +4,12 @@ const jwt = require('jsonwebtoken');
 const signup = async (req, res) => {
     try {
         const { username, email, password } = req.body;
-        const user = await userModel.findOne({ username });
+        const user = await userModel.findOne({ username:username.toLowerCase() });
         if (user) {
             return res.status(409).json({ message: "user is already exist", success: false })
         }
 
-        const newUser = new userModel({ username, email, password });
+        const newUser = new userModel({ username:username.toLowerCase(), email, password });
         newUser.password = await bcrypt.hash(password, 10);
         await newUser.save()
 
@@ -27,7 +27,7 @@ const signup = async (req, res) => {
 const signin = async (req, res) => {
     try {
         const { username, password } = req.body;
-        const user = await userModel.findOne({ username });
+        const user = await userModel.findOne({ username:username.toLowerCase() });
         const errorMsg = "Username or password is wrong"
         if (!user) {
             return res.status(403).json({ message: errorMsg, success: false })
