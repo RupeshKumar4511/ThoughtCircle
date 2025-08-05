@@ -3,18 +3,22 @@ import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { verifyEmail } from '../store/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import LoadingSpinner from './LoadingSpinner';
 export default function VerifyUser() {
   const { state } = useLocation();
   const formRef = useRef(null);
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { verifyEmailResponse, error } = useSelector(store => store.auth);
+  const { verifyEmailResponse, isLoading, error } = useSelector(store => store.auth);
   const { register, handleSubmit, getValues, formState: { errors } } = useForm()
   const { otp } = getValues();
   const onSubmit = (data) => {
     dispatch(verifyEmail({ ...data, ...state }))
   }
 
+  if (isLoading) {
+    return (<LoadingSpinner />)
+  }
 
   useEffect(() => {
     if (verifyEmailResponse.success === true) {
@@ -24,6 +28,34 @@ export default function VerifyUser() {
     }
 
   }, [verifyEmailResponse, navigate])
+
+
+  const [time, setTime] = useState(Math.floor(Date.now() / 1000));
+  const [currentTime, setCurrentTime] = useState();
+
+
+
+  useEffect(() => {
+    const timerID = setInterval(() => {
+      const now = Math.floor(Date.now() / 1000)
+      setCurrentTime(now);
+      if (now - time >= 300) {
+        clearInterval(timerID)
+      }
+    }, 300)
+    return () => {
+      clearInterval(timerID)
+    }
+  }, [time])
+
+  function getTime() {
+    let minute = Math.floor((300 - (currentTime - time)) / 60);
+    let seconds = Math.floor((300 - (currentTime - time)) % 60);
+    if (seconds < 10) {
+      seconds = '0' + seconds;
+    }
+    return minute + ":" + seconds;
+  }
 
 
   return (
@@ -53,6 +85,7 @@ export default function VerifyUser() {
           })}
           className="flex-1 shadow-xs border border-black/10 focus:outline-blue-400 pl-2 py-1 rounded-md w-full "
         />
+        <p className='text-fuchsia-600 md:text-sm text-[12px] py-1'>OTP will be expired in {getTime()} minute.</p>
         <span className="text-red-500 md:text-sm text-[12px] absolute top-16  right-0">{errors.otp?.message}</span>
       </div>
 

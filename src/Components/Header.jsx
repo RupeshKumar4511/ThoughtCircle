@@ -21,6 +21,11 @@ function Header({setOpen}) {
     }
   }
 
+  function getUserName(user){
+    const username = user.charAt(0).toUpperCase() + user.slice(1);
+    return username;
+  }
+
   
   
   return (
@@ -40,7 +45,7 @@ function Header({setOpen}) {
       </div>
 
       <div className="md:flex hidden">
-        <h4 >Welcome <span>{(authResponse).username}</span></h4>
+        <h4 >Welcome <span>{getUserName(authResponse.username)}</span></h4>
       </div>
 
 

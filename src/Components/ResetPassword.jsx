@@ -4,13 +4,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import ErrorPage from "./ErrorPage";
 import { resetPassword } from '../store/authSlice';
+import LoadingSpinner from "./LoadingSpinner";
 
 const ResetPassword = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
   const dispatch = useDispatch();
   const formRef = useRef(null);
-  const { resetPasswordResponse, error } = useSelector(store => store.auth);
+  const { resetPasswordResponse,isLoading, error } = useSelector(store => store.auth);
 
   const { handleSubmit, register, formState: { errors } } = useForm();
   const onSubmit = (data) => {
@@ -26,6 +27,10 @@ const ResetPassword = () => {
     }
 
   }, [resetPasswordResponse,navigate])
+
+  if(isLoading){
+    return(<LoadingSpinner/>)
+  }
 
 
   if (resetPasswordResponse.success === false) {

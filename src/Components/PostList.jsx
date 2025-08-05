@@ -6,27 +6,28 @@ import ErrorPage from "./ErrorPage";
 import { useLocation } from "react-router-dom";
 
 export default function PostList() {
-    
-    const {state}= useLocation();
-    const {data:postList , isLoading,error}= useGetPostsQuery();
-    
-    if(isLoading){
-        return <LoadingSpinner/>
+
+    const { state } = useLocation();
+    const { data: postList, isLoading, error } = useGetPostsQuery();
+
+    if (isLoading) {
+        return <LoadingSpinner />
     }
-    if(!isLoading && error){
-        return <ErrorPage/>
+    if (!isLoading && error) {
+        return <ErrorPage />
     }
 
     return (
         <>
             {!isLoading && postList.length === 0 && <Message />}
-            <div className="flex flex-col md:w-120 w-85 h-full justify-center items-center mx-auto overflow-hidden" 
-             >
-            { state ? (postList.filter(post=>post.username.includes(state)).map((post) =>
-                <Post key={post._id} post={post} ></Post>)):postList.map((post) =>
-                <Post key={post._id} post={post} ></Post>)
-            }   
-            </div> 
+            <div className="flex flex-col md:w-120 w-85 h-full justify-center items-center mx-auto overflow-hidden"
+            >
+                {state ? (postList.filter(post => post.username.includes(state)).length > 0 ? postList.filter(post => post.username.includes(state)).map((post) =>
+                    <Post key={post._id} post={post} ></Post>) : <Message />) : postList.map((post) =>
+                        <Post key={post._id} post={post} ></Post>)
+
+                }
+            </div>
         </>
     )
 }

@@ -20,36 +20,37 @@ import ErrorPage from './Components/ErrorPage.jsx';
 
 
 const router = createBrowserRouter([
-  
-  {  path: '/', element: <Home />,
-    errorElement:<ErrorPage/>,
-    children:[
-    {path:'/',element:<Outer/>},
-    { path: '/create-user', element: <CreateUser/>},
-    { path: '/verify-user', element: <VerifyUser/>},
-    { path: '/reset', element: <Reset/>},
-    { path: '/reset-password', element: <ResetPassword/>},
+
+  {
+    path: '/', element: <Home />,
+    errorElement: <ErrorPage />,
+    children: [
+      { path: '/', element: <Outer /> },
+      { path: '/create-user', element: <CreateUser /> },
+      { path: '/verify-user', element: <VerifyUser /> },
+      { path: '/reset', element: <Reset /> },
+      { path: '/reset-password', element: <ResetPassword /> },
     ]
   },
   {
     path: '/user', element: <App />,
-    errorElement:<ErrorPage/>,
-     children: [
-      { path: '/user', element: <PostList />},
-      { path: '/user/post', element: <PostList />},
+    errorElement: <ErrorPage />,
+    children: [
+      { path: '/user', element: <PostList /> },
+      { path: '/user/post', element: <PostList /> },
       { path: '/user/create-post', element: <CreatePost /> },
-      { path: '/user/user-post', element: <UserPostList /> },    
+      { path: '/user/user-post', element: <UserPostList /> },
       { path: '/user/user-profile', element: <Profile /> },
-      { path: '/user/update-post', element: <UpdatePost /> }, 
+      { path: '/user/update-post', element: <UpdatePost /> },
     ]
-  }, 
-  
+  },
+
 
 ])
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Provider store={store}>
-        <RouterProvider router={router} />
+      <RouterProvider router={router} />
     </Provider>
   </StrictMode>,
 );

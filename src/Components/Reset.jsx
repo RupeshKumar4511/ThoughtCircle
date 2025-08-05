@@ -4,12 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ErrorPage from "./ErrorPage";
 import { sendMail } from '../store/authSlice';
+import LoadingSpinner from "./LoadingSpinner";
 
 const Reset = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const formRef = useRef(null);
-  const { sendEmailResponse, error } = useSelector(store => store.auth);
+  const { sendEmailResponse, isLoading, error } = useSelector(store => store.auth);
 
   const { handleSubmit, register, getValues, formState: { errors } } = useForm();
   const onSubmit = (data) => {
@@ -26,6 +27,11 @@ const Reset = () => {
 
 
   }, [sendEmailResponse])
+
+  if(isLoading){
+    return(<LoadingSpinner/>)
+  }
+
   return (
 
     <form className="vh-100 w-80 mx-auto border my-5 px-5 py-5 border-black/40 rounded-md shadow-md" ref={formRef} method="POST" onSubmit={handleSubmit(onSubmit)}>

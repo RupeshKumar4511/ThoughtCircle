@@ -1,16 +1,17 @@
-import {  useRef } from 'react';
+import { useEffect,useState, useRef } from 'react';
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { signUp } from '../store/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import ErrorPage from './ErrorPage';
 import SuccessModal from './SuccessModal';
+import LoadingSpinner from './LoadingSpinner';
 export default function CreateUser() {
     const dispatch = useDispatch()
     const { state } = useLocation();
     const navigate = useNavigate()
     const formRef = useRef(null);
-    const { response, error } = useSelector(store => store.auth);
+    const { response, isLoading, error } = useSelector(store => store.auth);
     const { register, handleSubmit, formState: { errors } } = useForm()
     const onSubmit = (data) => {
         const { otp } = data;
@@ -22,23 +23,53 @@ export default function CreateUser() {
         navigate('/')
     }
 
-    if (response.success === true) {
-            return (<SuccessModal handleClick={handleClick} message={"Success! Please log in."} />
-            )
+    if (isLoading) {
+        return <LoadingSpinner />
+    }
 
-        }
+    if (response.success === true) {
+        return (<SuccessModal handleClick={handleClick} message={"Success! Please log in."} />
+        )
+
+    }
 
     if (response.success === false) {
-           return (
-                <h1 className='text-center'>{response.message}</h1>
-            )
-        }
+        return (
+            <h1 className='text-center'>{response.message}</h1>
+        )
+    }
 
-        if (error.signUpError) {
-            return (
-                <ErrorPage />
-            )
-        }
+    if (error.signUpError) {
+        return (
+            <ErrorPage />
+        )
+    }
+    const [time, setTime] = useState(Math.floor(Date.now() / 1000));
+  const [currentTime, setCurrentTime] = useState();
+  
+
+
+  useEffect(() => {
+    const timerID = setInterval(() => {
+      const now = Math.floor(Date.now() / 1000)
+      setCurrentTime(now);
+      if(now-time >= 300){
+         clearInterval(timerID)
+    }
+    }, 300)
+    return () => {
+      clearInterval(timerID)
+    }
+  }, [time])
+
+  function getTime(){
+    let minute = Math.floor((300-(currentTime-time))/60);
+    let seconds = Math.floor((300-(currentTime-time))%60);
+    if(seconds<10){
+      seconds = '0'+seconds;
+    }
+    return minute+":"+seconds;
+  }
 
 
     return (
@@ -66,7 +97,8 @@ export default function CreateUser() {
                     })}
                     className="flex-1 shadow-xs border border-black/10 focus:outline-blue-400 pl-2 py-1 rounded-md w-full "
                 />
-                <span className="text-red-500 md:text-sm text-[12px] absolute top-16  right-0">{errors.otp?.message}</span>
+                <p className='text-fuchsia-600 md:text-sm text-[12px] py-1'>OTP will be expired in {getTime()} minute.</p>
+                <span className="text-red-500 md:text-sm text-[12px] absolute top-20  right-0">{errors.otp?.message}</span>
             </div>
 
 
@@ -76,6 +108,8 @@ export default function CreateUser() {
             >
                 Verify Email
             </button>
+
+
         </form>
 
     )

@@ -5,13 +5,14 @@ import LoginModalFooter from "./LoginModalFooter";
 import { signIn } from '../store/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import LoadingSpinner from './LoadingSpinner';
 
 export default function Login({ setOpen }) {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const formRef = useRef(null);
-  const { authResponse,tempAuthResponse, error } = useSelector(store => store.auth);
+  const { authResponse,tempAuthResponse, isLoading, error } = useSelector(store => store.auth);
 
 
   const { handleSubmit, register, formState: { errors } } = useForm();
@@ -20,13 +21,16 @@ export default function Login({ setOpen }) {
   const onSubmit = (data) => {
     dispatch(signIn(data))
   }
-
  
   useEffect(()=>{
       if (authResponse.success === true) {
       navigate("/user");
     }
     },[authResponse,navigate])
+
+  if(isLoading){
+    return(<LoadingSpinner/>)
+  }
 
 
 
