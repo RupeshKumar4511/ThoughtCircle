@@ -28,9 +28,7 @@ export default function Login({ setOpen }) {
     }
     },[authResponse,navigate])
 
-  if(isLoading){
-    return(<LoadingSpinner/>)
-  }
+  
 
 
 
@@ -81,6 +79,7 @@ export default function Login({ setOpen }) {
           </div>
         </div>
         <LoginModalFooter setOpen={setOpen} />
+        {isLoading&& <LoadingSpinner/>}
       </form>
     </>
   )

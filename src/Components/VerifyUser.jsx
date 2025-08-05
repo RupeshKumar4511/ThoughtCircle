@@ -39,6 +39,7 @@ export default function VerifyUser() {
       const diff = now - time;
       if (diff >= 300) {
         setTimeLeft('0')
+        setTime(0);
         clearInterval(timerID)
       } else {
         let remaining = 300 - diff;
@@ -86,7 +87,7 @@ export default function VerifyUser() {
           })}
           className="flex-1 shadow-xs border border-black/10 focus:outline-blue-400 pl-2 py-1 rounded-md w-full "
         />
-        <p className='text-fuchsia-600 md:text-sm text-[12px] py-1'>{timeLeft > 0 ? `OTP will be expired in ${timeLeft} minute.` : "OTP expired"}</p>
+        <p className='text-fuchsia-600 md:text-sm text-[12px] py-1'>{timeLeft < 0 ? `OTP will be expired in ${timeLeft} minute.` : "OTP expired Please signUp again"}</p>
         <span className="text-red-500 md:text-sm text-[12px] absolute top-16  right-0">{errors.otp?.message}</span>
       </div>
 

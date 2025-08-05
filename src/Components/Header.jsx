@@ -45,7 +45,7 @@ function Header({setOpen}) {
       </div>
 
       <div className="md:flex hidden">
-        <h4 >Welcome <span>{getUserName(authResponse.username)}</span></h4>
+        <h4 >Welcome <span>{authResponse.username?getUserName(authResponse.username):''}</span></h4>
       </div>
 
 

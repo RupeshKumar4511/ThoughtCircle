@@ -53,6 +53,7 @@ export default function CreateUser() {
       const diff = now - time;
       if (diff >= 300) {
         setTimeLeft('0')
+        setTime(0)
         clearInterval(timerID)
       } else {
         let remaining = 300 - diff;
