@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { signOut } from '../store/authSlice';
 
 
-export default function SideBar({ open }) {
+export default function SideBar({ open,setOpen }) {
     const navigate = useNavigate();
     const dispatch = useDispatch()
     const [menu, setMenu] = useState(false);

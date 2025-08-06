@@ -11,7 +11,7 @@ export default function VerifyUser() {
   const dispatch = useDispatch()
   const { verifyEmailResponse, isLoading, error } = useSelector(store => store.auth);
   const { register, handleSubmit, getValues, formState: { errors } } = useForm()
-  const { otp } = getValues();
+  
   const onSubmit = (data) => {
     dispatch(verifyEmail({ ...data, ...state }))
   }
@@ -21,6 +21,7 @@ export default function VerifyUser() {
   }
 
   useEffect(() => {
+    const { otp } = getValues();
     if (verifyEmailResponse.success === true) {
       navigate("/reset-password", {
         state: { ...state, otp }

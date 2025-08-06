@@ -1,4 +1,4 @@
-import { useEffect,useState, useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { signUp } from '../store/authSlice';
@@ -14,12 +14,14 @@ export default function CreateUser() {
     const { response, isLoading, error } = useSelector(store => store.auth);
     const { register, handleSubmit, formState: { errors } } = useForm()
     const onSubmit = (data) => {
-        dispatch(signUp({ otp:data.otp, ...state }))
+        dispatch(signUp({ otp: data.otp, ...state }))
     }
 
     const handleClick = (setOpen) => {
         setOpen(false);
-        navigate('/')
+        setTimeout(() => {
+            navigate('/');
+        }, 0);
     }
 
     if (isLoading) {
@@ -43,30 +45,30 @@ export default function CreateUser() {
             <ErrorPage />
         )
     }
-  const [time, setTime] = useState(Math.floor(Date.now() / 1000));
-  const [timeLeft, setTimeLeft] = useState('5:00');
+    const [time, setTime] = useState(Math.floor(Date.now() / 1000));
+    const [timeLeft, setTimeLeft] = useState('5:00');
 
-  useEffect(() => {
-    const timerID = setInterval(() => {
-      const now = Math.floor(Date.now() / 1000)
-      const diff = now - time;
-      if (diff >= 300) {
-        setTimeLeft('0');
-        clearInterval(timerID)
-      } else {
-        let remaining = 300 - diff;
-        let minute = Math.floor(remaining / 60);
-        let seconds = Math.floor(remaining % 60);
-        if (seconds < 10) {
-          seconds = '0' + seconds;
-        }
-        setTimeLeft(minute + ":" + seconds);
+    useEffect(() => {
+        const timerID = setInterval(() => {
+            const now = Math.floor(Date.now() / 1000)
+            const diff = now - time;
+            if (diff >= 300) {
+                setTimeLeft('0');
+                clearInterval(timerID)
+            } else {
+                let remaining = 300 - diff;
+                let minute = Math.floor(remaining / 60);
+                let seconds = Math.floor(remaining % 60);
+                if (seconds < 10) {
+                    seconds = '0' + seconds;
+                }
+                setTimeLeft(minute + ":" + seconds);
 
-      }
-    }, 1000)
-    return () => clearInterval(timerID)
+            }
+        }, 1000)
+        return () => clearInterval(timerID)
 
-  }, [time])
+    }, [time])
 
 
 

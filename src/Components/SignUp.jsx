@@ -9,18 +9,21 @@ import { sendMail } from '../store/authSlice';
 export default function SignUp({ setOpen }) {
 
   const dispatch = useDispatch()
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const formRef = useRef(null);
-  
+
 
   const { handleSubmit, register, formState: { errors } } = useForm();
   const onSubmit = (data) => {
-    
-    const {email} = data;
-    dispatch(sendMail({email}))
+
+    const { email } = data;
+    dispatch(sendMail({ email }))
     setOpen(false);
-    navigate('/create-user',{
-      state:data});
+    setTimeout(() => {
+      navigate('/create-user', {
+        state: data
+      });
+    }, 0)
   }
 
 
