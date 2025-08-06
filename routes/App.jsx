@@ -13,7 +13,7 @@ function App() {
         <div className="w-full flex items-start flex-col bg-gray-100 ">
         <Header setOpen={setOpen}/>
         <div className="w-full min-h-screen flex gap-4 relative">
-          <SideBar open={open} />
+          <SideBar open={open} setOpen={setOpen}/>
           <Outlet />
         </div>
         <Footer/>

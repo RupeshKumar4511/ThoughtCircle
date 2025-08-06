@@ -14,8 +14,7 @@ export default function CreateUser() {
     const { response, isLoading, error } = useSelector(store => store.auth);
     const { register, handleSubmit, formState: { errors } } = useForm()
     const onSubmit = (data) => {
-        const { otp } = data;
-        dispatch(signUp({ otp, ...state }))
+        dispatch(signUp({ otp:data.otp, ...state }))
     }
 
     const handleClick = (setOpen) => {
@@ -44,7 +43,7 @@ export default function CreateUser() {
             <ErrorPage />
         )
     }
-   const [time, setTime] = useState(Math.floor(Date.now() / 1000));
+  const [time, setTime] = useState(Math.floor(Date.now() / 1000));
   const [timeLeft, setTimeLeft] = useState('5:00');
 
   useEffect(() => {
@@ -52,8 +51,7 @@ export default function CreateUser() {
       const now = Math.floor(Date.now() / 1000)
       const diff = now - time;
       if (diff >= 300) {
-        setTimeLeft('0')
-        setTime(0)
+        setTimeLeft('0');
         clearInterval(timerID)
       } else {
         let remaining = 300 - diff;
@@ -97,7 +95,7 @@ export default function CreateUser() {
                     })}
                     className="flex-1 shadow-xs border border-black/10 focus:outline-blue-400 pl-2 py-1 rounded-md w-full "
                 />
-                <p className='text-fuchsia-600 md:text-sm text-[12px] py-1'>{timeLeft > 0 ? `OTP will be expired in ${timeLeft} minute.` : "OTP expired"}</p>
+                <p className='text-fuchsia-600 md:text-sm text-[12px] py-1'>{timeLeft === '0' ? `OTP will be expired in ${timeLeft} minute.` : "OTP expired"}</p>
                 <span className="text-red-500 md:text-sm text-[12px] absolute top-20  right-0">{errors.otp?.message}</span>
             </div>
 
