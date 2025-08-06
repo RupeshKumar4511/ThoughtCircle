@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ErrorPage from './ErrorPage';
 import SuccessModal from './SuccessModal';
 import LoadingSpinner from './LoadingSpinner';
+import {authActions} from '../store/authSlice'
 export default function CreateUser() {
     const [time] = useState(Math.floor(Date.now() / 1000));
     const [timeLeft, setTimeLeft] = useState('5:00');
@@ -55,6 +56,7 @@ export default function CreateUser() {
     }
 
     if (response.success === true) {
+        dispatch(authActions.updateSendMailResponse());
         return (<SuccessModal handleClick={handleClick} message={"Success! Please log in."} />
         )
 
@@ -111,6 +113,12 @@ export default function CreateUser() {
             >
                 Verify Email
             </button>
+            <Link
+                to='/'
+                className=" px-4 py-2  text-blue-600 mt-4 "
+            >
+                Back to Home
+            </Link>
 
 
         </form>

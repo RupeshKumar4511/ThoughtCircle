@@ -129,6 +129,10 @@ const authSlice = createSlice({
 
     },
     reducers: {
+        updateSendMailResponse:(state)=>{
+            state.sendEmailResponse="";
+            state.error.sendMailError="";
+        }
     },
     extraReducers: (builder => {
         builder.addCase(signUp.pending, (state) => {

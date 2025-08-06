@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import ErrorPage from "./ErrorPage";
 import { resetPassword } from '../store/authSlice';
+import { authActions } from "../store/authSlice";
 import LoadingSpinner from "./LoadingSpinner";
 
 const ResetPassword = () => {
@@ -11,7 +12,7 @@ const ResetPassword = () => {
   const { state } = useLocation();
   const dispatch = useDispatch();
   const formRef = useRef(null);
-  const { resetPasswordResponse,isLoading, error } = useSelector(store => store.auth);
+  const {updateSendMailResponse, resetPasswordResponse,isLoading, error } = useSelector(store => store.auth);
 
   const { handleSubmit, register, formState: { errors } } = useForm();
   const onSubmit = (data) => {
@@ -22,7 +23,9 @@ const ResetPassword = () => {
 
   useEffect(() => {
     if (resetPasswordResponse.success === true) {
+      dispatch(authActions.updateSendMailResponse());
       alert("Password reset successfully");
+
       navigate("/");
     }
 

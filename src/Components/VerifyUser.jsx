@@ -12,15 +12,15 @@ export default function VerifyUser() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const { verifyEmailResponse, isLoading, error } = useSelector(store => store.auth);
-  const [otp,setOtp]= useState('');
+  const [otp, setOtp] = useState('');
   const { register, handleSubmit, formState: { errors } } = useForm()
-  
+
   const onSubmit = (data) => {
     setOtp(data.otp);
     dispatch(verifyEmail({ ...data, ...state }))
   }
 
- 
+
 
   useEffect(() => {
     if (verifyEmailResponse.success === true) {
@@ -32,7 +32,7 @@ export default function VerifyUser() {
   }, [verifyEmailResponse, navigate])
 
 
- 
+
 
   useEffect(() => {
     const timerID = setInterval(() => {
@@ -57,7 +57,7 @@ export default function VerifyUser() {
   }, [time])
 
 
-   if (isLoading) {
+  if (isLoading) {
     return (<LoadingSpinner />)
   }
 
@@ -102,6 +102,12 @@ export default function VerifyUser() {
       >
         Verify Email
       </button>
+      <Link
+        to='/'
+        className=" px-4 py-2  text-blue-600 mt-4 "
+      >
+        Back to Home
+      </Link>
     </form>
 
   )
