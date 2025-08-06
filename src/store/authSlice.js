@@ -17,7 +17,7 @@ export const signUp = createAsyncThunk('auth/signup', async (userData, thunkAPI)
     }
 })
 
-export const signIn = createAsyncThunk('auth/signin', async (userData) => {
+export const signIn = createAsyncThunk('auth/signin', async (userData,thunkAPI) => {
     try {
         const response = await fetch('https://thoughtcircle.onrender.com/signin', {
             method: "POST",
@@ -35,7 +35,7 @@ export const signIn = createAsyncThunk('auth/signin', async (userData) => {
     }
 })
 
-export const signOut = createAsyncThunk('auth/signOut', async (userData) => {
+export const signOut = createAsyncThunk('auth/signOut', async (userData,thunkAPI) => {
     try {
         const response = await fetch('https://thoughtcircle.onrender.com/sign-out', {
             method: "POST",
@@ -53,7 +53,7 @@ export const signOut = createAsyncThunk('auth/signOut', async (userData) => {
     }
 })
 
-export const sendMail = createAsyncThunk('auth/sendMail', async (userData) => {
+export const sendMail = createAsyncThunk('auth/sendMail', async (userData,thunkAPI) => {
     try {
         const response = await fetch('https://thoughtcircle.onrender.com/send-email', {
             method: "POST",
@@ -70,7 +70,7 @@ export const sendMail = createAsyncThunk('auth/sendMail', async (userData) => {
     }
 })
 
-export const verifyEmail = createAsyncThunk('auth/verifyEmail', async (userData) => {
+export const verifyEmail = createAsyncThunk('auth/verifyEmail', async (userData,thunkAPI) => {
     try {
         const response = await fetch('https://thoughtcircle.onrender.com/verify-email', {
             method: "POST",
@@ -87,7 +87,7 @@ export const verifyEmail = createAsyncThunk('auth/verifyEmail', async (userData)
     }
 })
 
-export const resetPassword = createAsyncThunk('auth/reset-password', async (userData) => {
+export const resetPassword = createAsyncThunk('auth/reset-password', async (userData,thunkAPI) => {
     try {
         const response = await fetch('https://thoughtcircle.onrender.com/reset-password', {
             method: "POST",
