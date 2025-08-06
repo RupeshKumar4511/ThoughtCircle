@@ -7,21 +7,22 @@ import LoadingSpinner from './LoadingSpinner';
 export default function VerifyUser() {
   const { state } = useLocation();
   const formRef = useRef(null);
+  const [time] = useState(Math.floor(Date.now() / 1000));
+  const [timeLeft, setTimeLeft] = useState('5:00');
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const { verifyEmailResponse, isLoading, error } = useSelector(store => store.auth);
-  const { register, handleSubmit, getValues, formState: { errors } } = useForm()
+  const [otp,setOtp]= useState('');
+  const { register, handleSubmit, formState: { errors } } = useForm()
   
   const onSubmit = (data) => {
+    setOtp(data.otp);
     dispatch(verifyEmail({ ...data, ...state }))
   }
 
-  if (isLoading) {
-    return (<LoadingSpinner />)
-  }
+ 
 
   useEffect(() => {
-    const { otp } = getValues();
     if (verifyEmailResponse.success === true) {
       navigate("/reset-password", {
         state: { ...state, otp }
@@ -31,8 +32,7 @@ export default function VerifyUser() {
   }, [verifyEmailResponse, navigate])
 
 
-  const [time, setTime] = useState(Math.floor(Date.now() / 1000));
-  const [timeLeft, setTimeLeft] = useState('5:00');
+ 
 
   useEffect(() => {
     const timerID = setInterval(() => {
@@ -57,6 +57,9 @@ export default function VerifyUser() {
   }, [time])
 
 
+   if (isLoading) {
+    return (<LoadingSpinner />)
+  }
 
 
 
