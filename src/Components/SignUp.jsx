@@ -16,8 +16,8 @@ export default function SignUp({ setOpen }) {
   const { handleSubmit, register, formState: { errors } } = useForm();
   const onSubmit = (data) => {
 
-    const { email } = data;
-    dispatch(sendMail({ email }))
+    const { email,username } = data;
+    dispatch(sendMail({ email,username }))
     setOpen(false);
     setTimeout(() => {
       navigate('/create-user', {
