@@ -7,6 +7,7 @@ const verifyOtp = require('../Middlewares/otpVerify');
 const sendOtp = require('../services/mail');
 const resetPassword = require('../controllers/ResetPassword');
 const ensureAuthenticated = require('../Middlewares/Auth');
+const checkUser = require('../Middlewares/checkUser');
 const routes = express.Router();
 
 
@@ -15,7 +16,7 @@ const routes = express.Router();
 
 routes.post('/signin',checkSchema(signInSchema), authValidation, signin);
 routes.post('/signup',checkSchema(signUpSchema), authValidation, verifyOtp, signup);
-routes.post('/send-email', sendOtp,(req,res)=>{
+routes.post('/send-email',checkUser,sendOtp,(req,res)=>{
     return res.status(200).json({message:"Email sent Successfully..",success:true})
 });
 routes.post('/verify-email',verifyOtp,(req,res)=>{

@@ -4,7 +4,8 @@ const verifyOtp = async (req, res, next) => {
     const { otp,email } = req.body;
 
     try {
-        const findEmail = await otpModel.findOne({email})
+        const otpEmails = await otpModel.find({email});
+        const findEmail = otpEmails[otpEmails.length-1];
 
         if (!findEmail.otp || !otp) {
             return res.status(400).send({message:"Email id is not valid"})
@@ -15,6 +16,7 @@ const verifyOtp = async (req, res, next) => {
                 message: "Incorrect Otp"
             })
         }
+        
         next()
     }catch(error){
         return res.status(500).send({message:"Internal server error",})
