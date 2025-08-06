@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useForm } from "react-hook-form";
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { verifyEmail } from '../store/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import LoadingSpinner from './LoadingSpinner';

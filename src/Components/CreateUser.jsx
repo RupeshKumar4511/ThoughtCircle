@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { useForm } from "react-hook-form";
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { signUp } from '../store/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import ErrorPage from './ErrorPage';
