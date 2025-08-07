@@ -16,7 +16,7 @@ function Header({setOpen}) {
   const handleSearch =(event,value)=>{
     if(event.key === "Enter"){
       navigate('/user/post',{
-        state:value
+        state:value.toLowerCase()
       });
     }
   }
