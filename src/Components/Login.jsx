@@ -73,9 +73,7 @@ export default function Login({ setOpen }) {
               })
               }
             />
-            <span className="text-red-500 md:text-sm text-[12px] absolute top-16 left-1">{errors.password?.message}</span>
-
-
+            <span className="text-red-500 md:text-sm text-[12px] absolute top-16 left-1 overflow-y-auto">{errors.password?.message}</span>
           </div>
         </div>
         <LoginModalFooter setOpen={setOpen} />

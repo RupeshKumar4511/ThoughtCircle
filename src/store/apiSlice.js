@@ -67,9 +67,9 @@ export const api = createApi({
                     api.util.updateQueryData("getPosts", undefined, (posts) => {
                         const postIndex = posts.findIndex(el => el._id === id)
                         if(updatedPost.reactions.like === true){
-                            posts[postIndex].reactions.like+=1;
+                            posts[postIndex].reactions.like=Number(updatedPost.reactions.like);
                         }else{
-                            posts[postIndex].reactions.dislike+=1;
+                            posts[postIndex].reactions.dislike=Number(updatedPost.reactions.dislike);
                         }
                         return posts;
                     })
