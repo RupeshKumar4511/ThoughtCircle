@@ -15,9 +15,9 @@ const Home = () => {
                 </div>
 
                 <div className="flex gap-2">
-                    <button type="button" className={`bg-blue-500 border-blue-600 md:px-4 md:py-1 px-2 py-0.5 md:text-md text-sm rounded-md cursor-pointer ${isOpenSignIn?'hidden': ''}`}
+                    <button type="button" className={`bg-blue-500 border-blue-600 md:px-4 md:py-1 px-2 py-0.5 md:text-md text-sm rounded-md cursor-pointer text-white ${isOpenSignIn?'hidden': ''}`}
                      onClick={()=>setOpenSignIn(true)} >Login</button>
-                    <button type="button" className={`bg-amber-400 border-amber-600 md:px-4 md:py-1 py-0.5 px-2 md:text-md rounded-md cursor-pointer text-sm ${isOpenSignUp?'hidden': ''}`}
+                    <button type="button" className={`bg-amber-400 border-amber-600 md:px-4 md:py-1 py-0.5 px-2 md:text-md rounded-md cursor-pointer text-white text-sm ${isOpenSignUp?'hidden': ''}`}
                     onClick={()=>setOpenSignUp(true)}>Sign-up</button>
                 </div>
             </header>
