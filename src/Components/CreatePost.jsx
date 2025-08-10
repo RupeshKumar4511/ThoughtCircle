@@ -48,7 +48,7 @@ export default function CreatePost() {
     }
 
     if (isError) {
-        <ErrorPage />
+       return(<ErrorPage />)
     }
 
 
@@ -73,7 +73,7 @@ export default function CreatePost() {
                     <input
                         type="text"
                         id="title"
-                        placeholder="How are you feeling today..."
+                        placeholder="Enter your post title"
                         name="title"
                         {...register("title", {
                             required: "Title is required",

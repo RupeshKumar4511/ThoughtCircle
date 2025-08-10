@@ -93,7 +93,7 @@ const UpdatePost = () => {
                     <input
                         type="text"
                         id="title"
-                        placeholder="How are you feeling today..."
+                        placeholder="Enter your post title"
                         name="title"
                         {...register("title", {
                             required: "Title is required",
