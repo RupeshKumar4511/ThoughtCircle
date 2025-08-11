@@ -19,11 +19,12 @@ export default function PostList() {
 
     return (
         <>
-            {!isLoading && postList.length === 0 && <Message />}
+           
             <div className="flex flex-col md:w-120 w-85 h-full justify-center items-center mx-auto overflow-hidden"
             >
+                 {!isLoading && postList.length === 0 && <Message user={false}/>}
                 {state ? (postList.filter(post => post.username.includes(state)).length > 0 ? postList.filter(post => post.username.includes(state)).map((post) =>
-                    <Post key={post._id} post={post} ></Post>) : <Message />) : postList.map((post) =>
+                    <Post key={post._id} post={post} ></Post>) : <Message user={false} />) : postList.map((post) =>
                         <Post key={post._id} post={post} ></Post>)
 
                 }
