@@ -27,7 +27,9 @@ const UpdatePost = () => {
 
     const handleClick = (setOpen) => {
         setOpen(false);
-        navigate('/user/user-post')
+        setTimeout(()=>{
+            navigate('/user/user-post')
+        },0)
 
     }
 

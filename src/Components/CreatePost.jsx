@@ -32,7 +32,9 @@ export default function CreatePost() {
 
     const handleClick = (setOpen) => {
         setOpen(false);
-        navigate('/user/post')
+        setTimeout(()=>{
+            navigate('/user/post')
+        },0)
 
     }
 
