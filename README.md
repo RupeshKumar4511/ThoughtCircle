@@ -1,8 +1,11 @@
-# React + Vite
+# ThoughtCircle 
+A social media web application that brings together my frontend and backend skills into one complete product.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+#  Key Features
+✅ Sign up securely with email verification (via OTP) and log in with authentication using JSON Web Tokens (JWT)
+<br>
+✅ Create, edit, and delete users' own posts
+<br>
+✅ Like or dislike other users' posts
+<br>
+✅ Search and explore users' content effortlessly
