@@ -28,19 +28,24 @@ export default App;
 
 export const loadUserData = async () => {
   const customMsg = { message: "Logout Successfully", logout: true };
+
   try {
     const response = await fetch('https://thoughtcircle.onrender.com/user', {
-      method: GET,
-      credentials: "include",
-    })
-    const data = response.json();
+      method: 'GET',
+      credentials: 'include',
+    });
+
+    const data = await response.json();
+
     if (response.ok) {
-      localStorage.setItem("user", JSON.stringify(data))
+      localStorage.setItem("user", JSON.stringify(data));
+      return data;
     } else {
-      localStorage.setItem("user", JSON.stringify(customMsg))
+      localStorage.setItem("user", JSON.stringify(customMsg));
+      return customMsg;
     }
   } catch (error) {
-    localStorage.setItem("user", JSON.stringify(customMsg))
-    
+    localStorage.setItem("user", JSON.stringify(customMsg));
+    return customMsg;
   }
-}
+};
