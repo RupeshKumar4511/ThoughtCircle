@@ -5,10 +5,14 @@ const fetch = require('node-fetch');
 require('dotenv').config()
 
 async function verifyEmail(email) {
-    const apiKey = process.env.KICKBOX_API_KEY;
-    const res = await fetch(`https://api.kickbox.com/v2/verify?email=${email}&apikey=${apiKey}`);
-    const data = await res.json();
-    return data.result === "deliverable";
+    try {
+        const apiKey = process.env.ZEROBOUNCE_API_KEY;
+        const res = await fetch(`https://api.zerobounce.net/v2/validate?api_key=${apiKey}&email=${encodeURIComponent(email)}`);
+        const data = await res.json();
+        return data.status === "valid";
+    } catch (error) {
+        return false;
+    }
 }
 
 const transporter = nodemailer.createTransport({
@@ -24,15 +28,15 @@ const sendOtp = async (req, res, next) => {
 
     const { email } = req.body;
     const result = await verifyEmail(email);
-    if(!result){
-        return res.status(400).json({ message: "This email does not exist", success:false });
+    if (!result) {
+        return res.status(400).json({ message: "This email does not exist", success: false });
     }
 
     const otp = Math.floor(100000 + Math.random() * 900000);
 
     const mailOptions = {
-        from: process.env.my_email, 
-        to:email,
+        from: process.env.my_email,
+        to: email,
         subject: "Your OTP Code",
         text: `Your OTP code is ${otp}`,
         html: `<div>
@@ -42,12 +46,12 @@ const sendOtp = async (req, res, next) => {
     };
 
     try {
-        
+
         const info = await transporter.sendMail(mailOptions);
         console.log("Email sent: ", info.messageId);
-        
-        const hashedOtp = await bcrypt.hash(otp.toString(),10);
-        await otpModel.create({email:email,otp:hashedOtp})
+
+        const hashedOtp = await bcrypt.hash(otp.toString(), 10);
+        await otpModel.create({ email: email, otp: hashedOtp })
 
         next();
     } catch (error) {
