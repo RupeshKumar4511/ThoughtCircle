@@ -1,7 +1,15 @@
 const nodemailer = require('nodemailer');
 const otpModel = require('../models/otp')
 const bcrypt = require('bcrypt');
+const fetch = require('node-fetch');
 require('dotenv').config()
+
+async function verifyEmail(email) {
+    const apiKey = process.env.KICKBOX_API_KEY;
+    const res = await fetch(`https://api.kickbox.com/v2/verify?email=${email}&apikey=${apiKey}`);
+    const data = await res.json();
+    return data.result === "deliverable";
+}
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -15,6 +23,10 @@ const transporter = nodemailer.createTransport({
 const sendOtp = async (req, res, next) => {
 
     const { email } = req.body;
+    const result = await verifyEmail(email);
+    if(!result){
+        return res.status(400).json({ message: "This email does not exist", success:false });
+    }
 
     const otp = Math.floor(100000 + Math.random() * 900000);
 
