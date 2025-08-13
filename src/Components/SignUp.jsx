@@ -5,6 +5,7 @@ import SignUpModalFooter from './SignUpModalFooter'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { sendMail } from '../store/authSlice';
+import LoadingSpinner from './LoadingSpinner'
 
 export default function SignUp({ setOpen }) {
 

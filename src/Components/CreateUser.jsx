@@ -87,7 +87,7 @@ export default function CreateUser() {
         >
             <div className="mb-4 flex flex-col justify-between relative">
                 <label htmlFor="title" className="text-sm md:text-lg mb-1 md:mb-0 md:mr-2">
-                    Enter the OTP sent to your email :
+                    Enter the OTP sent to your email :{state.email}
                 </label>
                 <input
                     type="text"
