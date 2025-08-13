@@ -6,21 +6,41 @@ import { useState } from "react";
 
 
 function App() {
- const [open,setOpen] = useState(false);
+  const [open, setOpen] = useState(false);
 
   return (
     <>
-        <div className="w-full flex items-start flex-col bg-gray-100 ">
-        <Header setOpen={setOpen}/>
+      <div className="w-full flex items-start flex-col bg-gray-100 ">
+        <Header setOpen={setOpen} />
         <div className="w-full min-h-screen flex gap-4 relative">
-          <SideBar open={open} setOpen={setOpen}/>
+          <SideBar open={open} setOpen={setOpen} />
           <Outlet />
         </div>
-        <Footer/>
-        </div>
+        <Footer />
+      </div>
     </>
 
   )
 }
 
 export default App;
+
+
+export const loadUserData = async () => {
+  const customMsg = { message: "Logout Successfully", logout: true };
+  try {
+    const response = await fetch('https://thoughtcircle.onrender.com/user', {
+      method: GET,
+      credentials: "include",
+    })
+    const data = response.json();
+    if (response.ok) {
+      localStorage.setItem("user", JSON.stringify(data))
+    } else {
+      localStorage.setItem("user", JSON.stringify(customMsg))
+    }
+  } catch (error) {
+    localStorage.setItem("user", JSON.stringify(customMsg))
+    
+  }
+}

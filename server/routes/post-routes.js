@@ -17,7 +17,12 @@ cloudinary.config({
 
 
 routes.get('/user', ensureAuthenticated, (req, res) => {
-    res.sendStatus(200);
+    return res.status(200).send({
+        message:"Login Success",
+        success:true,
+        username:req.user.username,
+        email:req.user.email
+    });
 })
 
 

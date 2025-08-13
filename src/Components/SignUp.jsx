@@ -1,9 +1,9 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useForm } from 'react-hook-form';
 import SignUpModalHeader from './SignUpModalHeader'
 import SignUpModalFooter from './SignUpModalFooter'
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { sendMail } from '../store/authSlice';
 
 export default function SignUp({ setOpen }) {
@@ -12,26 +12,36 @@ export default function SignUp({ setOpen }) {
   const navigate = useNavigate();
   const formRef = useRef(null);
 
-
-  const { handleSubmit, register, formState: { errors } } = useForm();
+  const { sendEmailResponse, isLoading, error } = useSelector(store => store.auth);
+  const { handleSubmit, register,getValues, formState: { errors } } = useForm();
   const onSubmit = (data) => {
 
-    const { email,username } = data;
-    dispatch(sendMail({ email,username }))
-    setOpen(false);
-    setTimeout(() => {
-      navigate('/create-user', {
-        state: data
-      });
-    }, 0)
+    const { email, username } = data;
+    dispatch(sendMail({ email, username }))
+
   }
 
+  useEffect(() => {
+
+    if (sendEmailResponse.success === true) {
+      setOpen(false);
+      setTimeout(() => {
+        navigate('/create-user', {
+          state: getValues()
+        });
+      }, 0)
+    }
+
+
+  }, [sendEmailResponse])
 
   return (
     <>
       <SignUpModalHeader />
       <form className="vh-100 " ref={formRef} method="POST" onSubmit={handleSubmit(onSubmit)}>
         <div className="my-4 border-y border-gray-300 px-6 py-6 flex flex-col gap-5 bg-white ">
+          <p className={`text-red-500 ${sendEmailResponse.success?'hidden':''}`}>{!sendEmailResponse.success?sendEmailResponse.message:''}</p>
+          <p className={`text-red-500 ${error.sendMailError?'':'hidden'}`}>{error.sendMailError?error.sendMailError:''}</p>
           <div className="flex flex-col gap-2 relative">
             <label htmlFor="username" className="text-sm font-medium text-gray-700">
               Username
@@ -99,6 +109,7 @@ export default function SignUp({ setOpen }) {
           </div>
         </div>
         <SignUpModalFooter setOpen={setOpen} />
+        {isLoading&& <LoadingSpinner/>}
       </form>
     </>
   )

@@ -1,7 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import App from '../routes/App.jsx';
+import App, { loadUserData } from '../routes/App.jsx';
 import PostList from './Components/PostList.jsx';
 import UserPostList from './Components/UserPostList.jsx';
 import CreatePost from './Components/CreatePost.jsx';
@@ -35,6 +35,7 @@ const router = createBrowserRouter([
   {
     path: '/user', element: <App />,
     errorElement: <ErrorPage />,
+    loader:loadUserData,
     children: [
       { path: '/user', element: <PostList /> },
       { path: '/user/post', element: <PostList /> },
