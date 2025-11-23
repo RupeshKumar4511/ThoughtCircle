@@ -12,7 +12,7 @@ const Post = ({ post }) => {
         <div className='border-white rounded px-2 py-2 my-3 bg-white shadow-md w-full' >
             <div className="flex gap-4 pb-2">
                 <div className="w-8 h-8 rounded-full"  alt="" >
-                    <CgProfile size={20} />
+                    <CgProfile size={35} />
                 </div>
                 <p className="text-blue-900">posted by {post.username}</p>
             </div>
