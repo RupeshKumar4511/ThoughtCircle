@@ -14,7 +14,7 @@ const Post = ({ post }) => {
                 <div className="w-8 h-8 rounded-full"  alt="" >
                     <CgProfile size={35} />
                 </div>
-                <p className="text-blue-900 relative bottom-0.5">posted by {post.username}</p>
+                <p className="text-blue-900">posted by {post.username}</p>
             </div>
             <img className="w-full h-[40%]" alt='post-image' src={post.image} />
             <div className="py-2">
