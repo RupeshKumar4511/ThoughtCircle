@@ -1,6 +1,7 @@
 import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
 import { usePostReactionMutation } from "../store/apiSlice";
 import { useSelector } from "react-redux";
+import { CgProfile } from "react-icons/cg";
 
 const Post = ({ post }) => {
 
@@ -10,7 +11,9 @@ const Post = ({ post }) => {
     return (
         <div className='border-white rounded px-2 py-2 my-3 bg-white shadow-md w-full' >
             <div className="flex gap-4 pb-2">
-                <img className="w-8 h-8 rounded-full" src={post.image} alt="" />
+                <div className="w-8 h-8 rounded-full"  alt="" >
+                    <CgProfile size={20} />
+                </div>
                 <p className="text-blue-900">posted by {post.username}</p>
             </div>
             <img className="w-full h-[40%]" alt='post-image' src={post.image} />
