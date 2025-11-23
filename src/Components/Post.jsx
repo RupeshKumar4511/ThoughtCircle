@@ -10,11 +10,11 @@ const Post = ({ post }) => {
 
     return (
         <div className='border-white rounded px-2 py-2 my-3 bg-white shadow-md w-full' >
-            <div className="flex gap-4 pb-2">
+            <div className="flex gap-2 pb-2">
                 <div className="w-8 h-8 rounded-full"  alt="" >
                     <CgProfile size={35} />
                 </div>
-                <p className="text-blue-900">posted by {post.username}</p>
+                <p className="text-blue-900 relative bottom-0.5">posted by {post.username}</p>
             </div>
             <img className="w-full h-[40%]" alt='post-image' src={post.image} />
             <div className="py-2">
