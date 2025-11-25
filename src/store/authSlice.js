@@ -70,6 +70,23 @@ export const sendMail = createAsyncThunk('auth/sendMail', async (userData,thunkA
     }
 })
 
+export const sendMail2 = createAsyncThunk('auth/sendMail', async (userData,thunkAPI) => {
+    try {
+        const response = await fetch('https://thoughtcircle.onrender.com/send-email', {
+            method: "POST",
+            headers: { "Content-Type": 'application/json' },
+            body: JSON.stringify(userData)
+        })
+        const data = await response.json()
+        if (!response.ok) {
+            return thunkAPI.rejectWithValue(data.message || "failed to send email");
+        }
+        return data;
+    } catch (error) {
+        return thunkAPI.rejectWithValue(error.message);
+    }
+})
+
 export const verifyEmail = createAsyncThunk('auth/verifyEmail', async (userData,thunkAPI) => {
     try {
         const response = await fetch('https://thoughtcircle.onrender.com/verify-email', {
@@ -114,6 +131,7 @@ const authSlice = createSlice({
         isLoading: false,
         response: {},// for signup
         sendEmailResponse: {},
+        sendEmail2Response:{},
         verifyEmailResponse: {},
         resetPasswordResponse: {},
         authResponse: parsedUser,
@@ -123,6 +141,7 @@ const authSlice = createSlice({
             authError: "",
             logoutError: "",
             sendMailError: "",
+            sendMail2Error:"",
             verifyEmailError: "",
             resetPasswordError: "",
         }
@@ -132,6 +151,10 @@ const authSlice = createSlice({
         updateSendMailResponse:(state)=>{
             state.sendEmailResponse="";
             state.error.sendMailError="";
+        },
+        updateSendMail2Response:(state)=>{
+            state.sendEmail2Response="";
+            state.error.sendMail2Error="";
         }
     },
     extraReducers: (builder => {
@@ -192,6 +215,20 @@ const authSlice = createSlice({
             .addCase(sendMail.rejected, (state, action) => {
                 state.isLoading = false;
                 state.error.sendMailError = action.payload || action.error.message || "Something went wrong.";
+
+            })
+            .addCase(sendMail2.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(sendMail2.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.error.sendMail2Error = '';
+                state.sendEmail2Response = action.payload
+
+            })
+            .addCase(sendMail2.rejected, (state, action) => {
+                state.isLoading = false;
+                state.error.sendMail2Error = action.payload || action.error.message || "Something went wrong.";
 
             })
             .addCase(verifyEmail.pending, (state) => {

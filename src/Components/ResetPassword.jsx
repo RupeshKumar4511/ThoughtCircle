@@ -23,7 +23,7 @@ const ResetPassword = () => {
 
   useEffect(() => {
     if (resetPasswordResponse.success === true) {
-      dispatch(authActions.updateSendMailResponse());
+      dispatch(authActions.updateSendMail2Response());
       alert("Password reset successfully");
 
       navigate("/");

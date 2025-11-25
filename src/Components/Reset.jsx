@@ -3,21 +3,21 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import ErrorPage from "./ErrorPage";
-import { sendMail } from '../store/authSlice';
+import { sendMail2 } from '../store/authSlice';
 import LoadingSpinner from "./LoadingSpinner";
 
 const Reset = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const formRef = useRef(null);
-  const { sendEmailResponse, isLoading, error } = useSelector(store => store.auth);
+  const { sendEmail2Response, isLoading, error } = useSelector(store => store.auth);
 
   const { handleSubmit, register, getValues, formState: { errors } } = useForm();
   const onSubmit = (data) => {
-    dispatch(sendMail(data))
+    dispatch(sendMail2(data))
   }
 
-    if (sendEmailResponse.success === true) {
+    if (sendEmail2Response.success === true) {
       navigate("/verify-user", {
         state: getValues()
       });
@@ -33,8 +33,8 @@ const Reset = () => {
     <form className="vh-100 w-80 mx-auto border my-5 px-5 py-5 border-black/40 rounded-md shadow-md" ref={formRef} method="POST" onSubmit={handleSubmit(onSubmit)}>
       <p className="text-xl font-bold text-blue-800">Reset Password</p>
       <div className="my-4 border-y border-gray-300 px-6 py-6 flex flex-col gap-5 bg-white ">
-        <p className={`text-red-500 ${sendEmailResponse.success?'hidden':''}`}>{!sendEmailResponse.success?sendEmailResponse.message:''}</p>
-          <p className={`text-red-500 ${error.sendEmailError?'':'hidden'}`}>{error.sendEmailError?error.sendEmailError:''}</p>
+        <p className={`text-red-500 ${sendEmail2Response.success?'hidden':''}`}>{!sendEmail2Response.success?sendEmail2Response.message:''}</p>
+          <p className={`text-red-500 ${error.sendEmail2Error?'':'hidden'}`}>{error.sendEmail2Error?error.sendEmail2Error:''}</p>
         <div className="flex flex-col gap-2 relative">
           <label htmlFor="email" className="text-sm font-medium text-gray-700">
             Email
