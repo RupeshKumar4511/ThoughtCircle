@@ -70,7 +70,7 @@ export const sendMail = createAsyncThunk('auth/sendMail', async (userData,thunkA
     }
 })
 
-export const sendMail2 = createAsyncThunk('auth/sendMail', async (userData,thunkAPI) => {
+export const sendMail2 = createAsyncThunk('auth/sendMail2', async (userData,thunkAPI) => {
     try {
         const response = await fetch('https://thoughtcircle.onrender.com/send-email', {
             method: "POST",
