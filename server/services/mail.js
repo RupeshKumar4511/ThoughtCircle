@@ -3,34 +3,37 @@ const otpModel = require('../models/otp')
 const bcrypt = require('bcrypt');
 const fetch = require('node-fetch');
 require('dotenv').config()
+const sgMail = require("@sendgrid/mail");
 
-// async function verifyEmail(email) {
-//     try {
-//         const apiKey = process.env.ZEROBOUNCE_API_KEY;
-//         const res = await fetch(`https://api.zerobounce.net/v2/validate?api_key=${apiKey}&email=${encodeURIComponent(email)}`);
-//         const data = await res.json();
-//         return data.status === "valid";
-//     } catch (error) {
-//         return false;
-//     }
-// }
-
-const transporter = nodemailer.createTransport({
-    host: "smtp.sendgrid.net",
-    port: 587,
-    auth: {
-        user: "apikey",
-        pass: process.env.SENDGRID_API_KEY
+async function verifyEmail(email) {
+    try {
+        const apiKey = process.env.ZEROBOUNCE_API_KEY;
+        const res = await fetch(`https://api.zerobounce.net/v2/validate?api_key=${apiKey}&email=${encodeURIComponent(email)}`);
+        const data = await res.json();
+        return data.status === "valid";
+    } catch (error) {
+        return false;
     }
-});
+}
+
+// const transporter = nodemailer.createTransport({
+//     host: "smtp.sendgrid.net",
+//     port: 587,
+//     auth: {
+//         user: "apikey",
+//         pass: process.env.SENDGRID_API_KEY
+//     }
+// });
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 const sendOtp = async (req, res, next) => {
 
     const { email } = req.body;
-    // const result = await verifyEmail(email);
-    // if (!result) {
-    //     return res.status(400).json({ message: "This email does not exist", success: false });
-    // }
+    const result = await verifyEmail(email);
+    if (!result) {
+        return res.status(400).json({ message: "This email does not exist", success: false });
+    }
 
     const otp = Math.floor(100000 + Math.random() * 900000);
 
@@ -47,8 +50,10 @@ const sendOtp = async (req, res, next) => {
 
     try {
 
-        const info = await transporter.sendMail(mailOptions);
-        console.log("Email sent: ", info.messageId);
+        // const info = await transporter.sendMail(mailOptions);
+        // console.log("Email sent: ", info.messageId);
+        const response = await sgMail.send(msg);
+        console.log("Email sent:", response[0].statusCode);
 
         const hashedOtp = await bcrypt.hash(otp.toString(), 10);
         await otpModel.create({ email: email, otp: hashedOtp })
