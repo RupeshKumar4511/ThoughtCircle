@@ -52,7 +52,7 @@ const sendOtp = async (req, res, next) => {
 
         // const info = await transporter.sendMail(mailOptions);
         // console.log("Email sent: ", info.messageId);
-        const response = await sgMail.send(msg);
+        const response = await sgMail.send(mailOptions);
         console.log("Email sent:", response[0].statusCode);
 
         const hashedOtp = await bcrypt.hash(otp.toString(), 10);
