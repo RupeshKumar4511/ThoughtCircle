@@ -4,16 +4,16 @@ const bcrypt = require('bcrypt');
 const fetch = require('node-fetch');
 require('dotenv').config()
 
-async function verifyEmail(email) {
-    try {
-        const apiKey = process.env.ZEROBOUNCE_API_KEY;
-        const res = await fetch(`https://api.zerobounce.net/v2/validate?api_key=${apiKey}&email=${encodeURIComponent(email)}`);
-        const data = await res.json();
-        return data.status === "valid";
-    } catch (error) {
-        return false;
-    }
-}
+// async function verifyEmail(email) {
+//     try {
+//         const apiKey = process.env.ZEROBOUNCE_API_KEY;
+//         const res = await fetch(`https://api.zerobounce.net/v2/validate?api_key=${apiKey}&email=${encodeURIComponent(email)}`);
+//         const data = await res.json();
+//         return data.status === "valid";
+//     } catch (error) {
+//         return false;
+//     }
+// }
 
 const transporter = nodemailer.createTransport({
     host: "smtp.sendgrid.net",
@@ -29,9 +29,9 @@ const sendOtp = async (req, res, next) => {
 
     const { email } = req.body;
     const result = await verifyEmail(email);
-    if (!result) {
-        return res.status(400).json({ message: "This email does not exist", success: false });
-    }
+    // if (!result) {
+    //     return res.status(400).json({ message: "This email does not exist", success: false });
+    // }
 
     const otp = Math.floor(100000 + Math.random() * 900000);
 
