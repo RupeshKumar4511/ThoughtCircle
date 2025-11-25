@@ -18,7 +18,6 @@ require('dotenv').config()
 const transporter = nodemailer.createTransport({
     host: "smtp.sendgrid.net",
     port: 587,
-    secure: false,
     auth: {
         user: "apikey",
         pass: process.env.SENDGRID_API_KEY
@@ -28,7 +27,7 @@ const transporter = nodemailer.createTransport({
 const sendOtp = async (req, res, next) => {
 
     const { email } = req.body;
-    const result = await verifyEmail(email);
+    // const result = await verifyEmail(email);
     // if (!result) {
     //     return res.status(400).json({ message: "This email does not exist", success: false });
     // }
