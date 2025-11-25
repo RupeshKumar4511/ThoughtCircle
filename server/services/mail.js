@@ -16,16 +16,13 @@ async function verifyEmail(email) {
 }
 
 const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
+    host: "smtp.sendgrid.net",
     port: 587,
     secure: false,
     auth: {
-        user: process.env.my_email,
-        pass: process.env.app_password
-    },
-    tls: { rejectUnauthorized: false }
-
-
+        user: "apikey",
+        pass: process.env.SENDGRID_API_KEY
+    }
 });
 
 const sendOtp = async (req, res, next) => {

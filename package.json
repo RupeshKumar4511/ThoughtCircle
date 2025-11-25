@@ -8,12 +8,15 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "json-server":"json-server db.json --watch"
+    "json-server": "json-server db.json --watch"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.8.2",
+    "@sendgrid/mail": "^8.1.6",
     "@tailwindcss/vite": "^4.1.11",
     "express": "^5.1.0",
+    "nodemailer": "^7.0.10",
+    "nodemailer-sendgrid": "^1.0.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.2",
