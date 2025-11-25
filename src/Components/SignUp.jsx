@@ -4,7 +4,7 @@ import SignUpModalHeader from './SignUpModalHeader'
 import SignUpModalFooter from './SignUpModalFooter'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { sendMail } from '../store/authSlice';
+import { authActions, sendMail } from '../store/authSlice';
 import LoadingSpinner from './LoadingSpinner'
 
 export default function SignUp({ setOpen }) {
@@ -26,6 +26,7 @@ export default function SignUp({ setOpen }) {
 
     if (sendEmailResponse.success === true) {
       setOpen(false);
+      dispatch(authActions.updateSendMailResponse());
       setTimeout(() => {
         navigate('/create-user', {
           state: getValues()

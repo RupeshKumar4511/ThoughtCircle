@@ -56,7 +56,7 @@ export default function CreateUser() {
     }
 
     if (response.success === true) {
-        dispatch(authActions.updateSendMailResponse());
+        // dispatch(authActions.updateSendMailResponse());
         return (<SuccessModal handleClick={handleClick} message={"Success! Please log in."} />
         )
 

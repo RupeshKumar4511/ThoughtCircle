@@ -17,16 +17,12 @@ const Reset = () => {
     dispatch(sendMail(data))
   }
 
-  useEffect(() => {
-
     if (sendEmailResponse.success === true) {
       navigate("/verify-user", {
         state: getValues()
       });
     }
 
-
-  }, [sendEmailResponse])
 
   if(isLoading){
     return(<LoadingSpinner/>)
