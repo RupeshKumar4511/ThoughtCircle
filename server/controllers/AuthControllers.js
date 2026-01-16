@@ -30,12 +30,12 @@ const signin = async (req, res) => {
         const user = await userModel.findOne({ username:username.toLowerCase() });
         const errorMsg = "Username or password is wrong"
         if (!user) {
-            return res.status(403).json({ message: errorMsg, success: false })
+            return res.status(401).json({ message: errorMsg, success: false })
         }
 
         const isPassEqual = await bcrypt.compare(password, user.password);
         if (!isPassEqual) {
-            return res.status(403).json({
+            return res.status(401).json({
                 message: errorMsg, success: false
             })
         }
