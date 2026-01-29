@@ -9,3 +9,6 @@ A social media web application that brings together my frontend and backend skil
 ✅ Like or dislike other users' posts
 <br>
 ✅ Search and explore users' content effortlessly
+
+# Live Project Link : 
+https://thoughtcircle-frontend.onrender.com
