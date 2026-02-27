@@ -82,7 +82,7 @@ const signInSchema = {
         isLength:{
             options:{
                 min:3,
-                max:32
+                max:52
             },
             errorMessage:"Username must atleast 3-32 characters long."
         }
