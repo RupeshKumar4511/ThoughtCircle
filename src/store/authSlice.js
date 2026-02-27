@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const signUp = createAsyncThunk('auth/signup', async (userData, thunkAPI) => {
     try {
-        const response = await fetch('https://thoughtcircle.onrender.com/signup', {
+        const response = await fetch('https://thoughtcircle.onrender.com/api/v1/signup', {
             method: "POST",
             headers: { "Content-Type": 'application/json' },
             body: JSON.stringify(userData)
@@ -19,7 +19,7 @@ export const signUp = createAsyncThunk('auth/signup', async (userData, thunkAPI)
 
 export const signIn = createAsyncThunk('auth/signin', async (userData,thunkAPI) => {
     try {
-        const response = await fetch('https://thoughtcircle.onrender.com/signin', {
+        const response = await fetch('https://thoughtcircle.onrender.com/api/v1/signin', {
             method: "POST",
             headers: { "Content-Type": 'application/json' },
             credentials: "include",
@@ -37,7 +37,7 @@ export const signIn = createAsyncThunk('auth/signin', async (userData,thunkAPI) 
 
 export const signOut = createAsyncThunk('auth/signOut', async (userData,thunkAPI) => {
     try {
-        const response = await fetch('https://thoughtcircle.onrender.com/sign-out', {
+        const response = await fetch('https://thoughtcircle.onrender.com/api/v1/sign-out', {
             method: "POST",
             headers: { "Content-Type": 'application/json' },
             credentials: "include",
@@ -55,7 +55,7 @@ export const signOut = createAsyncThunk('auth/signOut', async (userData,thunkAPI
 
 export const sendMail = createAsyncThunk('auth/sendMail', async (userData,thunkAPI) => {
     try {
-        const response = await fetch('https://thoughtcircle.onrender.com/send-email', {
+        const response = await fetch('https://thoughtcircle.onrender.com/api/v1/send-email', {
             method: "POST",
             headers: { "Content-Type": 'application/json' },
             body: JSON.stringify(userData)
@@ -72,7 +72,7 @@ export const sendMail = createAsyncThunk('auth/sendMail', async (userData,thunkA
 
 export const sendMail2 = createAsyncThunk('auth/sendMail2', async (userData,thunkAPI) => {
     try {
-        const response = await fetch('https://thoughtcircle.onrender.com/send-email', {
+        const response = await fetch('https://thoughtcircle.onrender.com/api/v1/send-email', {
             method: "POST",
             headers: { "Content-Type": 'application/json' },
             body: JSON.stringify(userData)
@@ -89,7 +89,7 @@ export const sendMail2 = createAsyncThunk('auth/sendMail2', async (userData,thun
 
 export const verifyEmail = createAsyncThunk('auth/verifyEmail', async (userData,thunkAPI) => {
     try {
-        const response = await fetch('https://thoughtcircle.onrender.com/verify-email', {
+        const response = await fetch('https://thoughtcircle.onrender.com/api/v1/verify-email', {
             method: "POST",
             headers: { "Content-Type": 'application/json' },
             body: JSON.stringify(userData)
@@ -106,7 +106,7 @@ export const verifyEmail = createAsyncThunk('auth/verifyEmail', async (userData,
 
 export const resetPassword = createAsyncThunk('auth/reset-password', async (userData,thunkAPI) => {
     try {
-        const response = await fetch('https://thoughtcircle.onrender.com/reset-password', {
+        const response = await fetch('https://thoughtcircle.onrender.com/api/v1/reset-password', {
             method: "POST",
             headers: { "Content-Type": 'application/json' },
             body: JSON.stringify(userData)
