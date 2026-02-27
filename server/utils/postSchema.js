@@ -53,6 +53,16 @@ const createPostSchema = {
 }
 
 const updatePostSchema = {
+    _id: {
+        in: ['params'],
+        trim: true,
+        notEmpty: {
+            errorMessage: "id is required"
+        },
+        isString: {
+            errorMessage: "id must be a string"
+        }
+    },
     title:{
         optional:{
             options:{

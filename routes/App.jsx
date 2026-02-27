@@ -30,7 +30,7 @@ export const loadUserData = async () => {
   const customMsg = { message: "Logout Successfully", logout: true };
 
   try {
-    const response = await fetch('https://thoughtcircle.onrender.com/users', {
+    const response = await fetch('https://thoughtcircle.onrender.com/api/v1/users', {
       method: 'GET',
       credentials: 'include',
     });
