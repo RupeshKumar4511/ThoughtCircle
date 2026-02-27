@@ -3,26 +3,26 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const api = createApi({
     reducerPath: 'api',
-    tagTypes: ['post', 'user-post'],
-    baseQuery: fetchBaseQuery({ baseUrl: 'https://thoughtcircle.onrender.com/api/v1/user' }),
+    tagTypes: ['posts', 'my-posts'],
+    baseQuery: fetchBaseQuery({ baseUrl: 'https://thoughtcircle.onrender.com/api/v1/posts' }),
     endpoints: (builder) => ({
         getPosts: builder.query({
             query: () => ({
-                url: '/posts',
+                url: '/',
                 method: 'GET',
                 credentials:"include",
             }),
             transformResponse: (posts) => posts.reverse(),
-            providesTags: ['post']
+            providesTags: ['posts']
         }),
         getUserPosts: builder.query({
             query: () => ({
-                url: '/user-posts',
+                url: '/my-posts',
                 method: 'GET',
                 credentials:"include",
             }),
             transformResponse: (posts) => posts.reverse(),
-            providesTags: ['user-post']
+            providesTags: ['my-posts']
         }),
         createPost: builder.mutation({
             query: (post) => ({
@@ -32,36 +32,36 @@ export const api = createApi({
                 body: post,
                 
             }),
-            invalidatesTags: ['post', 'user-post']
+            invalidatesTags: ['posts', 'my-posts']
 
         }),
         updateUserPost: builder.mutation({
             query: (data) => ({
-                url: `/user-posts/${data[0]}`,
+                url: `/my-posts/${data[0]}`,
                 method: 'PUT',
                 credentials:"include",
                 body: data[1]
             }),
-            invalidatesTags: ['post', 'user-post']
+            invalidatesTags: ['posts', 'my-posts']
 
         }),
         deleteUserPost: builder.mutation({
             query: (_id) => ({
-                url: `/user-posts/${_id}`,
+                url: `/my-posts/${_id}`,
                 credentials:"include",
                 method: 'DELETE'
             }),
-            invalidatesTags: ['post', 'user-post']
+            invalidatesTags: ['posts', 'my-posts']
 
         }),
         postReaction: builder.mutation({
             query: ({ id, ...updatedPost }) => ({
-                url: `/posts/${id}`,
+                url: `/${id}`,
                 method: 'PATCH',
                 credentials:"include",
                 body: updatedPost
             }),
-            invalidatesTags: ['post', 'user-post'],
+            invalidatesTags: ['posts', 'my-posts'],
             async onQueryStarted({ id, ...updatedPost }, { dispatch, queryFulfilled }) {
                 const patchResult = dispatch(
                     api.util.updateQueryData("getPosts", undefined, (posts) => {

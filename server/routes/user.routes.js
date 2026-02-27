@@ -2,7 +2,7 @@ const express = require('express');
 const authValidation = require('../Middlewares/AuthValidation');
 const { signUpSchema, signInSchema, resetSchema } = require('../utils/userSchema');
 const { checkSchema } = require('express-validator')
-const { signup, signin, verifyEmailResponse, sendEmailResponse, signOut, resetPassword } = require('../controllers/AuthControllers');
+const { signup, signin, verifyEmailResponse, sendEmailResponse, signOut, resetPassword, fetchUser } = require('../controllers/AuthControllers');
 const verifyOtp = require('../Middlewares/otpVerify');
 const sendOtp = require('../services/mail');
 const ensureAuthenticated = require('../Middlewares/Auth');
@@ -19,7 +19,7 @@ routes.post('/send-email', checkUser, sendOtp,sendEmailResponse);
 routes.post('/verify-email', verifyOtp, verifyEmailResponse);
 routes.post('/reset-password', checkSchema(resetSchema), authValidation, verifyOtp, resetPassword);
 routes.post('/sign-out', ensureAuthenticated, signOut)
-
+routes.get('/', ensureAuthenticated, fetchUser)
 
 
 module.exports = routes;
