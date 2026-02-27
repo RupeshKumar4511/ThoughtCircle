@@ -45,12 +45,13 @@ export default function Login({ setOpen }) {
             </label>
             <input
               id="login-username"
-              placeholder="Enter your username"
+              placeholder="Enter your username or email"
               autoComplete='true'
               className="rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
               type="text" {...register('username', {
                 required: "username is required",
-                minLength: { value: 5, message: "username must be 5 characters long." }
+                minLength: { value: 5, message: "username must be 5 characters long." },
+                maxLength: { value: 20, message: "Length of Username must not exceeds 20 characters." }
               })}
             />
             <span className="text-red-500 md:text-sm text-[12px] absolute top-16 left-1">{errors.username?.message}</span>
@@ -69,7 +70,8 @@ export default function Login({ setOpen }) {
               ...register('password', {
                 required: "password is required",
                 pattern: { value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, message: "Password must contains uppercase and lowercase letter , digit and special character." },
-                minLength: { value: 8, message: "Password must be 8 characters long." }
+                minLength: { value: 8, message: "Password must be 8 characters long." },
+                maxLength: { value: 32, message: "Length of Password must not exceeds 32 characters." }
               })
               }
             />

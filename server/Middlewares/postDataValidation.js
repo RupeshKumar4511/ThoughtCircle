@@ -1,5 +1,5 @@
 const {validationResult} = require('express-validator');
-const authValidation = (req,res,next)=>{
+const postDataValidation = (req,res,next)=>{
 
     const error = validationResult(req);
     if(!error.isEmpty()){
@@ -8,8 +8,10 @@ const authValidation = (req,res,next)=>{
     }   
 
     req.body = matchedData(req, { locations: ['body'] });
+
+    req.params = matchedData(req, { locations: ['params'] });
     
     next();
 }
 
-module.exports = authValidation
+module.exports = postDataValidation

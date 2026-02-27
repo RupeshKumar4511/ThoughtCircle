@@ -32,6 +32,8 @@ const postReaction = mongoose.Schema({
 
 },{timestamps:true})
 
+postReaction.index({postId:1})
+
 const reactionModel = mongoose.model('postReactions', postReaction);
 
 module.exports = reactionModel;

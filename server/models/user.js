@@ -24,9 +24,19 @@ const userSchema = mongoose.Schema({
         type:String,
         required:true,
         trim:true,
-        minLength:[8,'Password must atleast 8 characters long']
+        minLength:[8,'Password must atleast 8 characters long'],
+        maxLength:[32,'length of Password must not exceeds 32 characters']
+    },
+    role:{
+        type:String,
+        required:true,
+        trim:true,
+        enum: ['user', 'admin'],
+        default: 'user'
     }
 })
+
+userSchema.index({username:1,email:1})
 
 const userModel = mongoose.model('users',userSchema);
 

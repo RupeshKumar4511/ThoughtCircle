@@ -19,17 +19,14 @@ app.use(fileupload({
 }))
 
 app.use(express.json());
-// app.use(cors())
 app.use(cookieparser());
 app.use(bodyParser.urlencoded({extended:true}))
 
 
 
-// app.use('/',path.join(__dirname,'public'));
 
-
-app.use(userRoutes);
-app.use(postRoutes)
+app.use("/api/v1",userRoutes);
+app.use("/api/v1",postRoutes)
 
 app.listen(port,function(){
     console.log(`server is listening at ${port}`);

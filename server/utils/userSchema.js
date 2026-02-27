@@ -1,62 +1,68 @@
 const signUpSchema = {
     otp:{
+        trim:true,
         notEmpty:{
-            errorMsg:"otp must not empty"
+            errorMessage:"otp must not empty"
         }
     },
     username:{
+        trim:true,
+        toLowerCase:true,
         notEmpty:{
-            errorMsg:"username must not empty."
+            errorMessage:"username must not empty."
         },
         isString:{
-            errorMsg:"Username must be a string"
+            errorMessage:"Username must be a string"
         },
         isLength:{
             options:{
                 min:3,
                 max:32
             },
-            errorMsg:"Username must atleast 3-32 characters long."
+            errorMessage:"Username must atleast 3-32 characters long."
         }
         
     },
     email:{
+        trim:true,
+        toLowerCase: true,
         notEmpty:{
-            errorMsg:"email id must not empty."
+            errorMessage:"email id must not empty."
         },
         isString:{
-            errorMsg:"email id must be a string"
+            errorMessage:"email id must be a string"
         },
         isLength:{
             options:{
                 min:5,
                 max:52
             },
-            errorMsg:"email id must atleast 5-52 characters long."
+            errorMessage:"email id must atleast 5-52 characters long."
         },
         matches:{
             options:/^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-            errorMsg:"Email Id is not valid"
+            errorMessage:"Email Id is not valid"
         }
 
     },
     password:{
+        trim:true,
         notEmpty:{
-            errorMsg:"password must not empty."
+            errorMessage:"password must not empty."
         },
         isString:{
-            errorMsg:"password must be a string"
+            errorMessage:"password must be a string"
         },
         isLength:{
             options:{
                 min:8,
                 max:32
             },
-            errorMsg:"password must atleast 8-32 characters long."
+            errorMessage:"password must atleast 8-32 characters long."
         },
         matches:{
             options:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-            errorMsg:"password is not valid"
+            errorMessage:"password is not valid"
         }
 
     }
@@ -65,80 +71,86 @@ const signUpSchema = {
 
 const signInSchema = {
     username:{
+        trim:true,
+        toLowerCase:true,
         notEmpty:{
-            errorMsg:"username must not empty."
+            errorMessage:"username must not empty."
         },
         isString:{
-            errorMsg:"Username must be a string"
+            errorMessage:"Username must be a string"
         },
         isLength:{
             options:{
                 min:3,
                 max:32
             },
-            errorMsg:"Username must atleast 3-32 characters long."
+            errorMessage:"Username must atleast 3-32 characters long."
         }
         
     },
     password:{
+        trim:true,
         notEmpty:{
-            errorMsg:"password must not empty."
+            errorMessage:"password must not empty."
         },
         isString:{
-            errorMsg:"password must be a string"
+            errorMessage:"password must be a string"
         },
         isLength:{
             options:{
                 min:8,
                 max:32
             },
-            errorMsg:"password must atleast 8-32 characters long."
+            errorMessage:"password must atleast 8-32 characters long."
         },
         matches:{
             options:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-            errorMsg:"password is not valid"
+            errorMessage:"password is not valid"
         }
 
     }
 }
 const resetSchema = {
      email:{
+        trim:true,
+        toLowerCase:true,
         notEmpty:{
-            errorMsg:"email id must not empty."
+            errorMessage:"email id must not empty."
         },
         isString:{
-            errorMsg:"email id must be a string"
+            errorMessage:"email id must be a string"
         },
         isLength:{
             options:{
                 min:5,
                 max:52
             },
-            errorMsg:"email id must atleast 5-52 characters long."
+            errorMessage:"email id must atleast 5-52 characters long."
         },
         matches:{
             options:/^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-            errorMsg:"Email Id is not valid"
+            errorMessage:"Email Id is not valid"
         }
 
     },
     password:{
+        trim:true,
         notEmpty:{
-            errorMsg:"password must not empty."
+            errorMessage:"password must not empty."
         },
         isString:{
-            errorMsg:"password must be a string"
+            errorMessage:"password must be a string"
         },
         isLength:{
             options:{
                 min:8,
                 max:32
             },
-            errorMsg:"password must atleast 8-32 characters long."
+            errorMessage:"password must atleast 8-32 characters long."
         },
         matches:{
             options:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-            errorMsg:"password is not valid"
+            errorMessage:"password is not valid"
         }
 
     }

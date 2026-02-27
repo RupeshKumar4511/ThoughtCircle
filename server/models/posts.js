@@ -47,6 +47,9 @@ const userPostModel = mongoose.Schema({
     }
 })
 
+userPostModel.index({username:1,title:'text'})
+
+
 const postModel = mongoose.model('posts', userPostModel);
 
 module.exports = postModel;
