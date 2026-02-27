@@ -1,4 +1,4 @@
-export default function restrictTo(roles=[]){
+function restrictTo(roles=[]){
     return function(req,res,next){
         if(!req.user.role){
             return res.status(401).send({success:false,message:"Unauthorized Request"})
@@ -11,3 +11,5 @@ export default function restrictTo(roles=[]){
         next()
     }
 }
+
+module.exports = restrictTo
