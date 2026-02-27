@@ -51,7 +51,7 @@ export default function Login({ setOpen }) {
               type="text" {...register('username', {
                 required: "username is required",
                 minLength: { value: 5, message: "username must be 5 characters long." },
-                maxLength: { value: 20, message: "Length of Username must not exceeds 20 characters." }
+                maxLength: { value: 52, message: "Length of Username must not exceeds 52 characters." }
               })}
             />
             <span className="text-red-500 md:text-sm text-[12px] absolute top-16 left-1">{errors.username?.message}</span>
