@@ -38,6 +38,15 @@ const options = {
         url: 'https://thoughtcircle.onrender.com'
       },
     ],
+    components: {
+      securitySchemes: {
+        cookieAuth: {
+          type: 'apiKey',
+          in: 'cookie',
+          name: 'token', 
+        },
+      },
+    },
   },
   apis: [
     path.join(__dirname, './routes/*.js'),
