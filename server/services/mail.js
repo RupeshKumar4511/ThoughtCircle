@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer');
 const otpModel = require('../models/otp')
 const bcrypt = require('bcrypt');
-const fetch = require('node-fetch');
+// const fetch = require('node-fetch');
 require('dotenv').config()
 const sgMail = require("@sendgrid/mail");
 

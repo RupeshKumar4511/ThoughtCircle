@@ -13,8 +13,6 @@ A social media web application that brings together my frontend and backend skil
 ✅ Search and explore users' content effortlessly
 
 # Backend API :
-All Backend API and API documentation are : 
-<br> 
 <strong> In the "./server" directory.</strong>
 
 # Scalability Note : 
