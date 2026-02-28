@@ -15,6 +15,9 @@ A social media web application that brings together my frontend and backend skil
 # Backend API :
 <strong> In the "./server" directory.</strong>
 
+# API documentation : 
+https://thoughtcircle.onrender.com/api-docs/
+
 # Scalability Note : 
 <a href="./Scalability-note.md">Scalability-note</a>
 
