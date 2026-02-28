@@ -2,6 +2,7 @@ const cloudinary = require('cloudinary').v2; // version 2
 const postModel = require("../models/posts");
 const removeTempFile = require('../services/removeTempFile');
 const reactionModel = require('../models/reactions');
+const {rateLimit} = require('express-rate-limit')
 const dotenv = require('dotenv');
 dotenv.config()
 
@@ -11,6 +12,15 @@ cloudinary.config({
     api_secret: process.env.api_secret
 
 });
+
+const rateLimiter = rateLimit({
+	windowMs: 1 * 60 * 1000, 
+	limit: 5, 
+	standardHeaders: 'draft-8',
+	legacyHeaders: false, 
+	ipv6Subnet: 56,
+    message:"Too many request, Only 5 requests can be created in a minute."
+})
 
 const createPost = async (req, res) => {
 
@@ -337,5 +347,5 @@ const deleteAnyPost = async (req, res) => {
 }
 
 module.exports = {
-    createPost, fetchPosts, fetchUserPost, updateUserPost, updatePostReaction, deleteUserPost, deleteAnyPost
+    createPost, fetchPosts, fetchUserPost, updateUserPost, updatePostReaction, deleteUserPost, deleteAnyPost, rateLimiter
 }

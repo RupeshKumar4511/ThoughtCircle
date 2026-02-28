@@ -26,8 +26,8 @@ const signup = async (req, res) => {
 
 const signin = async (req, res) => {
     try {
-        const { username, password } = req.body;
-        const user = await userModel.findOne({$or:[{username},{email:username}]});
+        const { username : identifier, password } = req.body;
+        const user = await userModel.findOne({$or:[{username:identifier},{email:identifier}]});
         const errorMsg = "Username or password is wrong"
         if (!user) {
             return res.status(401).json({ message: errorMsg, success: false })
