@@ -8,6 +8,7 @@ const fileupload = require('express-fileupload');
 require('dotenv').config();
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
+const path = require('node:path')
 
 const app = express();
 

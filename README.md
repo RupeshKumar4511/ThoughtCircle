@@ -20,7 +20,8 @@ A social media web application that brings together my frontend and backend skil
 
 # How to write Efficient, Scalable and Secure Backend API : 
 <b>For Efficiency & Scalability : </b>
-<br>
+
+
 1. Proper structure of API endpoints(Versioning) e.g : "api/v1/users" to maintain backward compatibility. 
 <br>
 2. Follow Clean Architecture (Controllers, Services, Middlwares, routes) to keep code modular and maintainable.
@@ -43,7 +44,8 @@ A social media web application that brings together my frontend and backend skil
 
 
 <b>For Security : </b>
-<br>
+
+
 1. Input Validation and Sanitization 
 <br>
 2. Use Hashing to secure sensitive data
