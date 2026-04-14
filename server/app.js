@@ -25,6 +25,10 @@ app.use(express.json());
 app.use(cookieparser());
 app.use(bodyParser.urlencoded({ extended: true }))
 
+app.get('/',async(req,res)=>{
+  return res.status(200).send({title:"ThoughtCircle-Backend",Health:"Ok"})
+})
+
 const options = {
   definition: {
     openapi: '3.0.0',
