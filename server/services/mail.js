@@ -3,6 +3,7 @@ const otpModel = require('../models/otp')
 const bcrypt = require('bcrypt');
 // const fetch = require('node-fetch');
 require('dotenv').config()
+const { Resend } = require('resend');
 const sgMail = require("@sendgrid/mail");
 
 // async function verifyEmail(email) {
@@ -25,7 +26,10 @@ const sgMail = require("@sendgrid/mail");
 //     }
 // });
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+// sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+const resend = new Resend(process.env.RESEND_API_KEY);
+
 
 const sendOtp = async (req, res, next) => {
 
@@ -50,10 +54,13 @@ const sendOtp = async (req, res, next) => {
 
     try {
 
-        // const info = await transporter.sendMail(mailOptions);
-        // console.log("Email sent: ", info.messageId);
-        const response = await sgMail.send(mailOptions);
-        console.log("Email sent:", response[0].statusCode);
+        const { data: response, error } = await resend.emails.send(mailOptions);
+        // const response = await transporter.sendMail(mailOptions);
+
+        if (error) {
+            throw new Error(error.message || JSON.stringify(error))
+        }
+        console.log(response);
 
         const hashedOtp = await bcrypt.hash(otp.toString(), 10);
         await otpModel.create({ email: email, otp: hashedOtp })

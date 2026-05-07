@@ -27,6 +27,7 @@
     "mongoose": "^8.13.1",
     "nodemailer": "^7.0.5",
     "passport": "^0.7.0",
+    "resend": "^6.12.3",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1"
   }
