@@ -9,11 +9,12 @@ require('dotenv').config();
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 const path = require('node:path')
-
+const dotenv = require('dotenv')
 const app = express();
+dotenv.config()
 
 app.use(cors({
-  origin: 'https://thoughtcircle-frontend.onrender.com',
+  origin: process.env.FRONTEND_URL,
   credentials: true
 }));
 
